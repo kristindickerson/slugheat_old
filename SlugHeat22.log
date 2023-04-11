@@ -1,0 +1,75 @@
+----------------------------------------------
+----------------------------------------------
+SlugHeat22 start time: 11-Apr-2023 18:33:48
+----------------------------------------------
+----------------------------------------------
+
+11-Apr-2023 18:33:48 Processing set up and data preparation
+==================================================================================================
+
+ -- Finding parameter file...
+Parameter file: /Users/kristindickerson/GitHub/slugheat/SlugHeat22.par
+
+ -- Finding calibration file...
+Calibration file: /Users/kristindickerson/GitHub/slugheat/SlugHeat22.cal
+
+-- Reading in parameters from parameters file
+
+-- Reading in parameters from calibration file
+
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/GitHub/slugheat/inputs/Tutorial_Example/ExamplePen_SlugHeatTutorial.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/GitHub/slugheat/inputs/Tutorial_Example/ExamplePen_SlugHeatTutorial.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/GitHub/slugheat/inputs/Tutorial_Example/ExamplePen_SlugHeatTutorial.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/GitHub/slugheat/inputs/Tutorial_Example/ExamplePen_SlugHeatTutorial.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/GitHub/slugheat/inputs/Tutorial_Example/ExamplePen_SlugHeatTutorial.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/GitHub/slugheat/inputs/Tutorial_Example/ExamplePen_SlugHeatTutorial.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in penetatration file
+
+-- Splitting penetration and heat pulse data
+
+-- Plotting unprocessed penetration data on "Penetration Data" tab
+
+-- Reading in TAP file
+
+==================================================================================================
+
+11-Apr-2023 18:36:45 - Begin SlugHeat22 PROCESSING
+==================================================================================================
+
+-- Splitting penetration and heat pulse data
+
+-- Removing bad data from sensors to be ignored in processing
+
+==================================================================================================
+
+11-Apr-2023 18:37:19 - Begin SlugHeat22 PROCESSING
+==================================================================================================
+
+-- Splitting penetration and heat pulse data
+
