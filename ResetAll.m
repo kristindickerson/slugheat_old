@@ -144,6 +144,7 @@ PrintStatus(ProgramLogId, '-- Resetting SlugHeat: clearing all...',2)
     % ---------------
     lamp_ParFile.Visible = 'off';
     
+    
     %% CLEAR PENETRATION INFO
     % ------------------------
     
