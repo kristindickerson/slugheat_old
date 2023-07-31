@@ -43,16 +43,16 @@ BullardResults = [SensorsUsed Depths EqTempsRelBW BottomWaterTemp ...
 
     if PulseData
         
-        String = ['RESULTS OF BULLARD ANALYSIS - TRIAL # ' int2str(Trial)];
-        fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+        String = ['BULLARD ANALYSIS - TRIAL # ' int2str(Trial)];
+        fprintf(Id,'\n%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
                 repmat('-',1,length(String))]);
         fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
         fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
                 repmat('-',1,length(String))]);
         
     else
-        String = ['RESULTS OF BULLARD ANALYSIS - NO HEAT PULSE - TRIAL # ' int2str(Trial)];
-        fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+        String = ['BULLARD ANALYSIS - NO HEAT PULSE - TRIAL # ' int2str(Trial)];
+        fprintf(Id,'\n%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
                 repmat('-',1,length(String))]);
         fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
         fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
@@ -88,5 +88,7 @@ if ~PulseData
     '------------------------------------------------------------------------------------------------');
 end
 
-fprintf(Id, '\n%s\n\n\n', [datestr(datetime('now')) ...
-        ' - End heat flow processing of Trial ' int2str(Trial) ' !']);
+fprintf(Id, '\n%s\n\n\n', ['*********   ' datestr(datetime('now')) ...
+        ' - End heat flow processing of Trial ' int2str(Trial) ' !   *********']);
+
+

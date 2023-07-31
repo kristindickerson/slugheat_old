@@ -13,7 +13,7 @@ function [HFLine, ...
         SigmaScatterLine] = PlotHeatFlowRegression(axes_HeatFlow, ...
             axes_Sigma, ...
             NumberOfSensors, ...
-            TempOverDepth, ...
+            ScatterHeatFlow, ...
             Scatter, ...
             Sigmab)
 
@@ -22,17 +22,17 @@ function [HFLine, ...
 %                 PLOT                   %
 % ====================================== %
     
-        fit = length(TempOverDepth);
+        fit = length(ScatterHeatFlow);
     
 % Number of Sensors Used vs. Heat FLow (left) 
 %                   and
 % Number of Sensors Used vs. Scatter (right)
 % ------------------------------------------
         yyaxis(axes_HeatFlow, 'left') 
-        HFLine = plot(axes_HeatFlow, 1:fit, TempOverDepth, 'd-', 'LineWidth',2);
-        ylabel(axes_HeatFlow, 'Heat Flow (W m^{-2})')
+        HFLine = plot(axes_HeatFlow, 1:fit, ScatterHeatFlow, 'd-', 'LineWidth',1);
+        ylabel(axes_HeatFlow, 'Heat Flow (mW m^{-2})')
         yyaxis(axes_HeatFlow, 'right') 
-        ScatterLine = plot(axes_HeatFlow, 1:fit, Scatter, '*-', 'LineWidth',2);
+        ScatterLine = plot(axes_HeatFlow, 1:fit, Scatter, '*-', 'LineWidth',1);
         ylabel(axes_HeatFlow, 'Scatter')
     
         axes_HeatFlow.XTick = 1:fit;
@@ -48,10 +48,10 @@ function [HFLine, ...
 % Number of Sensors Used vs. Sigma Scatter (right)
 % ------------------------------------------
         yyaxis(axes_Sigma, 'left') 
-        SigmaHFLine = plot(axes_Sigma, 1:fit, Sigmab, 'd-', 'LineWidth',2);
-        ylabel(axes_Sigma, '\fontsize{16}\sigma\fontsize{12}\bf_{HF} (W m^{-2})')
+        SigmaHFLine = plot(axes_Sigma, 1:fit, Sigmab, 'd-', 'LineWidth',1);
+        ylabel(axes_Sigma, '\fontsize{16}\sigma\fontsize{12}\bf_{HF} (mW m^{-2})')
         yyaxis(axes_Sigma, 'right') 
-        SigmaScatterLine = plot(axes_Sigma, 1:fit, Sigmab.*Scatter/max(Sigmab.*Scatter), '*-', 'LineWidth',2);
+        SigmaScatterLine = plot(axes_Sigma, 1:fit, Sigmab.*Scatter/max(Sigmab.*Scatter), '*-', 'LineWidth',1);
         ylabel(axes_Sigma, '\fontsize{16}\sigma\fontsize{12}\bf_b \rmx\bf Scatter \fontsize{11}\rm(normalized)')
     
         axes_Sigma.XTick = 1:fit;

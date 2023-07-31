@@ -13,7 +13,6 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
             axes_BottomWaterTemp, ...
             axes_Depth, axes_Tilt, ...
             checkbox_BottomWaterPlot, ...
-            checkbox_UseWS, ...
             checkbox_DepthPlot, checkbox_TiltPlot, ...
             AllSensorsTemp, ...
             NumberOfSensors, ...
@@ -55,7 +54,6 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
         % Plot by record number
     h_axTempAboveBWT(i) = plot(axes_TempAboveBWT, AllRecords,AllSensorsTemp(:,i),'-o','markersize',2, ...
         'Color',CMap(i,:),'markerfacecolor',CMap(i,:), 'tag', ['sensTemp_' num2str(i)]);    
-    TempYLabel = ylabel(axes_TempAboveBWT, 'Temperature relative to bottom water (°C)', 'FontWeight', 'bold', 'FontSize',16);
     axes_TempAboveBWT.Color = [0.94,0.94,0.94];
     axes_TempAboveBWT.XMinorTick='on';
     axes_TempAboveBWT.YMinorTick= 'on';
@@ -65,18 +63,17 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
     end
     drawnow
 
+    axes_TempAboveBWT.UserData=3;
+
     
 % Plot temperatures of bottom water sensor
 % --------------------------------------------
     if WaterThermistor == 1
        h_axBWT = plot(axes_BottomWaterTemp, AllRecords,WaterSensorTemp,'k-','markersize',3);
-       BWTYLabel = ylabel(axes_BottomWaterTemp, '    Top Sensor  (°C)', 'FontWeight','bold');
        axes_BottomWaterTemp.Color = [0.94,0.94,0.94];
     else
         checkbox_BottomWaterPlot.Value = 0;
         checkbox_BottomWaterPlot.Enable = 'off';
-        checkbox_UseWS.Value = 0;
-        checkbox_UseWS.Enable = 'off';
     end
     drawnow;
 
@@ -88,7 +85,6 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
         checkbox_DepthPlot.Enable = 'off';
     else
         plot(axes_Depth, TAPRecord, Depth, '-b', 'MarkerSize',3)
-        DepthYLabel = ylabel(axes_Depth, 'Depth (m)', 'FontWeight','bold');
         axes_Depth.Color = [0.94,0.94,0.94];
         axes_Depth.YTickLabelRotation = 15;
         axes_Depth.YDir = 'reverse';
@@ -104,7 +100,6 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
         grid_PenetrationInfo.RowHeight = {'1x', '1x', '0x', '0x'};   
     else
         plot(axes_Tilt, TAPRecord, Tilt, '-r', 'MarkerSize',3);
-        TiltYLabel = ylabel(axes_Tilt, 'Tilt (°)', 'FontWeight','bold');
         axes_Tilt.Color = [0.94,0.94,0.94];
     end
     drawnow;
@@ -155,7 +150,7 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
     linkaxes(ax,'x');
     TempPreHP = AllSensorsTemp(AllRecords<HeatPulseRecord, :);
     xlim(axes_TempAboveBWT, [(PenetrationRecord-5), (EndRecord+1)])
-    ylim(axes_TempAboveBWT, [min(min(AllSensorsTemp)), max(max(TempPreHP))*2])
+    ylim(axes_TempAboveBWT, [min(min(AllSensorsTemp)), max(max(TempPreHP))+0.75])
     
 
 % Save all variables created so far in a MAT file and update LOG file

@@ -14,11 +14,11 @@ function ResetAll(axes_TempAboveBWT, axes_BottomWaterTemp, ...
             label_gradient, label_depthoftop, label_averagek, label_heatflow, label_shift, ...
             label_trial, label_Iteration, label_currentpathfull, ...
             label_parfilename, label_calfilename, label_penfilename, label_tapfilename, ...
-            label_logfilename, label_resfilename, ...
+            label_resfilename, ...
             edit_PenStart, edit_HP, edit_PenEnd, ...
             checkbox_BottomWaterPlot, checkbox_DepthPlot, ...
             checkbox_TiltPlot, PenCheckboxes, FricCheckboxes, HPCheckboxes, ...
-            checkbox_UseWS, checkbox_UseHP, ...
+            checkbox_UseHP, ...
             S_MATFile, NumberOfSensors, ProgramLogId, SensorsToUse, label_HPIgnored, lamp_ParFile)
      
 PrintStatus(ProgramLogId, '-- Resetting SlugHeat: clearing all...',2)
@@ -89,7 +89,6 @@ PrintStatus(ProgramLogId, '-- Resetting SlugHeat: clearing all...',2)
     label_calfilename.Text = '';
     label_penfilename.Text = '';
     label_tapfilename.Text = '';
-    label_logfilename.Text = '';
     label_resfilename.Text = '';
 
     edit_PenStart.Value = 0;
@@ -98,58 +97,26 @@ PrintStatus(ProgramLogId, '-- Resetting SlugHeat: clearing all...',2)
     
         % Temperature above bottom water plot
         % --------------------------------------
-        ylabel(axes_TempAboveBWT, 'Temperature relative to bottom water (°C)')
-        zlabel(axes_TempAboveBWT, 'Z')
-        axes_TempAboveBWT.AmbientLightColor = [0.9412 0.9412 0.9412];
-        axes_TempAboveBWT.FontWeight = 'bold';
-        axes_TempAboveBWT.XMinorTick = 'on';
-        axes_TempAboveBWT.YMinorTick = 'on';
-        axes_TempAboveBWT.Color = [0.9412 0.9412 0.9412];
-        axes_TempAboveBWT.FontSize = 14;
-        axes_TempAboveBWT.Box = 'on';
         axes_TempAboveBWT.Layout.Row = 1;
-        axes_TempAboveBWT.Layout.Column = 1;
+        axes_TempAboveBWT.Layout.Column = 2;
     
         % Bottom water tempearture plot
         % ------------------------------
-        ylabel(axes_BottomWaterTemp, 'Top Sensor (°C)')
-        zlabel(axes_BottomWaterTemp, 'Z')
-        axes_BottomWaterTemp.FontWeight = 'bold';
-        axes_BottomWaterTemp.XMinorTick = 'on';
-        axes_BottomWaterTemp.YTickLabelRotation = 0;
-        axes_BottomWaterTemp.Color = [0.9412 0.9412 0.9412];
-        axes_BottomWaterTemp.Box = 'on';
         axes_BottomWaterTemp.Layout.Row = 2;
-        axes_BottomWaterTemp.Layout.Column = 1;
+        axes_BottomWaterTemp.Layout.Column = 2;
     
         % Depth plot
         % ------------
-        ylabel(axes_Depth, 'Depth (m)')
-        zlabel(axes_Depth, 'Z')
-        axes_Depth.FontWeight = 'bold';
-        axes_Depth.YDir = 'reverse';
-        axes_Depth.XMinorTick = 'on';
-        axes_Depth.Color = [0.9412 0.9412 0.9412];
-        axes_Depth.Box = 'on';
         axes_Depth.Layout.Row = 3;
-        axes_Depth.Layout.Column = 1;
+        axes_Depth.Layout.Column = 2;
     
         % Tilt plot
         % ------------
-        ylabel(axes_Tilt, 'Tilt (°)')
-        zlabel(axes_Tilt, 'Z')
-        axes_Tilt.FontWeight = 'bold';
-        axes_Tilt.XTickLabelRotation = 0;
-        axes_Tilt.XMinorTick = 'on';
-        axes_Tilt.Color = [0.9412 0.9412 0.9412];
-        axes_Tilt.TickDir = 'in';
-        axes_Tilt.Box = 'on';
         axes_Tilt.Layout.Row = 4;
-        axes_Tilt.Layout.Column = 1;
+        axes_Tilt.Layout.Column = 2;
     
     %% RESET PLOT CONTROLS
     % --------------------
-    
     checkbox_BottomWaterPlot.Enable = 'on';
     checkbox_DepthPlot.Enable = 'on';
     checkbox_TiltPlot.Enable = 'on';
@@ -170,10 +137,7 @@ PrintStatus(ProgramLogId, '-- Resetting SlugHeat: clearing all...',2)
         HPCheckboxes{i}.Value = 1;
     end
 
-    checkbox_UseWS.Enable = 'on';
     checkbox_UseHP.Enable = 'on';
-
-    checkbox_UseWS.Value = 1;
     checkbox_UseHP.Value = 1;
 
     %% RESET PAR LAMP

@@ -9,10 +9,10 @@
 function [TAPRecord, ...
          Tilt, Depth ...
          ] = ReadTAPText(LogFileId, ProgramLogId, ...
-         ~, TAPName, SensorDistance, DepthMean, TiltMean)
+         ~, TAPName, SensorDistance, DepthMean, TiltMean, PenFilePath)
 
-   if exist([TAPName '.tap'],'file')
-        TAP = load([TAPName '.tap']);
+   if exist([PenFilePath TAPName '.tap'],'file')
+        TAP = load([PenFilePath TAPName '.tap']);
         TAPRecord = TAP(:,1);
         Tilt = TAP(:,2);
         Depth = TAP(:,3);
@@ -36,8 +36,8 @@ function [TAPRecord, ...
         PrintStatus(LogFileId, ['TAP file ' TAPName '.tap', 'read ...'], 2)
     
         PrintStatus(ProgramLogId, '-- Reading in TAP file',2)
-    elseif exist([TAPName '.TAP'],'file')
-        TAP = load([TAPName '.TAP']);
+    elseif exist([PenFilePath TAPName '.TAP'],'file')
+        TAP = load([PenFilePath TAPName '.TAP']);
         TAPRecord = TAP(:,1);
         Tilt = TAP(:,2);
         Depth = TAP(:,3);

@@ -42,21 +42,6 @@ function [h_axFricTempvTime, ...
 % ====================================== %
 
 
-
-% Reset all axes on frictional decay tab
-% --------------------------------------
-delete(axes_TempvTime.Children)
-delete(axes_TempvTau.Children)
-delete(axes_TempvBullFunc.Children)
-delete(axes_TimeShift.Children)
-grid_FricDecayAxes.RowHeight = {'1x', '1x'};
-grid_FricDecayAxes.ColumnWidth = {'1x', '1x'};
-
-axes_TempvTime.Color = [0.90 0.90 0.90];
-axes_TempvTau.Color = [0.90 0.90 0.90];
-axes_TempvBullFunc.Color = [0.90 0.90 0.90];
-axes_TimeShift.Color = [0.90 0.90 0.90];
-
  % Plot Temperature vs. Time (s)
  % ------------------------------
 
@@ -64,8 +49,8 @@ axes_TimeShift.Color = [0.90 0.90 0.90];
 
  for i = SensorsToUse
      h_axFricTempvTime(i) = plot(axes_TempvTime, ShiftedTime(:,n,IndexOfMinimums(n)), ...
-                DataTemp(:,n,IndexOfMinimums(n)),'-o','markersize',2, ...
-        'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, 'tag', ['sensTemp_' num2str(i)]);
+                DataTemp(:,n,IndexOfMinimums(n)),'-o','markersize',4, ...
+                'LineWidth',1, 'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, 'tag', ['sensTemp_' num2str(i)]);
      hold(axes_TempvTime, 'on');
      n=n+1;
  end
@@ -80,9 +65,9 @@ axes_TimeShift.Color = [0.90 0.90 0.90];
      % Lines indicating start and end of frictional decay
      % --------------------------------------------------
         xline(axes_TempvTime, FricTime(1), '--k', 'Label', 'Start of frictional decay', ...
-         'FontSize',16, 'FontWeight', 'bold')
+         'FontSize',16, 'FontWeight', 'bold', 'LineWidth',1)
         xline(axes_TempvTime, FricTime(end), '--k', 'Label', 'End of frictional decay', ...
-         'FontSize',16, 'FontWeight', 'bold')
+         'FontSize',16, 'FontWeight', 'bold','LineWidth',1)
 
  % Plot Temperature vs. Dimensionless Time (Tau)
  % ---------------------------------------------
@@ -91,39 +76,39 @@ axes_TimeShift.Color = [0.90 0.90 0.90];
 
   for i = SensorsToUse
      h_axFricTempvTau(i) = plot(axes_TempvTau, ShiftedTau(:,n,IndexOfMinimums(n)),...
-         DataTemp(:,n,IndexOfMinimums(n)),'-o','markersize',2, ...
-        'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, 'tag', ['sensTemp_' num2str(i)]);
+                                 DataTemp(:,n,IndexOfMinimums(n)),'-o','markersize',4, ...
+                                'LineWidth',1,'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, 'tag', ['sensTemp_' num2str(i)]);
      hold(axes_TempvTau, 'on');
      n=n+1;
  end
 
       % Set labels and axes limits
       % --------------------------------------------------
-        xlabel(axes_TempvTau, '\tau','fontsize',18,'verticalalignment','top')
+        xlabel(axes_TempvTau, '\bf\tau','fontsize',18,'verticalalignment','top')
         ylabel(axes_TempvTau, '\bfTemperature ( ^oC)','fontsize',16,'verticalalignment','top')
         set(axes_TempvTau,'yaxislocation','right', 'XLim', [0 FricTauMax+1])
  
       % Lines indicating min and max of Tau (set by PAR file)
       % -----------------------------------------------------
         xline(axes_TempvTau, FricTauMin, '--k', 'Label', 'Minimum Tau', ...
-            'FontSize',16, 'FontWeight', 'bold')
+            'FontSize',16, 'FontWeight', 'bold','LineWidth',1)
         xline(axes_TempvTau, FricTauMax, '--k', 'Label', 'Maximum Tau', ...
-            'FontSize',16, 'FontWeight', 'bold')
+            'FontSize',16, 'FontWeight', 'bold','LineWidth',1)
 
  % Plot Temperature vs. Bullard Decay Function (F(alpha,tau))
  % ---------------------------------------------------------------
  n=1;
 
  for i = SensorsToUse
-    h_axFricTempvTauPoints(i) = plot(axes_TempvBullFunc, DataFAT(:,n,IndexOfMinimums(n)),...
-        DataTemp(:,n,IndexOfMinimums(n)),'d','markersize',2, ...
-        'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, ...
-        'tag', ['sensCorrectedTemp_' num2str(i)]);
+     h_axFricTempvTauPoints(i) = plot(axes_TempvBullFunc, DataFAT(:,n,IndexOfMinimums(n)),...
+                                        DataTemp(:,n,IndexOfMinimums(n)),'d','markersize',4, ...
+                                        'LineWidth',1,'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, ...
+                                        'tag', ['sensCorrectedTemp_' num2str(i)]);
      hold(axes_TempvBullFunc, 'on');
-    h_axFricTempvTauLines(i) = plot(axes_TempvBullFunc, [0 DataFAT(DataLimits(1),n,IndexOfMinimums(n))],...
-        b(n,IndexOfMinimums(n))*[0 DataFAT(DataLimits(1),n,IndexOfMinimums(n))] ...
-        + a(n,IndexOfMinimums(n)), 'Color',h_axTempAboveBWT(i).Color,...
-        'tag', ['sensBestFitLine_' num2str(i)]);
+     h_axFricTempvTauLines(i) = plot(axes_TempvBullFunc, [0 DataFAT(DataLimits(1),n,IndexOfMinimums(n))],...
+                                        b(n,IndexOfMinimums(n))*[0 DataFAT(DataLimits(1),n,IndexOfMinimums(n))] ...
+                                        + a(n,IndexOfMinimums(n)), 'Color',h_axTempAboveBWT(i).Color,...
+                                        'LineWidth',1,'tag', ['sensBestFitLine_' num2str(i)]);
 
      n=n+1;
 
@@ -131,7 +116,7 @@ axes_TimeShift.Color = [0.90 0.90 0.90];
 
       % Set labels
       % --------------------------------------------------
-        xlabel(axes_TempvBullFunc, '\bfF(2,\rm\fontsize{18}\tau)\bf\fontsize{18}','fontsize',18,'verticalalignment','top')
+        xlabel(axes_TempvBullFunc, '\bfF(2,\rm\fontsize{16}\tau\fontsize{12})\bf\fontsize{16}','fontsize',18,'verticalalignment','top')
         ylabel(axes_TempvBullFunc, '\bfTemperature ( ^oC)','fontsize',16,'verticalalignment','bottom')
 
       % Set plot limits -- not sure if this is necessary. does not do
@@ -155,20 +140,27 @@ axes_TimeShift.Color = [0.90 0.90 0.90];
 
     for i = SensorsToUse
         h_axFricRMSvTimeShift(i) = plot(axes_TimeShift, TimeShifts(:,n),...
-            RMS(n,:),'-v','markersize',2, ...
-            'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, ...
-            'tag', ['sensCorrectedTemp_' num2str(i)]);
+                                        RMS(n,:),'-v','markersize',4, ...
+                                        'LineWidth',1,'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, ...
+                                        'tag', ['sensCorrectedTemp_' num2str(i)]);
      
         hold(axes_TimeShift, 'on');
 
         h_axFricRMSvTimeShiftMinDelays(i) = xline(axes_TimeShift, MinimumFricDelays(n), ...
-             'Color',h_axTempAboveBWT(i).Color, 'linestyle', '--', 'FontWeight','bold');
+                                                'LineWidth',1,'Color',h_axTempAboveBWT(i).Color, 'linestyle', '--', 'FontWeight','bold');
         n=n+1;
     end
 
           % Set labels and axes limits
           % ----------------------------
             xlabel(axes_TimeShift, '\bfTime Shifts (s)','fontsize',16,'verticalalignment','top')
-            ylabel(axes_TimeShift, '\bfResidual Misfit ( ^oC)', ...
+            ylabel(axes_TimeShift, '\bfMisfit ( ^oC)', ...
             'fontsize',16,'verticalalignment','top')
             set(axes_TimeShift,'yaxislocation','right','yscale','log')
+
+       % Label for lines showing minimum misfit during time shifts 
+        % (point used for subsequent analyses)
+        % --------------------------------------------------------
+        legend(axes_TimeShift,'Misfit with each time shift','Time shift with minimum misfit',"location","northeast");
+
+

@@ -1,0 +1,27 @@
+Penetration file /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/inputs/Old_HFData/TicoFluxII/hf02/editedPENs/t2h02p02.pen read ...
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 6
+Heat Pulse Record:  49
+End of Data Record: 100
+
+11-Apr-2023 15:09:03 - End of raw data reading and preparation !
+==========================================================================
+
+
+TAP file t2h02p02.tapread ...
+
+Applying tilt correction ...
+Mean tilt is now :      3.0 degrees.
+Inter-Sensor distance : 0.300 m.
+
+-------------------------------------------------------------------------------
+11-Apr-2023 15:09:15 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 6
+Heat Pulse Record:  49
+End of Data Record: 100
+
