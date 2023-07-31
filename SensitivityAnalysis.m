@@ -3,16 +3,9 @@
 %   This function initializes a sensitivity analysis ....
 %%% ======================================================================
 
-function [zToUse, r, zBD, T0, ...
-         Iterations, ...
-         T, ...
-         Rz, ...
-         SigmaHF, ...
-         qMin, ...
-         qMax, ...
-         ErrResultsSummary ...
-         ] = SensitivityAnalysis(NumberOfSensors, ...
-            kToUse, ...
+function [Params,...
+         Results] = SensitivityAnalysis(NumberOfSensors, ...
+            ~, ...
             ~,...
             MaxSAIterations, ...
             Sigmak0, ...
@@ -64,7 +57,23 @@ function [zToUse, r, zBD, T0, ...
             SensorRadius, ...
             FricTauMin, ...
             FricTauMax)
-     
+
+     % I have made it so that if the thermal conductivty values are being
+     % pulled from distributions, they are all used. The user can generate
+     % distributions as they like. If the user wants to use single
+     % (measured) values, they will have to use all measured values of k,
+     % even if they chose to ignore them in the Bullard analysis. This is
+     % most efficient for the code. If the user would like to decrease the
+     % impact of some sensor's measured values (like if they don't believe
+     % the measured k value of a certain sensor), then they should just
+     % generate distributions as they see fit. Because you can generate
+     % completely separate distributions for all sensors, this should not
+     % be difficult and will yield the most reasonable results. Therefore,
+     % I am making variable 'kToUse' equal to 'SensorsToUse' to just
+     % include all sensors. In the future, should just remove all 'kToUse'
+     % indexing completely from this function.
+
+     kToUse = SensorsToUse;
 
      qMin = HeatFlow;
      qMax = HeatFlow;
@@ -94,7 +103,7 @@ function [zToUse, r, zBD, T0, ...
     
      % Distribution of thermal conductivity values
      if kDistribution == 1
-         DisCond = 'Normal';
+         DisCond = 'Gaussian';
          ThermBounds = ['[' num2str(min(min(r(:, SensorsToUse))), 2) ' - ' num2str(max(max(r(:, SensorsToUse))), 2) ']'];
      elseif kDistribution == 2
          DisCond = 'Gamma';
@@ -152,8 +161,7 @@ if ~PulseData || kDistribution == 1 || kDistribution == 2
         [N,X] = hist(r,Bins);
         Diffk = diff(X);
         X = [X(1)-Diffk(1)/2 X'-Diffk(1)/2 X(end)+Diffk(1)/2 X(end)+Diffk(1)/2];
-        
-        Diffk = diff(ShiftedRelativeDepths(kToUse));
+
         MaxN = max(max(N));
        
         % AF 9/02 max height of histograms - for variable spacing
@@ -295,17 +303,14 @@ elseif kDistribution == 3
                 'fontsize',18, ...
                 'verticalalignment','bottom', 'Color',[0.00,0.45,0.74])
         
-        % Update labels that describe sensitivity analysis parameters
+       
+            % Update labels that describe sensitivity analysis parameters
             % ---- need to make these labels
-         % -----------------------------------------------------------
-           %unused: label_maxiterations.Interpreter = 'latex';
+            % -----------------------------------------------------------
            label_meandev.Interpreter = 'latex';
            label_minthickness.Interpreter = 'latex';
-           label_thermconbounds.Interpreter = 'latex';
-        
-           %unused: label_maxiterations.Text = num2str(MaxSAIterations);
-           label_minthickness.Text = [num2str(MinThickness) ' m'];
-    
+           label_thermconbounds.Interpreter = 'latex';        
+           label_minthickness.Text = [num2str(MinThickness) ' m'];    
            label_thermconbounds.Text = [num2str(abs(1-kAnisotropy)*100,'%1.0f') ' %'];
            label_ThermConBoundsTitle.Text = 'Thermal Conductivity Anisotropy:';
         
@@ -372,7 +377,7 @@ end
 
 % Initialize Iterations plot
 % --------------------------
-set(axes_SA_SDvIter, ...
+    set(axes_SA_SDvIter, ...
         'ydir','reverse', ...
         'box','on', ...
         'xaxislocation','top', ...
@@ -382,11 +387,11 @@ set(axes_SA_SDvIter, ...
     ylabel(axes_SA_SDvIter, '\bfIteration', ...
         'verticalalignment','bottom', 'FontSize',18, 'Color',[0.00,0.45,0.74])
 
- hold(axes_SA_SDvIter, 'on');
+    hold(axes_SA_SDvIter, 'on');
 
- % Update labels that describe sensitivity analysis parameters
+    % Update labels that describe sensitivity analysis parameters
     % ---- need to make these labels
- % -----------------------------------------------------------
+    % -----------------------------------------------------------
    label_currentiteration.Interpreter = 'latex';
    label_meanheatflow.Interpreter = 'latex';
    label_standev.Interpreter = 'latex';
@@ -424,7 +429,7 @@ end
     
     Iterations(n) = n;
 
-    loading.Message = ['Iterating... ' num2str(n) '/' num2str(MaxSAIterations)];
+    loading.Message = ['Running each realization... ' num2str(n) '/' num2str(MaxSAIterations)];
     loading.Value = n/MaxSAIterations;
 
     % Plot Current profile
@@ -566,7 +571,7 @@ ShiftedCurrentCTR = CurrentCTR + ShiftCurrentCTR;
     AllT(:,n) = T0(SensorsUsedForBullardFit);
     AllBullardDepths(:,n) = ShiftedCurrentCTR(SensorsUsedForBullardFit)';
     AllHeatFlows(n) = (1/SlopeCurrentCTR)*1000;
-    AllHeatFlowsErr(n) = Err; % BP %Testing from BP 2017
+    AllHeatFlowsErr(n) = Err; % %Testing 
     T(n,:) = mean(AllT,2, 'omitnan')';
     SigmaTD = std(AllT,0,2, 'omitnan');
     Rz(n,:) = mean(AllBullardDepths,2, 'omitnan')';
@@ -619,7 +624,7 @@ for i = 1:length(SensorsUsedForBullardFit)
     
     hold(axes_SA_TCvDepth, 'on');
 end
-ylabel(axes_SA_SDvIter, '\bfIterations', ...
+ylabel(axes_SA_SDvIter, '\bfRealizations', ...
         'verticalalignment','bottom', 'FontSize',18, 'Color',[0.00,0.45,0.74])
 
 % Update legends
@@ -632,7 +637,7 @@ close(loading)
 if kDistribution == 3
     % Table column names
     table_ErrorUncertaintySummary.ColumnName = {'Cruise'; 'Station'; ...
-        'Penetration'; 'Trial Number'; 'Iterations';...
+        'Penetration'; 'Trial Number'; 'Realizations';...
         'Thickness Distribution';'Min Thickness (m)'; 
         'k Distribution';'k Anisotropy Bias';
         'Initial q (mW/m^2)';'Initial q (mW/m^2)'; 
@@ -661,7 +666,7 @@ if kDistribution == 3
 else
     % Table column names
     table_ErrorUncertaintySummary.ColumnName = {'Cruise'; 'Station'; ...
-    'Penetration'; 'Trial'; 'Iterations';
+    'Penetration'; 'Trial'; 'Realizations';
     'Thickness Distribution';'Min Thickness (m)'; ...
     'k Distribution'; 'k Range (W/m°C)'; ...
     'k Standard Deviation'; ...
@@ -701,7 +706,24 @@ drawnow;
 % Report all results and inputs to RES and LOG files
 % ==================================================
 
-% TO DO ...............
+% Parameters structure for output
+
+Params = struct('Realizations', Iterations, ...
+                  'MinThickness', MinThickness, ...
+                  'Anisotropy', kAnisotropy, ...
+                  'kstd', Sigmak0, ...
+                  'Mink', kMin, ...
+                  'Maxk', kMax, ...
+                  'NumBins', Bins, ...
+                  'DistributionType', DisLayer);
+
+Results = struct('Initialq', HeatFlow, ...
+                  'Finalq', AllHeatFlows(n), ...
+                  'Meanq', mean(AllHeatFlows),...
+                   'Minq', qMin, ...
+                   'Maxq', qMax, ...
+                   'qstd', SigmaHF(n), ...
+                   'AveUnc', QErr(end));
 
 
 

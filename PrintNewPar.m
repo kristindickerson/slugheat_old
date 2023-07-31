@@ -8,10 +8,14 @@
 %%% ==============================================================================
 
 
-function PrintNewPar(PenFileName, S_ParFile)
+function [ParFileName] = PrintNewPar(PulsePower, PenFileName, S_ParFile, CurrentPath)
+
+% Update pulse power to match current
+S_ParFile.Params(21) = num2str(PulsePower);
 
 % Make table of parameters and their descriptions and write to new PAR file
-% ----------------------------------------------
+% ---------------------------------------------
 T_ParFile = struct2table(S_ParFile);
-writetable(T_ParFile, [PenFileName(1:end-4) '.par'], 'FileType','text', 'Delimiter', '|');
+
+writetable(T_ParFile, [CurrentPath 'outputs/' [PenFileName(1:end-4) '.par']], 'FileType','text', 'Delimiter', '|');
 

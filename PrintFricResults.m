@@ -1,7 +1,10 @@
-%%% ==============================================================================
-%   Purpose: 
-%     This function PRINTS results of frictional decay processing to LOG and RES files
-%%% ==============================================================================
+%%% =======================================================================
+%%   Purpose:
+%       This function PRINTS results of frictional decay processing to LOG
+%       and RES file
+%%   Last edit
+%       07/25/2023 by Kristin Dickerson, UCSC
+%%% =======================================================================
 
 function PrintFricResults(NumberOfSensors, IgnoredSensors, ...
     FricTime, NumberOfFricUsedPoints, MinimumFricEqTemp, ...
@@ -35,16 +38,16 @@ Id = ResFileId;
 
 if PulseData
     
-    String = ['RESULTS OF FRICTIONAL AND HEAT PULSE DECAYS REDUCTION - TRIAL # ' int2str(Trial)];
-    fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+    String = ['FRICTIONAL AND HEAT PULSE DECAYS REDUCTION - TRIAL # ' int2str(Trial)];
+    fprintf(Id,'\n%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
             repmat('-',1,length(String))]);
     fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
     fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
             repmat('-',1,length(String))]);
     
 else
-    String = ['RESULTS OF FRICTIONAL DECAY REDUCTION - NO HEAT PULSE - TRIAL # ' int2str(Trial)];
-    fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+    String = ['FRICTIONAL DECAY REDUCTION - NO HEAT PULSE - TRIAL # ' int2str(Trial)];
+    fprintf(Id,'\n%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
             repmat('-',1,length(String))]);
     fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
     fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
@@ -77,54 +80,7 @@ if ~PulseData
     '-----------------------------------------------------------------');
 end
 
-fprintf(Id, '%s\n', [datestr(datetime('now')) ...
-        ' - End frictional decay reduction of Trial ' int2str(Trial) ' !']);
+fprintf(Id, '\n%s\n', ['*********   ' datestr(datetime('now')) ...
+        ' - End frictional decay reduction of Trial ' int2str(Trial) ' !   *********']);
 
-% Print all iterations to LOG file -- KD will add this feature later if
-% desired
-% =====================================================================
-%Id = LogFileId;
-%if Iteration==1
-%    if PulseData
-%        
-%        String = ['RESULTS OF FRICTIONAL AND HEAT PULSE DECAYS REDUCTION - TRIAL # ' int2str(Trial)];
-%        fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
-%                repmat('-',1,length(String))]);
-%        fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
-%        fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
-%                repmat('-',1,length(String))]);
-%        
-%    else
-%        String = ['RESULTS OF FRICTIONAL DECAY REDUCTION - NO HEAT PULSE - TRIAL # ' int2str(Trial)];
-%        fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
-%                repmat('-',1,length(String))]);
-%        fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
-%        fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
-%                repmat('-',1,length(String))]);
-%        
-%    end
-%end
-%
-%fprintf(Id,'\n%s',['Frictional Decay - Iteration ' num2str(Iteration,'%02d')]);
-%if Iteration > 2
-%    fprintf(Id,'%s',[' - Total change in Temperature: ' num2str(TChange,'%+4.1e')]);
-%    fprintf(Id,'\n%s\n\n', ...
-%        '=======================================================================');
-%else
-%    fprintf(Id,'\n%s\n\n', ...
-%        '==============================='); 
-%end
-%
-%fprintf(Id,'%s\n', ...
-%    'Sensor  Data Points  Eq. temp.   Error   Gradient  Delay   Slope');
-%fprintf(Id,'%s\n', ...
-%    '        Tot. / Used    (deg)     (95%)   (mdeg/m)  (sec)   (/deg)');
-%fprintf(Id,'%s\n\n', ...
-%    '------  -----------  ---------  -------  --------  ------  ------');
-%fprintf(Id, ...
-%    '%4d %7d / %2d %10.3f %10.1e %9.3f %6d %8.3f\n',FrictionalResults);
-%
-%if ~PulseData
-%  fprintf(Id,'\n%s\n\n', ...
-%    '-----------------------------------------------------------------');
-%end
+

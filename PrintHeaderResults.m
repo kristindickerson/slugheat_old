@@ -29,17 +29,8 @@ function    PrintHeaderResults(Version, Update, ...
 	% --------
 	
 	Id = ResFileId;
-	
-	fprintf(Id,'%s\n',repmat('=',1,NC-3));
-	fprintf(Id,'%s\n',repmat('=',1,NC-3));
-	fprintf(Id,'%s\n',['===' repmat(' ',1,NC-10) '===']);
-	fprintf(Id,'%s\n',['===       SlugHeat  -  Version: ' Version ...
-	        '  -  Update: ' Update '                         ===']);
-	fprintf(Id,'%s\n',['===' repmat(' ',1,NC-10) '===']);
-	fprintf(Id,'%s\n',repmat('=',1,NC-3));
-	fprintf(Id,'%s\n\n\n',repmat('=',1,NC-3));
-	
-	l1 = length(['RESULTS FILE: ' ResFile]);
+
+    l1 = length(['RESULTS FILE: ' ResFile]);
 	l2 = length(['Processed: ' CurrentDateTime]);
 	
 	x1 = fix((NC-l1)/2);
@@ -50,6 +41,16 @@ function    PrintHeaderResults(Version, Update, ...
 	tr1 = l-tl1-l1-4;
 	tl2 = fix((l-l2-4)/2);
 	tr2 = l-tl2-l2-4;
+	
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===' repmat(' ',1,NC-10) '===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===           SlugHeat  -  Version: ' Version ...
+	        '  -  Update: ' Update '                 ===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===' repmat(' ',1,NC-10) '===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n\n\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	
 	
 	fprintf(Id,'%s\n',[repmat(' ',1,x0) repmat('-',1,l)]);
 	fprintf(Id,'%s\n',[repmat(' ',1,x0) '--' repmat(' ',1,l-4)  '--']);
@@ -63,7 +64,7 @@ function    PrintHeaderResults(Version, Update, ...
 	
 	String = ['Penetration file:  ' PenFile];
 	fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
-	String = ['Parameter file (*):  ' ParFile];
+	String = ['Default Parameter file (*):  ' ParFile];
 	fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
 	String = ['Log file: ' LogFile];
 	fprintf(Id,'%s\n\n\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
@@ -104,59 +105,3 @@ function    PrintHeaderResults(Version, Update, ...
         end
    end
 	
-
-%	% LOG file
-%	% --------
-%	
-%	Id = LogFileId;
-%	
-%	fprintf(Id,'%s\n',repmat('=',1,NC));
-%	fprintf(Id,'%s\n',repmat('=',1,NC));
-%	fprintf(Id,'%s\n',['===' repmat(' ',1,NC-6) '===']);
-%	fprintf(Id,'%s\n',['===       SlugHeat  -  Version: ' Version ...
-%	        '  -  Update: ' Update '                         ===']);
-%	fprintf(Id,'%s\n',['===' repmat(' ',1,NC-6) '===']);
-%	fprintf(Id,'%s\n',repmat('=',1,NC));
-%	fprintf(Id,'%s\n\n\n',repmat('=',1,NC));
-%	
-%	l1 = length(['LOG FILE: ' LogFile]);
-%	l2 = length(['Processed: ' CurrentDateTime]);
-%	
-%	x1 = fix((NC-l1)/2);
-%	x2 = fix((NC-l2)/2);
-%	x0 = min(x1,x2)-4;
-%	l = max(l1,l2)+8;
-%	tl1 = fix((l-l1-4)/2);
-%	tr1 = l-tl1-l1-4;
-%	tl2 = fix((l-l2-4)/2);
-%	tr2 = l-tl2-l2-4;
-%	
-%	fprintf(Id,'%s\n',[repmat(' ',1,x0) repmat('-',1,l)]);
-%	fprintf(Id,'%s\n',[repmat(' ',1,x0) '--' repmat(' ',1,l-4)  '--']);
-%	fprintf(Id,'%s\n',[repmat(' ',1,x0) '--' repmat(' ',1,tl1) ...
-%	        'LOG FILE: ' LogFile repmat(' ',1,tr1) '--']);
-%	fprintf(Id,'%s\n',[repmat(' ',1,x0) '--' repmat(' ',1,l-4)  '--']);
-%	fprintf(Id,'%s\n',[repmat(' ',1,x0) '--' repmat(' ',1,tl2) ...
-%	        'Processed: ' CurrentDateTime repmat(' ',1,tr2) '--']);
-%	fprintf(Id,'%s\n',[repmat(' ',1,x0) '--' repmat(' ',1,l-4)  '--']);
-%	fprintf(Id,'%s\n\n\n\n',[repmat(' ',1,x0) repmat('-',1,l)]);
-%	
-%	String = ['Penetration file:  ' PenFile];
-%	fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
-%	String = ['Parameter file (*):  ' ParFile];
-%	fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
-%	String = ['Res file: ' ResFile];
-%	fprintf(Id,'%s\n\n\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
-%	
-%	
-%	fprintf(Id,'%s\n\n\n','(*) File SlugHeat22.par found in the working directory !');
-%	
-%	
-%	fprintf(Id,'%s\n',repmat('=',1,NC-30));
-%	fprintf(Id,'%s\n','BEGIN LOG FILE');
-%	fprintf(Id,'%s\n\n',repmat('=',1,NC-30));
-%
-%	
-%	ProgramLogId = fopen('SlugHeat22.log');
-%	InitialLog = fread(ProgramLogId);
-%	fprintf(Id,'%s',InitialLog);

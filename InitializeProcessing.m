@@ -47,7 +47,6 @@ function [A, B, C, D, E, F, kFunction, Currentk, CurrentT, TChange, kChange, Ite
 %        -------------------
     
             Iteration = 1;
-            Trial = Trial + 1;
             FirstIteration = 1;
             TotalIterations = 1;
             AnotherTrial = 1;

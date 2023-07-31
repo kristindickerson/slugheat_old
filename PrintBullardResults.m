@@ -1,6 +1,6 @@
 %%% ======================================================================
 %   Purpose: 
-%   This function creates a text file with shifted depths,  equilibrium 
+%   This function creates a text file with shifted depths, equilibrium 
 %   temperatures, equilibrium relative to bottom water, and final
 %   calculated thermal conductivity
 %%% ======================================================================
@@ -43,23 +43,23 @@ BullardResults = [SensorsUsed Depths EqTempsRelBW BottomWaterTemp ...
 
     if PulseData
         
-        String = ['RESULTS OF BULLARD ANALYSIS - TRIAL # ' int2str(Trial)];
-        fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+        String = ['BULLARD ANALYSIS - TRIAL # ' int2str(Trial)];
+        fprintf(Id,'\n%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
                 repmat('-',1,length(String))]);
         fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
         fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
                 repmat('-',1,length(String))]);
         
     else
-        String = ['RESULTS OF BULLARD ANALYSIS - NO HEAT PULSE - TRIAL # ' int2str(Trial)];
-        fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+        String = ['BULLARD ANALYSIS - NO HEAT PULSE - TRIAL # ' int2str(Trial)];
+        fprintf(Id,'\n%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
                 repmat('-',1,length(String))]);
         fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
         fprintf(Id,'%s\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
                 repmat('-',1,length(String))]);
         
     end
-fprintf(Id,'\n%s',['Iterations:' num2str(Iteration-1,'%02d')]);
+fprintf(Id,'\n%s',['Iterations:' num2str(Iteration,'%02d')]);
 fprintf(Id,'\n%s',['Thermal Gradient: ' num2str(Gradient, '%02d'), ' +/- ' num2str(GradErr, '%05d')]);    
 fprintf(Id,'\n%s',['Heat Flow: ' num2str(HeatFlow, '%02d'), ' +/- ' num2str(HFErr, '%05d')]);
 fprintf(Id,'\n%s',['Heat Flow Shift: ' num2str(HFShift, '%02d'), ' +/- ' num2str(HFShiftErr, '%05d')]);
@@ -88,5 +88,7 @@ if ~PulseData
     '------------------------------------------------------------------------------------------------');
 end
 
-fprintf(Id, '%s\n', [datestr(datetime('now')) ...
-        ' - End heat flow processing of Trial ' int2str(Trial) ' !']);
+fprintf(Id, '\n%s\n\n\n', ['*********   ' datestr(datetime('now')) ...
+        ' - End heat flow processing of Trial ' int2str(Trial) ' !   *********']);
+
+

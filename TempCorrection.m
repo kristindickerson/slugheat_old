@@ -1,3 +1,5 @@
+% KD NEW TEMP CORRECT
+
 %%% =====================================================================
 %   Purpose: 
 %     This function corrects the raw temperature data by using the
@@ -6,48 +8,56 @@
 %     in the bottom water sensor during the time of measurements.
 %%% =====================================================================
 
-
 function [...
         BottomWaterTemp, ...
         WaterSensorTemp, ...
-        AllSensorsTemp ...
-        ] = TempCorrection(...
-         BottomWaterRawData, ...
+        AllSensorsTempRelBW, ...
+        AllSensorsCalibratedTemp,...
+        WaterThermistor] = TempCorrection(BWChosen, ...
          AllSensorsRawData, ...
          WaterThermistor, ...
          WaterSensorRawData, ...
          WaterCorrectionType, Offset, ...
          PenetrationRecord, ...
+         EndRecord, ...
          AllRecords, ...
-         EqmStartRecord, ...
-         EqmEndRecord, LogFileId, ProgramLogId,...
+         MeanCalTemps, LogFileId, ProgramLogId,...
          UseWaterSensor, ...
          NumberOfSensors, SensorsToUse, SensorsRemoved, ...
          figure_Main)
 
 
-% Find record numbers for bottom water equilibrium period and penetration
-% -----------------------------------------------------------------
-EqmRecords      = find(AllRecords >= EqmStartRecord & ...
-                    AllRecords<=EqmEndRecord);
-PenRecords      = find(AllRecords >= PenetrationRecord);
+% Rename variables for clarity
+% Naming system:
+%   
+%   CAL          : calibration of each sensor. this will vary for each sensor
+%   
+%   BOTTOM WATER : assumed temperature of the bottom water during
+%                  penetration that will be removed from every temperature 
+%                  reading so that temperatures are recorded as 
+%                  "Temperature relative to bottom water". This value
+%                  should be the SAME for ALL SENSORS
+%
+%   TOP SENSOR   : the sensor that is presumably NOT penetrated into the 
+%                  seafloor and instead remains bottom water during
+%                  penetration. this sensor is removed from the others and
+%                  lies on TOP of the data logger, not inside the sensor
+%                  string with all other sensors
+
+% Define number of sensors total (including water sensor) and number of recods
+% ----------------------------------------------------------------------------
+[NumRecords,NumSensTot] = size(AllSensorsRawData);
+NumToUse   = length(SensorsToUse);
 
 % Convert temps to degrees if they are still milli degree
 % -----------------------------------------------------------------
 if AllSensorsRawData(1,1)>1000
     AllSensorsRawData = AllSensorsRawData/1000;
-    BottomWaterRawData = BottomWaterRawData/1000;
-    WaterSensorRawData = WaterSensorRawData/1000;
 end
 
-% If bottom water sensor readings are bad, user can turn on checkbox for
-% 'Ignore Bottom Water Sensor'. This uses equilibrium temps from another
-% thermistor. Instead, the correction will use next highest sensor available.
-% This is because when bottom water sensor is faulty, there may be other 
-% faulty sensors as well. This feature is not meant to be used often, only
-% when a water sensor exists but is chosen to be ignored. If there is a
-% water sensor, but the values should be ignored. 
-% -------------------------------------------------------------------------
+if WaterSensorRawData(1,1)>1000
+   WaterSensorRawData = WaterSensorRawData/1000;
+end
 
 % Determine if the raw data has a bottom water sensor based on number of
 % columns and number of sensors noted in .pen file. 
@@ -58,171 +68,118 @@ if NC == NumberOfSensors+1
 elseif NC == NumberOfSensors 
     WaterThermistor = 0; 
 end
-   
-% If no water sensor found or user has selected not to use the existing
-% water sensor, change calibration sensor to most shallow working sensor
-% and notify user
-% ----------------------------------------------------------------------
-if UseWaterSensor == 0 && WaterThermistor == 1 
-    WaterSensorRawData = AllSensorsRawData(:, SensorsToUse(end));
-        uialert(figure_Main, ['Bottom water sensor found but is not being used.' newline ...
-        'Most shallow working sensor (T' num2str(SensorsToUse(end)) ') used for sensor field calibration instead.'], ...
-        'WATER SENSOR NOT USED', 'Icon','info')
-elseif WaterThermistor == 0 || all(isnan(WaterSensorRawData))
-    uialert(figure_Main, ['No bottom water sensor found.' newline ...
-        'Most shallow working sensor (T' num2str(SensorsToUse(end)) ') used for sensor field calibration instead.'], ...
-        'WATER SENSOR NOT FOUND', 'Icon','info')
-    WaterSensorRawData = AllSensorsRawData(:, SensorsToUse(end));
-end
-
-% Find raw temperatures for bottom water equilibrium period (used for 
-% calibration) and penetration period
-% ------------------------------------------------------------------------
-EqmTemps                = AllSensorsRawData(EqmRecords,:); % all sensors that are being used
-EqmWaterSensorTemps     = WaterSensorRawData(EqmRecords); % bottom water sensor only
-
-PenWaterSensorTemps     = WaterSensorRawData(PenRecords(1):PenRecords(end)); % bottom water sensor only
 
 
-% Find first, last, and average tempeartures of water sensor thermistor during 
-% equilibrium period and average during penetration period
-% -----------------------------------------------------------------
-FIRSTEqmWaterSensorTemp = EqmWaterSensorTemps(1);
-LASTWaterSensorTemp   = EqmWaterSensorTemps(end);
-MEANEqmWaterSensorTemp  = mean(EqmWaterSensorTemps);
-MEANPenWaterSensorTemp  = mean(PenWaterSensorTemps);
+% SENSOR CALIBRATION
+% ==================
+
+% Find raw temperatures for calibration period and penetration period
+% -------------------------------------------------------------------
+
+    % Find record numbers for bottom water equilibrium (calibration) period and penetration
+   % CalRecords      = find(AllRecords >= EqmStartRecord & ...
+    %                   AllRecords <= EqmEndRecord);
+    PenRecords      = AllRecords;
+    
+    % Temps during calibration period
+    %CalTemps    = AllSensorsRawData(CalRecords,:); % all sensors that are being used, including sensor on top of data logger
+    %CalTopSens  = WaterSensorRawData(CalRecords); % only sensor on top of data logger
+    
+    % Temps during penetration
+    PenTemps    = AllSensorsRawData; % all sensors that are being used, including sensor on top of data logger
+    PenTopSens  = WaterSensorRawData(PenRecords); % only sensor on top of data logger
+
+ % Determine calibration offsets for eachs sensor
+ % ----------------------------------------------
+
+    % Find average calibration temp for all sensors
+      TCAL = mean(MeanCalTemps(SensorsToUse), 'omitnan');
+
+    % Initialize arrays in for loop
+      TOFFSET = NaN*ones(1, NumToUse);
+
+      AllSensorsCalibratedTemp = NaN*ones(NumRecords, NumSensTot);
+
+% Apply calibration correction for each sensor
+% --------------------------------------------
+    
+for i = 1:NumSensTot
+    
+    TOFFSET(i) = MeanCalTemps(i)- TCAL;
+
+    AllSensorsCalibratedTemp(:, i) = AllSensorsRawData(:, i) - TOFFSET(i);
+
+end 
+
+pause(1)
+
+% TEMPS RELATIVE TO BOTTOM WATER
+% ===============================
+
+% Determine bottom water
+% -----------------------
+% (1)If there is a working top sensor (water thermistor), 
+% then the bottom water is the mean of all temps recorded by this sensor 
+% during penetration
+% (2)If there is NOT a working top sensor (water thermistor),
+% then bottom water is the LAST temp recorded by the shallowest sensor
+% before penetration OR the user can manually input a bottom water
+% temperature
+    if WaterThermistor == 1 && BWChosen == 0
+        BottomWaterValue = mean(PenTopSens, 1, 'omitnan');
+        assignin('base', "BottomWaterValue",BottomWaterValue);
+    elseif BWChosen == 0
+        ChooseBW = uiconfirm(figure_Main, ['Bottom water sensor is not found or is being ignored.' newline ...
+        'Options for choosing alternate bottom water temperature: ' newline newline ...
+        'Option (1): Last temperature recorded before penetration by the most shallow working sensor (T' num2str(SensorsToUse(end)) ') used as bottom water temperature.' newline newline ...
+        'Option (2): Manually input a bottom water temperature.'], ...
+        'NO TOP SENSOR', 'Options', {'Option (1)','Option (2)', 'Cancel'});
+        switch ChooseBW
+        case 'Option (1)'
+            BottomWaterValue = AllSensorsCalibratedTemp(PenetrationRecord-1, end);
+            assignin('base', "BottomWaterValue",BottomWaterValue);
+        case 'Option (2)'
+            UserBWTApp = UserBWTAuxApp(AllSensorsCalibratedTemp, NumberOfSensors, SensorsToUse, AllRecords, PenetrationRecord);
+            waitfor(UserBWTApp)
+        case 'Cancel'
+            return
+        end
+    end 
+
+     BottomWaterValue = evalin('base','BottomWaterValue');
+     BottomWaterTemp = repmat(BottomWaterValue, 1,NumSensTot);
 
 
-% Find tempeartures of tip of probe - T1 (deepest) - thermistor during 
-% equilibrium period
-%       ** This is only if you want to calibrate with the deepest
-%       thermistor instead of the water sensor thermistor
-%       ** To use this, must update .cal file so that 
-%       WaterCorrectionType > 5
-% ------------------------------------------------------------------------
-
-EqmDeepest = EqmTemps(:,SensorsToUse(1));
-
-FIRSTEqmDeepest = EqmDeepest(1);
-LASTEqmDeepest = EqmDeepest(end);
-MEANEqmDeepest = mean(EqmDeepest);
-
-
-% Determine Reference Temperature 0:
-%   If referencing to abmient bottom water temperature, use final bottom
-%   water equilibrium temperature for calibration. If WaterCorrectionType>5,
-%   use final T1 (deepest thermistor) temperature for calibration
-% ------------------------------------------------------------------------
-if WaterCorrectionType<5
-    RefTemp0 = LASTWaterSensorTemp;
-else
-    RefTemp0 = LASTEqmDeepest;
-     uialert(figure_Main, ['Deepest working sensor used for calibration.' newline ...
-    'To use bottom water sensor or most shallow working sensor for calibration instead, ' ...
-    'change WaterCorrectionType in parameters to < 5' newline ...
-     'Water Calibration Type:' newline ...
-           '1 = Channels offset to the FIRST point in the BOTTOM WATER' ...
-            '   temperature EQUILIRBIUM period' newline ...
-           '2 = Channels offset to the LAST point in the BOTTOM WATER' ... 
-           '    temperature EQUILIRBIUM period' newline ...
-           '3 = Channels offset to the MEAN of all points in the BOTTOM WATER' ... 
-           '    temperature EQUILIRBIUM period' newline ...
-           '4 = Channels offset to the MEAN of all points in the BOTTOM WATER'   
-           '    temperature PENETRATION period' newline ... 
-           '5 = Channels offset to the FIRST of all points in the DEEPEST' ... 
-           '    probe tip temperature EQUILIRBIUM period' newline ...
-           '6 = Channels offset to the LAST of all points in the DEEPEST' ...
-           '    probe tip temperature EQUILIRBIUM period' newline ...
-           '7 = Channels offset to the MEAN of all points in the DEEPEST' ... 
-           '    probe tip temperature EQUILIRBIUM period'], ...
-    'SENSOR CALIBRATION INFO', 'Icon','info')
-end
-
-% Determine Reference Temperature 1: depends on water correction type 
-% defined in calibration (.cal) file
-%
-%       Water Calibration Type:
-%           1 = Channels offset to the FIRST point in the BOTTOM WATER 
-%               temperature EQUILIRBIUM period
-%           2 = Channels offset to the LAST point in the BOTTOM WATER 
-%               temperature EQUILIRBIUM period
-%           3 = Channels offset to the MEAN of all points in the BOTTOM WATER 
-%               temperature EQUILIRBIUM period
-%           4 = Channels offset to the MEAN of all points in the BOTTOM WATER
-%               temperature PENETRATION period
-%           5 = Channels offset to the FIRST of all points in the DEEPEST 
-%               probe tip temperature EQUILIRBIUM period
-%           6 = Channels offset to the LAST of all points in the DEEPEST 
-%               probe tip temperature EQUILIRBIUM period
-%           7 = Channels offset to the MEAN of all points in the DEEPEST 
-%               probe tip temperature EQUILIRBIUM period
-% ------------------------------------------------------------------------
-if WaterCorrectionType == 1
-    RefTemp1 = FIRSTEqmWaterSensorTemp;
-elseif WaterCorrectionType == 2
-    RefTemp1 = LASTWaterSensorTemp;
-elseif WaterCorrectionType == 3
-    RefTemp1 = MEANEqmWaterSensorTemp;
-elseif WaterCorrectionType == 4
-    RefTemp1 = MEANPenWaterSensorTemp;
-elseif WaterCorrectionType == 5
-    RefTemp1 = FIRSTEqmDeepest;
-elseif WaterCorrectionType == 6
-    RefTemp1 = LASTEqmDeepest;
-elseif WaterCorrectionType == 7
-    RefTemp1 = MEANEqmDeepest;
-end
-
-% Apply correction
-% ------------------
-TempCorrection = RefTemp1-RefTemp0;
-
-l = length(WaterSensorRawData);
-
-% Only use temps from working sensors
-% --------------------------------------
-BottomWaterTemp = BottomWaterRawData;
-WaterSensorTemp = WaterSensorRawData;
-AllSensorsTemp = AllSensorsRawData;
-
-%BottomWaterTemp = repmat(BottomWaterTemp(1:end),l,1);
-%AllSensorsTemp = AllSensorsTemp(:, 1:end) - BottomWaterTemp;
-
-% Subtract bottom water from all temps, excluding water sensor if there is
-% one
+% Subtract bottom water from all temps, 
+% excluding top sensor if there is a working top sensor
 % -------------------------------------------------------------------------
 if WaterThermistor == 1
-    BottomWaterTemp = repmat(BottomWaterTemp(1:end-1),l,1); % extended array of bottom water sensor data for each thermistor except the actual bototm water sensor
-    AllSensorsTempRelBW = AllSensorsTemp(:, 1:end-1) - BottomWaterTemp; % subtract bottom water from all temps of all thermistors except the actual bottom water sensor
+    BottomWaterTemp = repmat(BottomWaterTemp(1:end-1),NumRecords,1); % extended array of bottom water sensor data for each thermistor except the actual bototm water sensor
+    AllSensorsTempRelBW = AllSensorsCalibratedTemp(:, 1:end-1) - BottomWaterTemp; % subtract bottom water from all temps of all thermistors except the actual bottom water sensor
 else
-    BottomWaterTemp = repmat(BottomWaterTemp(1:end),l,1); % extended array of bottom water sensor data for each thermistor 
-    AllSensorsTempRelBW = AllSensorsTemp(:, 1:end) - BottomWaterTemp; % subtract bottom water from all temps of all thermistors because no water sensor
+    BottomWaterTemp = repmat(BottomWaterTemp(1:end),NumRecords,1); % extended array of bottom water sensor data for each thermistor 
+    AllSensorsTempRelBW = AllSensorsCalibratedTemp(:, 1:end) - BottomWaterTemp; % subtract bottom water from all temps of all thermistors because no water sensor
 end
 
-% Field calibration of each sensor
-% --------------------------------
-AllSensorsTemp = AllSensorsTempRelBW - TempCorrection; % temps for all sensors except the actual bototm water sensor corrected
+% Manual offset
+% -------------
+AllSensorsTempRelBW = AllSensorsTempRelBW + Offset;
+WaterSensorTemp = AllSensorsCalibratedTemp(:, end); %+ Offset; KD--> Not
+%sure why this would be offset, so I'm taking it out for now. Plotted is
+%the actual recorded temp from the water sensor
 
-WaterSensorTemp = WaterSensorTemp - TempCorrection; % actual bototm water sensor corrected
+BottomWaterTemp = BottomWaterTemp(1);
 
-% Manual Offset
-% -------------------
-if exist('Offset', "var")
-   PrintStatus(LogFileId,[' APPLYING OFFSET OF ',num2str(Offset),' IN TempCorrection.m'],1);
-   AllSensorsTemp  = AllSensorsTemp  + Offset;
-   WaterSensorTemp = WaterSensorTemp + Offset;
-   BottomWaterTemp = BottomWaterTemp + Offset;
-end
 
-% Update penetration LOG file
-% -----------------------------
-PrintStatus(LogFileId,'Converted raw readings to corrected temperature:',1);
-if WaterCorrectionType == 1
-    PrintStatus(LogFileId,'Temperature is referenced to first point of bottom water calibration record ...',2);
-elseif WaterCorrectionType == 2
-    PrintStatus(LogFileId,'Temperature is referenced to last point of the bottom water calibration record ...',2);
-elseif WaterCorrectionType == 3
-    PrintStatus(LogFileId,'Temperature is referenced to the mean of the bottom water calibration record ...',2);
-end
 
-PrintStatus(ProgramLogId, '-- Correcting temperature with respect to bottom water',2)
+
+
+
+
+
+
+
+
+
+
+

@@ -9,13 +9,13 @@
 function [TAPRecord, ...
          Tilt, Depth ...
          ] = ReadTAPText(LogFileId, ProgramLogId, ...
-         ~, TAPName, SensorDistance, DepthMean, TiltMean)
+         ~, TAPName, SensorDistance, DepthMean, TiltMean, PenFilePath)
 
-   if exist([TAPName '.tap'],'file')
-        dummy = load([TAPName '.tap']);
-        TAPRecord = dummy(:,1);
-        Tilt = dummy(:,2);
-        Depth = dummy(:,3);
+   if exist([PenFilePath TAPName '.tap'],'file')
+        TAP = load([PenFilePath TAPName '.tap']);
+        TAPRecord = TAP(:,1);
+        Tilt = TAP(:,2);
+        Depth = TAP(:,3);
         PrintStatus(LogFileId,['TAP file ' [TAPName '.tap'] ' read ...'],2);    
         
         % Update results file
@@ -36,15 +36,14 @@ function [TAPRecord, ...
         PrintStatus(LogFileId, ['TAP file ' TAPName '.tap', 'read ...'], 2)
     
         PrintStatus(ProgramLogId, '-- Reading in TAP file',2)
-    elseif exist([TAPName '.TAP'],'file')
-        dummy = load([TAPName '.TAP']);
-        TAPRecord = dummy(:,1);
-        Tilt = dummy(:,2);
-        Depth = dummy(:,3);
+    elseif exist([PenFilePath TAPName '.TAP'],'file')
+        TAP = load([PenFilePath TAPName '.TAP']);
+        TAPRecord = TAP(:,1);
+        Tilt = TAP(:,2);
+        Depth = TAP(:,3);
         PrintStatus(LogFileId,['TAP file ' [TAPName '.TAP'] ' read ...'],2);  
     else
         TAPRecord = [];
-        uialert()
         PrintStatus(LogFileId,'TAP file not found ...',1);
         PrintStatus(LogFileId,['TAP data read in PEN file: Tilt = ' num2str(TiltMean,'%1.1f') ...
                 ' deg - Depth = ' num2str(DepthMean,'%1.1f') ' m ...'],2);

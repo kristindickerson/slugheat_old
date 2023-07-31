@@ -29,6 +29,5 @@
      0.05                                                         Mininum layer thickness for Sensitivity analysis
      0                                                            Use Frictional decay for No Heat pulse Sensitivity analysis ?
      1.00                                                         Horizontal thermal conductivity Anisotropy
-     0.25                                                         Depth of first thermistor below weight stand
-                                                                      %% 1.86 = MH SlugHeat 15 6 m probe - 13 sensors with 11 active
-                                                                      %% 0.25 = Traditional 3.5m probe - 11 sensors 
+     0.25                                                         Depth of first thermistor below weight stand ()
+     3.5                                                          length of probe (m)

@@ -29,7 +29,7 @@ function 	[PenFileName, PenFilePath, PenFile, ...
 % -- all have same name as PEN file.
 % ====================================================================
 
-    PenFilePath = [CurrentPath, '/PenetrationFiles/'];
+    PenFilePath = [CurrentPath, 'inputs/'];
 
 	% Penetration (PEN) file name and path
 	% ---------------------------------------------
@@ -58,8 +58,8 @@ function 	[PenFileName, PenFilePath, PenFile, ...
 	
     TAPFile = [PenFilePath TAPFileName];
     MATFile = [PenFilePath MATFileName];
-    ResFile = [CurrentPath ResFileName];
-	LogFile = [CurrentPath LogFileName];
+    ResFile = [CurrentPath 'outputs/' ResFileName];
+	LogFile = [CurrentPath 'outputs/' LogFileName];
     LogFileId = fopen(LogFile,'w');
 	ResFileId = fopen(ResFile,'w');
 
