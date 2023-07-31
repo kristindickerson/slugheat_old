@@ -1,17 +1,17 @@
 ----------------------------------------------
 ----------------------------------------------
-SlugHeat22 start time: 28-Jul-2023 15:30:28
+SlugHeat22 start time: 31-Jul-2023 15:07:23
 ----------------------------------------------
 ----------------------------------------------
 
-28-Jul-2023 15:30:28 Processing set up and data preparation
+31-Jul-2023 15:07:23 Processing set up and data preparation
 ==================================================================================================
 
  -- Finding parameter file...
-Parameter file: /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/SlugHeat22.par
+Parameter file: /Users/kristindickerson/repos/slugheat/SlugHeat22.par
 
  -- Finding calibration file...
-Calibration file: /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/SlugHeat22.cal
+Calibration file: /Users/kristindickerson/repos/slugheat/SlugHeat22.cal
 
 -- Reading in parameters from parameters file
 
@@ -24,13 +24,13 @@ Calibration file: /Users/kristindickerson/code/slugheat_slugpen/working/slugheat
 -- Resetting penetration information
 
  -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/inputs/test_HF7_1.pen
+Penetration file: /Users/kristindickerson/repos/slugheat/inputs/test_HF7_1.pen
 
  -- Finding tap file from SlugPen...
-TAP file: /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/inputs/test_HF7_1.tap
+TAP file: /Users/kristindickerson/repos/slugheat/inputs/test_HF7_1.tap
 
  -- Finding mat file from SlugPen...
-MAT file: /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/inputs/test_HF7_1.mat
+MAT file: /Users/kristindickerson/repos/slugheat/inputs/test_HF7_1.mat
 
  -- Reading in parameters from parameter file...
 -- Reading in penetatration file
@@ -40,17 +40,4 @@ MAT file: /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/inputs/
 -- Plotting unprocessed penetration data on "Penetration Data" tab
 
 -- Reading in TAP file
-
--- Removing bad data from sensors to be ignored in processing
-
--- Splitting penetration and heat pulse data
-
-==================================================================================================
-
-28-Jul-2023 15:32:06 - Begin SlugHeat22 PROCESSING
-==================================================================================================
-
--- Splitting penetration and heat pulse data
-
--- Plotting unprocessed penetration data on "Penetration Data" tab
 
