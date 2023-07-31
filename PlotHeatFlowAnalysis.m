@@ -223,11 +223,11 @@ function   [ ...
         label_shift.Interpreter = 'latex';
        
 
-        label_gradient.Text = [num2str(Gradient, 3) ' $°C m^{-1}$'];
+        label_gradient.Text = [num2str(Gradient, 3) ' $ °C/m$'];
         label_depthoftop.Text = [num2str(DepthToTopSens, 3) ' m'];
-        label_averagek.Text = [num2str((Averagek),2) '$W m^{-1} °C^{-1}$'];
-        label_heatflow.Text = [num2str(HeatFlow,5) ' $mW m^{-2}$'];
-        label_shift.Text = [num2str(HFShift,3) ' $m^2 °C W^{-1}$'];
+        label_averagek.Text = [num2str((Averagek),2) '$  W/m°C$'];
+        label_heatflow.Text = [num2str(HeatFlow,5) ' $ mW m^{-2}$'];
+        label_shift.Text = [num2str(HFShift,3) ' $ m^2 °C/W $'];
 
         drawnow;
 

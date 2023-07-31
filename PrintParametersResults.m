@@ -50,8 +50,8 @@ function    PrintParametersResults(...
 
   Id = ResFileId;
 
-  String = 'INPUT PARAMETERS:';
-  fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+  String = 'HEAT FLOW ANALYSIS INPUT PARAMETERS:';
+  fprintf(Id,'\n%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
            repmat('-',1,length(String))]);
   fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
   fprintf(Id,'%s\n\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
@@ -102,9 +102,9 @@ function    PrintParametersResults(...
   fprintf(Id,'%s\t%1.6f\n','Minimum change of Sigma(k):  ',MinTotalkChange);
   fprintf(Id,'%s\t%1.1f\n','Maximum number of iterations for k computations:  ',MaxNumberOfIterations);
   fprintf(Id,'%s\t%1.1f\n','Number of Iterations for Sensitivity analysis:  ',MaxSAIterations );
-  fprintf(Id,'%s\t%1.1f\n','Standard deviation in thermal conductivity for Sensitivity analysis:  ',Sigmak0 );
-  fprintf(Id,'%s\t%1.1f\n','Minimum thermal conductivity cutoff for Sensitivity analysis:  ',kMin);
-  fprintf(Id,'%s\t%1.1f\n','Maximum thermal conductivity cutoff for Sensitivity analysis:  ',kMax);
+  fprintf(Id,'%s\t%1.1f\n','Standard deviation in thermal conductivity for Sensitivity analysis:  ',Sigmak0(1) );
+  fprintf(Id,'%s\t%1.1f\n','Minimum thermal conductivity cutoff for Sensitivity analysis:  ',kMin(1));
+  fprintf(Id,'%s\t%1.1f\n','Maximum thermal conductivity cutoff for Sensitivity analysis:  ',kMax(1));
   fprintf(Id,'%s\t%1.1f\n','Mininum layer thickness for Sensitivity analysis:  ',MinThickness);
   fprintf(Id,'%s\t%1.1f\n','Use Frictional decay for No Heat pulse Sensitivity analysis ?:  ',UseFrictional);
   fprintf(Id,'%s\t%1.1f\n','Horizontal thermal conductivity Anisotropy:  ',kAnisotropy);

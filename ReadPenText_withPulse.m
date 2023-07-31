@@ -13,14 +13,13 @@ function    [StationName, ...
             PenetrationRecord, ...
             HeatPulseRecord, ...
             EndRecord, ...
-            BottomWaterRawData, ...
             AllRecords, ...
             AllSensorsRawData, ...
             WaterSensorRawData, ...
-            EqmStartRecord, ...
-            EqmEndRecord, ...
+            CalibTemps, ...
+            MeanCalibTemps, ...
             WaterThermistor, ...
-            PulsePower] = ReadPenText_withPulse(PenFile, ~, WaterThermistor)
+            PulsePower] = ReadPenText_withPulse(PenFile, ~, WaterThermistor, figure_Main)
 
 % ===================================
 %% Open and read in the 'PEN' file
@@ -62,31 +61,70 @@ function    [StationName, ...
     HeatPulseRecord = fscanf(fid,'%d',1);
     
     % ADDED EQM START AND END RECORDS
-    EqmStartRecord  = fscanf(fid,'%d',1);
-    EqmEndRecord    = fscanf(fid,'%d',1);
+   % EqmStartRecord  = fscanf(fid,'%d',1);
+   % EqmEndRecord    = fscanf(fid,'%d',1);
+   
+%% MEAN CALIBRATION TEMP DATA 
     Format = repmat('%f ',1,NumberOfSensors);
     Format = [Format '%f'];
-    BottomWaterRawData = fscanf(fid,Format, ...
+    MeanCalibTemps = fscanf(fid,Format, ...
         NumberOfSensors+1)';
-    RawRead = fscanf(fid,['%f ' Format],inf);
+
+%% CALIBRATION TEMP DATA (if all calibration temps are recorded, not just the mean)
+    Format = repmat('%f ',1,NumberOfSensors);
+    line = fgetl(fid);
+    line = fgetl(fid);
+    linescan = textscan(line, ['%*s %f' Format]);
+    i=1;
+    CalibTemps=cell(500,NumberOfSensors);
+    while contains(line,'$')
+    CalibTemps(i, :) = cell2mat(linescan);
+    line = fgetl(fid);
+    linescan = textscan(line, ['%*s %f' Format]);
+    i=i+1;
+    end
+
+%% PEN TEMP DATA
+
+    linescan = textscan(line, ['%f %f' ,Format]);
+    FirstLine = cell2mat(linescan);
+
+    RawRead = fscanf(fid,['%f' Format],inf);
     l = length(RawRead);
     
     RawRead = reshape(RawRead, ...
         (NumberOfSensors+2), ...
         l/(NumberOfSensors+2))';
     
-    AllRecords = RawRead(:,1);
+    PenRead = [FirstLine; RawRead];
+
+    AllRecords = PenRead(:,1);
     EndRecord = AllRecords(end);
-    AllSensorsRawData = RawRead(:,2:end);
+    AllSensorsRawData = PenRead(:,2:end);
     
-    WaterSensorRawData = RawRead(:,end);
+    WaterSensorRawData = PenRead(:,end);
     
     fclose(fid);
     
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% Remove any sensors with all NaN or -999 temperatures
+    
+    % Notify user that bad sensors were removed
+    if any(~all(isnan(AllSensorsRawData)))
+        uialert(figure_Main,['One or more sensors on this .pen or .mat file ' ...
+            'did not record any data. These sensors have been removed.'], ...
+            'Bad sensors removed', 'Icon','warning');
+        uiwait(figure_Main)
+    end
 
-%% KD ADDED IN CASE THERE ARE ANY SENSORS THAT NEED TO BE REMOVED (all NaNs)
-% --------------------------------------------------------------------
-BottomWaterRawData = BottomWaterRawData(:, ~isnan(BottomWaterRawData));
-AllSensorsRawData = AllSensorsRawData(:, ~all(isnan(AllSensorsRawData)));
+    % Remove data from bad sensors
+    AllSensorsRawData = AllSensorsRawData(:, ~all(isnan(AllSensorsRawData)));
+    AllSensorsRawData = AllSensorsRawData(:, ~all(AllSensorsRawData==-999));
+    CalibTemps        = CalibTemps(:, ~isnan(CalibTemps));
+    CalibTemps        = CalibTemps(:, CalibTemps~=-999);
 
+    % Remove these sensors from number of sensors
+    [~,NumSensTot]   = size(AllSensorsRawData);
+    [~,NumWaterSens] = size(WaterSensorRawData);
+    
+    NumberOfSensors = NumSensTot-NumWaterSens;
+    

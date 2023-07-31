@@ -29,17 +29,8 @@ function    PrintHeaderResults(Version, Update, ...
 	% --------
 	
 	Id = ResFileId;
-	
-	fprintf(Id,'%s\n',repmat('=',1,NC-3));
-	fprintf(Id,'%s\n',repmat('=',1,NC-3));
-	fprintf(Id,'%s\n',['===' repmat(' ',1,NC-10) '===']);
-	fprintf(Id,'%s\n',['===           SlugHeat  -  Version: ' Version ...
-	        '  -  Update: ' Update '                 ===']);
-	fprintf(Id,'%s\n',['===' repmat(' ',1,NC-10) '===']);
-	fprintf(Id,'%s\n',repmat('=',1,NC-3));
-	fprintf(Id,'%s\n\n\n',repmat('=',1,NC-3));
-	
-	l1 = length(['RESULTS FILE: ' ResFile]);
+
+    l1 = length(['RESULTS FILE: ' ResFile]);
 	l2 = length(['Processed: ' CurrentDateTime]);
 	
 	x1 = fix((NC-l1)/2);
@@ -50,6 +41,16 @@ function    PrintHeaderResults(Version, Update, ...
 	tr1 = l-tl1-l1-4;
 	tl2 = fix((l-l2-4)/2);
 	tr2 = l-tl2-l2-4;
+	
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===' repmat(' ',1,NC-10) '===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===           SlugHeat  -  Version: ' Version ...
+	        '  -  Update: ' Update '                 ===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===' repmat(' ',1,NC-10) '===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n\n\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	
 	
 	fprintf(Id,'%s\n',[repmat(' ',1,x0) repmat('-',1,l)]);
 	fprintf(Id,'%s\n',[repmat(' ',1,x0) '--' repmat(' ',1,l-4)  '--']);

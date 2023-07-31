@@ -1,0 +1,18 @@
+Penetration file /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/inputs/CHINOoK/HF3/editedPENs/CHINOoK_HF3_1.pen read ...
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 22
+Heat Pulse Record:  44
+End of Data Record: 73
+
+11-Apr-2023 12:15:38 - End of raw data reading and preparation !
+==========================================================================
+
+
+TAP file CHINOoK_HF3_1.tapread ...
+
+Applying tilt correction ...
+Mean tilt is now :      3.6 degrees.
+Inter-Sensor distance : 0.299 m.
+

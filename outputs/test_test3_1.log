@@ -1,0 +1,54 @@
+Penetration file /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/inputs/test_test3_1.pen read ...
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 37
+Heat Pulse Record:  59
+End of Data Record: 93
+
+11-Apr-2023 15:15:10 - End of raw data reading and preparation !
+==========================================================================
+
+
+TAP file test_test3_1.tapread ...
+
+Applying tilt correction ...
+Mean tilt is now :      3.6 degrees.
+Inter-Sensor distance : 0.299 m.
+
+-------------------------------------------------------------------------------
+11-Apr-2023 15:15:22 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 37
+Heat Pulse Record:  59
+End of Data Record: 93
+
+-------------------------------------------------------------------------------
+11-Apr-2023 15:15:34 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 37
+Heat Pulse Record:  59
+End of Data Record: 93
+
+-------------------------------------------------------------------------------
+11-Apr-2023 15:15:40 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 37
+Heat Pulse Record:  59
+End of Data Record: 93
+
+-------------------------------------------------------------------------------
+11-Apr-2023 15:16:43 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 37
+Heat Pulse Record:  59
+End of Data Record: 93
+

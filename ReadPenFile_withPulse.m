@@ -21,16 +21,12 @@ function [S_MATFile, FullExpeditionName, ...
             PenetrationRecord, ...
             HeatPulseRecord, ...
             EndRecord, ...
-            BottomWaterRawData, ...
             AllRecords, ...
             AllSensorsRawData, ...
             WaterSensorRawData, ...
-            EqmStartRecord, ...
-            EqmEndRecord, ...
-            WaterThermistor,...
+            CalibTemps, ...
             PulsePower...
-    ] = ReadPenFile_withPulse(MATFile, LogFileId, PenFile, ProgramLogId, ...
-    ~, WaterThermistor)
+    ] = ReadPenFile_withPulse(MATFile, LogFileId, PenFile, ProgramLogId, figure_Main)
 
     % Load the MAT file
     % ----------------------------
@@ -52,7 +48,7 @@ function [S_MATFile, FullExpeditionName, ...
     TiltMean            = str2double(S_MATFile.S_PenHandles.Tilt);
     LoggerId            = S_MATFile.S_PenHandles.LoggerId;
     ProbeId             = S_MATFile.S_PenHandles.ProbeId;
-    NumberOfSensors     = str2double(S_MATFile.S_PenHandles.NumberofSensors);
+    NumberOfSensors     = str2double(S_MATFile.S_PenHandles.NoTherm);
     PulsePower          = str2double(S_MATFile.S_PenHandles.PulsePower);
     PenetrationRecord   = S_MATFile.S_PENVAR.PenetrationRecord;
     HeatPulseRecord     = S_MATFile.S_PENVAR.HeatPulseRecord;
@@ -61,8 +57,10 @@ function [S_MATFile, FullExpeditionName, ...
     AllRecords          = S_MATFile.S_PENVAR.AllRecords';
     AllSensorsRawData   = S_MATFile.S_PENVAR.AllSensorsRawData;
     WaterSensorRawData  = S_MATFile.S_PENVAR.WaterSensorRawData;
-    EqmStartRecord      = S_MATFile.S_PENVAR.EqmStartRecord;
-    EqmEndRecord        = S_MATFile.S_PENVAR.EqmEndRecord;
+    CalibTemps          = S_MATFile.S_PENVAR.CalibrationTemps;
+    
+    %EqmStartRecord      = S_MATFile.S_PENVAR.EqmStartRecord;
+    %EqmEndRecord        = S_MATFile.S_PENVAR.EqmEndRecord;
     
     
     FullExpeditionName  = strcat(CruiseName, StationName, Penetration);
@@ -74,15 +72,25 @@ PrintStatus(LogFileId, ['Penetration file ' PenFile ' read ...'],1)
 
 PrintStatus(ProgramLogId, '-- Reading in penetatration file',2)
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% KD ADDED IN CASE THERE ARE ANY SENSORS THAT NEED TO BE REMOVED (all NaNs)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
+%% Remove any sensors with all NaN or -999 temperatures
 
-BottomWaterRawData = BottomWaterRawData(:, ~isnan(BottomWaterRawData));
-AllSensorsRawData = AllSensorsRawData(:, ~all(isnan(AllSensorsRawData)));
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% KD ADDED IN CASE THERE ARE ANY SENSORS THAT NEED TO BE REMOVED (all NaNs)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Notify user that bad sensors were removed
+    if any(~all(isnan(AllSensorsRawData)))
+        uialert(figure_Main,['One or more sensors on this .pen or .mat file ' ...
+            'did not record any data. These sensors have been removed.'], ...
+            'Bad sensors removed', 'Icon','warning');
+    end
+    
+    % Remove data from bad sensors
+    AllSensorsRawData = AllSensorsRawData(:, ~all(isnan(AllSensorsRawData)));
+    AllSensorsRawData = AllSensorsRawData(:, ~all(AllSensorsRawData==-999));
+    CalibTemps        = CalibTemps(:, ~isnan(CalibTemps));
+    CalibTemps        = CalibTemps(:, CalibTemps~=-999);
+    
+    % Remove these sensors from number of sensors
+    [~,NumSensTot]   = size(AllSensorsRawData);
+    [~,NumWaterSens] = size(WaterSensorRawData);
+    
+    NumberOfSensors = NumSensTot-NumWaterSens;
+    
+    

@@ -1,0 +1,50 @@
+Penetration file /Users/kristindickerson/code/slugheat_slugpen/working/slugheat/inputs/cruise name_station_1.pen read ...
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+-------------------------------------------------------------------------------
+Penetration Start record number has been manually changed by user. New penetration start: 17-Jul-2023 11:34:00 - End of raw data reading and preparation !
+==========================================================================
+
+
+TAP file cruise name_station_1.tapread ...
+
+Applying tilt correction ...
+Mean tilt is now :      5.6 degrees.
+Inter-Sensor distance : 0.299 m.
+
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+-------------------------------------------------------------------------------
+Penetration Start record number has been manually changed by user. New penetration start: 17-Jul-2023 11:34:27 - End of raw data reading and preparation !
+==========================================================================
+
+
+These sensors are IGNORED in processing: 10  11
+
+-------------------------------------------------------------------------------
+17-Jul-2023 11:34:40 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+-------------------------------------------------------------------------------
+Penetration Start record number has been manually changed by user. New penetration start: -------------------------------------------------------------------------------
+17-Jul-2023 11:40:45 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+-------------------------------------------------------------------------------
+Penetration Start record number has been manually changed by user. New penetration start: -------------------------------------------------------------------------------
+17-Jul-2023 11:40:59 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+-------------------------------------------------------------------------------
+Penetration Start record number has been manually changed by user. New penetration start: -------------------------------------------------------------------------------
+17-Jul-2023 11:51:52 - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+-------------------------------------------------------------------------------
+Penetration Start record number has been manually changed by user. New penetration start: 

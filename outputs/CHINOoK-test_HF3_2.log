@@ -1,0 +1,25 @@
+TAP file CHINOoK-test_HF3_2.tap read ...
+
+Applying tilt correction ...
+Mean tilt is now :      4.2 degrees.
+Inter-Sensor distance : 0.299 m.
+
+TAP file CHINOoK-test_HF3_2.tapread ...
+
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 1
+Heat Pulse Record:  22
+End of Data Record: 41
+
+17-Apr-2023 12:28:40 - End of raw data reading and preparation !
+==========================================================================
+
+
+TAP file CHINOoK-test_HF3_2.tapread ...
+
+Applying tilt correction ...
+Mean tilt is now :      4.2 degrees.
+Inter-Sensor distance : 0.299 m.
+
