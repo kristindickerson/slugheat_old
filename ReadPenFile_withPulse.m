@@ -24,7 +24,7 @@ function [S_MATFile, FullExpeditionName, ...
             AllRecords, ...
             AllSensorsRawData, ...
             WaterSensorRawData, ...
-            CalibTemps, ...
+            MeanCalibTemps, ...
             PulsePower...
     ] = ReadPenFile_withPulse(MATFile, LogFileId, PenFile, ProgramLogId, figure_Main)
 
@@ -57,7 +57,7 @@ function [S_MATFile, FullExpeditionName, ...
     AllRecords          = S_MATFile.S_PENVAR.AllRecords';
     AllSensorsRawData   = S_MATFile.S_PENVAR.AllSensorsRawData;
     WaterSensorRawData  = S_MATFile.S_PENVAR.WaterSensorRawData;
-    CalibTemps          = S_MATFile.S_PENVAR.CalibrationTemps;
+    MeanCalibTemps          = S_MATFile.S_PENVAR.CalibrationTemps;
     
     %EqmStartRecord      = S_MATFile.S_PENVAR.EqmStartRecord;
     %EqmEndRecord        = S_MATFile.S_PENVAR.EqmEndRecord;
@@ -84,8 +84,8 @@ PrintStatus(ProgramLogId, '-- Reading in penetatration file',2)
     % Remove data from bad sensors
     AllSensorsRawData = AllSensorsRawData(:, ~all(isnan(AllSensorsRawData)));
     AllSensorsRawData = AllSensorsRawData(:, ~all(AllSensorsRawData==-999));
-    CalibTemps        = CalibTemps(:, ~isnan(CalibTemps));
-    CalibTemps        = CalibTemps(:, CalibTemps~=-999);
+    MeanCalibTemps        = MeanCalibTemps(:, ~isnan(MeanCalibTemps));
+    MeanCalibTemps        = MeanCalibTemps(:, MeanCalibTemps~=-999);
     
     % Remove these sensors from number of sensors
     [~,NumSensTot]   = size(AllSensorsRawData);
