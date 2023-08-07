@@ -77,11 +77,13 @@ function    [StationName, ...
     linescan = textscan(line, ['%*s %f' Format]);
     i=1;
     CalibTemps=cell(500,NumberOfSensors);
+    CalibTemps(cellfun(@isempty,CalibTemps)) = {NaN};
+
     while contains(line,'$')
-    CalibTemps(i, :) = cell2mat(linescan);
-    line = fgetl(fid);
-    linescan = textscan(line, ['%*s %f' Format]);
-    i=i+1;
+        CalibTemps(i, :) = cell2mat(linescan);
+        line = fgetl(fid);
+        linescan = textscan(line, ['%*s %f' Format]);
+        i=i+1;
     end
 
 %% PEN TEMP DATA
@@ -113,14 +115,17 @@ function    [StationName, ...
         uialert(figure_Main,['One or more sensors on this .pen or .mat file ' ...
             'did not record any data. These sensors have been removed.'], ...
             'Bad sensors removed', 'Icon','warning');
-        uiwait(figure_Main)
     end
 
     % Remove data from bad sensors
     AllSensorsRawData = AllSensorsRawData(:, ~all(isnan(AllSensorsRawData)));
     AllSensorsRawData = AllSensorsRawData(:, ~all(AllSensorsRawData==-999));
-    CalibTemps        = CalibTemps(:, ~isnan(CalibTemps));
-    CalibTemps        = CalibTemps(:, CalibTemps~=-999);
+    %CalibTemps = cell2mat(CalibTemps);
+    %CalibTemps = CalibTemps(:, ~all(isnan(CalibTemps)));
+    %CalibTemps% = CalibTemps(:, ~all(CalibTemps==-999));
+    MeanCalibTemps        = MeanCalibTemps(:, ~isnan(MeanCalibTemps));
+    MeanCalibTemps        = MeanCalibTemps(:, MeanCalibTemps~=-999);
+
 
     % Remove these sensors from number of sensors
     [~,NumSensTot]   = size(AllSensorsRawData);
