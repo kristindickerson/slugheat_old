@@ -457,7 +457,7 @@ end
      % ---------------------------
      
      if UseFrictional 
-         Currentk = Allk(n,:); % use all random distributions of k values, even ignored sensors. these will be ignored in the frictional decay reduction. 
+        Currentk = Allk(n,:); % use all random distributions of k values, even ignored sensors. these will be ignored in the frictional decay reduction. 
      
         [~, ...
         T0, ...
