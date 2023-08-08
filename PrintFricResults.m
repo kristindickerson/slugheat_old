@@ -1,15 +1,14 @@
 %%% =======================================================================
 %%   Purpose:
-%       This function PRINTS results of frictional decay processing to LOG
-%       and RES file
+%       This function PRINTS results of frictional decay processing to RES file
 %%   Last edit
-%       07/25/2023 by Kristin Dickerson, UCSC
+%       08/08/2023 by Kristin Dickerson, UCSC
 %%% =======================================================================
 
-function PrintFricResults(NumberOfSensors, IgnoredSensors, ...
+function PrintFricResults(...
     FricTime, NumberOfFricUsedPoints, MinimumFricEqTemp, ...
     MinimumFricError, SensorDistance, MinimumFricDelays, ...
-    MinimumFricSlope, TChange, ResFileId, LogFileId, NumberOfColumns, ...
+    MinimumFricSlope, TChange, ResFileId, NumberOfColumns, ...
     Iteration, Trial, PulseData, SensorsToUse)
 
 % Organize frictional results
@@ -58,7 +57,7 @@ end
 fprintf(Id,'\n%s',['Frictional Decay - Iteration ' num2str(Iteration,'%02d')]);
 
 if Iteration > 2
-    fprintf(Id,'%s',[' - Total change in Temperature: ' num2str(TChange,'%+4.1e')]);
+    fprintf(Id,'%s',[' - Total change in Temperature: ' num2str(TChange,'%+4.3e')]);
     fprintf(Id,'\n%s\n\n', ...
         '=======================================================================');
 else
@@ -80,7 +79,7 @@ if ~PulseData
     '-----------------------------------------------------------------');
 end
 
-fprintf(Id, '\n%s\n', ['*********   ' datestr(datetime('now')) ...
+fprintf(Id, '\n%s\n', ['*********   ' char(datetime('now')) ...
         ' - End frictional decay reduction of Trial ' int2str(Trial) ' !   *********']);
 
 

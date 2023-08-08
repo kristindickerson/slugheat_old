@@ -1,8 +1,10 @@
 %%% ======================================================================
-%   Purpose: 
-%   This function creates a text file with shifted depths, equilibrium 
-%   temperatures, equilibrium relative to bottom water, and final
-%   calculated thermal conductivity
+%%   Purpose: 
+%       This function creates a text file with shifted depths, equilibrium 
+%       temperatures, equilibrium relative to bottom water, and final
+%       calculated thermal conductivity
+%%   Last edit:
+%       08/07/2023 by Kristin Dickerson, UCSC
 %%% ======================================================================
 
 function PrintBullardResults(ResFileId, ...
@@ -21,12 +23,20 @@ function PrintBullardResults(ResFileId, ...
     HFShift, ...
     HFShiftErr, ...
     Gradient, ...
-    GradErr)
+    GradErr, ...
+    Converged, ...
+    TotkChange)
 
 Id = ResFileId;
 
 NC = 79;
 TChange = sum(TChange);
+
+if Converged==0
+    Converge = 'No';
+elseif Converged==1
+    Converge = 'Yes';
+end
 
 % Organize Bullard Analysis results
 % ----------------------------
@@ -59,12 +69,14 @@ BullardResults = [SensorsUsed Depths EqTempsRelBW BottomWaterTemp ...
                 repmat('-',1,length(String))]);
         
     end
-fprintf(Id,'\n%s',['Iterations:' num2str(Iteration,'%02d')]);
-fprintf(Id,'\n%s',['Thermal Gradient: ' num2str(Gradient, '%02d'), ' +/- ' num2str(GradErr, '%05d')]);    
-fprintf(Id,'\n%s',['Heat Flow: ' num2str(HeatFlow, '%02d'), ' +/- ' num2str(HFErr, '%05d')]);
-fprintf(Id,'\n%s',['Heat Flow Shift: ' num2str(HFShift, '%02d'), ' +/- ' num2str(HFShiftErr, '%05d')]);
+fprintf(Id,'\n%s',['Iterations: ' num2str(Iteration,'%02d')]);
+fprintf(Id, '\n%s', ['Convergence reached? ' Converge]);
+fprintf(Id, '\n%s', ['Sum of difference in k for all sensors (W/m°C): ' num2str(TotkChange)]);
+fprintf(Id,'\n%s',['Thermal Gradient (°C/m): ' num2str(Gradient, '%8.3f'), ' +/- ' num2str(GradErr, '%8.3f')]);    
+fprintf(Id,'\n%s',['Heat Flow (mW/m2): ' num2str(HeatFlow, '%8.0f'), ' +/- ' num2str(HFErr, '%8.3f')]);
+fprintf(Id,'\n%s',['Heat Flow Shift (m): ' num2str(HFShift, '%8.0f'), ' +/- ' num2str(HFShiftErr, '%8.3f')]);
 if Iteration > 2
-    fprintf(Id,'%s',['Total change in Temperature: ' num2str(TChange,'%+4.1e')]);
+    fprintf(Id,'%s',['Total change in Temperature (°C): ' num2str(TChange,'%+4.3e')]);
     fprintf(Id,'\n%s\n\n', ...
         '=======================================================================');
 else
@@ -81,14 +93,14 @@ fprintf(Id,'%s\n', ...
 fprintf(Id,'%s\n\n', ...
     '------  --------  -------------------  ------------    ------------  -----------   -----------');
 fprintf(Id, ...
-    '%4d    %4.2f      %4.2f                 %4.2f            %4.2f          %4.2d      %4.2f\n',BullardResults);
+    '%4d    %6.3f      %6.3f                 %6.3f            %6.3f          %6.3d      %6.3f\n',BullardResults);
 
 if ~PulseData
   fprintf(Id,'\n%s\n\n', ...
     '------------------------------------------------------------------------------------------------');
 end
 
-fprintf(Id, '\n%s\n\n\n', ['*********   ' datestr(datetime('now')) ...
+fprintf(Id, '\n%s\n\n\n', ['*********   ' char(datetime('now')) ...
         ' - End heat flow processing of Trial ' int2str(Trial) ' !   *********']);
 
 
