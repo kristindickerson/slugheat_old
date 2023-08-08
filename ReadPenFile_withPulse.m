@@ -59,10 +59,6 @@ function [S_MATFile, FullExpeditionName, ...
     WaterSensorRawData  = S_MATFile.S_PENVAR.WaterSensorRawData;
     MeanCalibTemps          = S_MATFile.S_PENVAR.CalibrationTemps;
     
-    %EqmStartRecord      = S_MATFile.S_PENVAR.EqmStartRecord;
-    %EqmEndRecord        = S_MATFile.S_PENVAR.EqmEndRecord;
-    
-    
     FullExpeditionName  = strcat(CruiseName, StationName, Penetration);
 
 % Update LOG file
@@ -75,7 +71,7 @@ PrintStatus(ProgramLogId, '-- Reading in penetatration file',2)
 %% Remove any sensors with all NaN or -999 temperatures
 
     % Notify user that bad sensors were removed
-    if any(~all(isnan(AllSensorsRawData)))
+    if any(all(isnan(AllSensorsRawData)))
         uialert(figure_Main,['One or more sensors on this .pen or .mat file ' ...
             'did not record any data. These sensors have been removed.'], ...
             'Bad sensors removed', 'Icon','warning');
@@ -84,13 +80,26 @@ PrintStatus(ProgramLogId, '-- Reading in penetatration file',2)
     % Remove data from bad sensors
     AllSensorsRawData = AllSensorsRawData(:, ~all(isnan(AllSensorsRawData)));
     AllSensorsRawData = AllSensorsRawData(:, ~all(AllSensorsRawData==-999));
-    MeanCalibTemps        = MeanCalibTemps(:, ~isnan(MeanCalibTemps));
-    MeanCalibTemps        = MeanCalibTemps(:, MeanCalibTemps~=-999);
+    if ~all(MeanCalibTemps==-999)
+        MeanCalibTemps        = MeanCalibTemps(:, ~isnan(MeanCalibTemps));
+        MeanCalibTemps        = MeanCalibTemps(:, MeanCalibTemps~=-999);
+    end
     
     % Remove these sensors from number of sensors
     [~,NumSensTot]   = size(AllSensorsRawData);
     [~,NumWaterSens] = size(WaterSensorRawData);
     
     NumberOfSensors = NumSensTot-NumWaterSens;
-    
+
+%% Tell user if no calibration period was selected
+    if all(MeanCalibTemps==-999)
+        uialert(figure_Main, ['\bf No calibration period was selected ' newline newline ...
+       'Temperature sensors will not be calibrated unless a ' ...
+       'calibration period is chosen in SlugPen or mean calibration ' ...
+       'temperatures for each sensor are manually input in ' ...
+       '.pen file or .mat file by user'], ...
+       'WARNING', 'Icon','warning', ...
+       'Interpreter','latex')
+    end
+   
     

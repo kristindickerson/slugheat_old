@@ -193,8 +193,7 @@ MinimumFricSlope(SensorsToUse) = diag(b(:,IndexOfMinimums));
 % ShiftedTaunIndex will be NaN - this causes code to break
 
 if any(all(isnan(DataTemp)))
-    sens      = find(all(isnan(DataTemp),1));
-    whichsens = sens(1);
+    whichsens      = find(all(all(isnan(DataTemp)),3));
     uialert(figure_Main, ['Error: One or more sensors do not have any ' ...
         'measurements in the required TAU range. This often occurs when ' ...
         'thermal conductivity values are too low.', newline, newline,...

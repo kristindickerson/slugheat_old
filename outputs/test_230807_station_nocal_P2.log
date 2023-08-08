@@ -1,1 +1,40 @@
-Penetration file /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_station_nocal_P2.pen read ...
+Penetration file /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_station_nocal_P2.pen read ...
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  28
+End of Data Record: 53
+
+08-Aug-2023 11:54:54 - End of raw data reading and preparation !
+==========================================================================
+
+
+TAP file test_230807_station_nocal_P2.tapread ...
+
+Applying tilt correction ...
+Mean tilt is now :      6.6 degrees.
+Inter-Sensor distance : 0.298 m.
+
+-------------------------------------------------------------------------------
+08-Aug-2023 11:55:37
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  28
+End of Data Record: 53
+
+These sensors are IGNORED in processing: 10  11
+
+-------------------------------------------------------------------------------
+08-Aug-2023 11:55:46
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  28
+End of Data Record: 53
+

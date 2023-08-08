@@ -42,14 +42,14 @@ function    PrintHeaderResults(Version, Update, ...
 	tl2 = fix((l-l2-4)/2);
 	tr2 = l-tl2-l2-4;
 	
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===' repmat(' ',1,NC-10) '===']);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===           SlugHeat  -  Version: ' Version ...
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) '===' repmat(' ',1,NC-10) '===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) '===           SlugHeat  -  Version: ' Version ...
 	        '  -  Update: ' Update '                 ===']);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2) '===' repmat(' ',1,NC-10) '===']);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
-	fprintf(Id,'%s\n\n\n',[repmat(' ',1,tl2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) '===' repmat(' ',1,NC-10) '===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n\n\n',[repmat(' ',1,tl2/2) repmat('=',1,NC-3)]);
 	
 	
 	fprintf(Id,'%s\n',[repmat(' ',1,x0) repmat('-',1,l)]);
