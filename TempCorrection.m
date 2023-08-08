@@ -21,7 +21,7 @@ function [...
          PenetrationRecord, ...
          EndRecord, ...
          AllRecords, ...
-         MeanCalTemps, LogFileId, ProgramLogId,...
+         MeanCalibTemps, LogFileId, ProgramLogId,...
          UseWaterSensor, ...
          NumberOfSensors, SensorsToUse, SensorsRemoved, ...
          figure_Main)
@@ -73,48 +73,48 @@ end
 % SENSOR CALIBRATION
 % ==================
 
-% Find raw temperatures for calibration period and penetration period
+% Find raw temperatures during penetration period
 % -------------------------------------------------------------------
 
     % Find record numbers for bottom water equilibrium (calibration) period and penetration
-   % CalRecords      = find(AllRecords >= EqmStartRecord & ...
-    %                   AllRecords <= EqmEndRecord);
     PenRecords      = AllRecords;
-    
-    % Temps during calibration period
-    %CalTemps    = AllSensorsRawData(CalRecords,:); % all sensors that are being used, including sensor on top of data logger
-    %CalTopSens  = WaterSensorRawData(CalRecords); % only sensor on top of data logger
     
     % Temps during penetration
     PenTemps    = AllSensorsRawData; % all sensors that are being used, including sensor on top of data logger
     PenTopSens  = WaterSensorRawData(PenRecords); % only sensor on top of data logger
 
- % Determine calibration offsets for eachs sensor
- % ----------------------------------------------
 
-    % Find average calibration temp for all sensors
-      TCAL = mean(MeanCalTemps(SensorsToUse), 'omitnan');
+%% SENSOR CALIBRATION
+%% ==================
 
-    % Initialize arrays in for loop
-      TOFFSET = NaN*ones(1, NumToUse);
+AllSensorsCalibratedTemp = AllSensorsRawData;
 
-      AllSensorsCalibratedTemp = NaN*ones(NumRecords, NumSensTot);
-
-% Apply calibration correction for each sensor
-% --------------------------------------------
+if ~all(MeanCalibTemps==-999)
+     % Determine calibration offsets for eachs sensor
+     % ----------------------------------------------
     
-for i = 1:NumSensTot
+        % Find average calibration temp for all sensors
+          TCAL = mean(MeanCalibTemps(SensorsToUse), 'omitnan');
     
-    TOFFSET(i) = MeanCalTemps(i)- TCAL;
+        % Initialize arrays in for loop
+          TOFFSET = NaN*ones(1, NumToUse);
+    
+    % Apply calibration correction for each sensor
+    % --------------------------------------------
+        
+    for i = 1:NumSensTot
+        
+        TOFFSET(i) = MeanCalibTemps(i)- TCAL;
+    
+        AllSensorsCalibratedTemp(:, i) = AllSensorsRawData(:, i) - TOFFSET(i);
+    
+    end 
+    
+    pause(1)
+end
 
-    AllSensorsCalibratedTemp(:, i) = AllSensorsRawData(:, i) - TOFFSET(i);
-
-end 
-
-pause(1)
-
-% TEMPS RELATIVE TO BOTTOM WATER
-% ===============================
+%% TEMPS RELATIVE TO BOTTOM WATER
+%% ===============================
 
 % Determine bottom water
 % -----------------------
