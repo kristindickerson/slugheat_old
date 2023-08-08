@@ -3,7 +3,7 @@
 %       This function PRINTS results of sensitivity analysis to LOG
 %       and RES file
 %%   Last edit
-%       07/25/2023 by Kristin Dickerson, UCSC
+%       08/08/2023 by Kristin Dickerson, UCSC
 %%% =======================================================================
 
 function PrintSensResults(Params, ...
@@ -74,7 +74,7 @@ function PrintSensResults(Params, ...
             '-------------   ' ...
             '---------']);
         fprintf(Id, ...
-            '%4.0f %16.2f %19.2f %16.2f %11.0f \n',SensParams);
+            '%4.0f %15.3f %18.3f %15.3f %11.0f \n',SensParams);
 
     %% Print results of analysis
 
@@ -85,15 +85,15 @@ function PrintSensResults(Params, ...
         fprintf(Id,'%s\n\n',repmat('=',1,length(String)));
 
         % Results
-        fprintf(Id,'%s\t\t\t\t\t\t%2.1f\n\n','Initial heat flow (mW/m2):',Results.Initialq);
-        fprintf(Id,'%s\t\t\t\t\t\t%2.1f\n\n','Final heat flow (mW/m2):',Results.Finalq);
-        fprintf(Id,'%s\t\t\t\t\t\t\t%2.1f\n\n','Mean heat flow (mW/m2):',Results.Meanq);
-        fprintf(Id,'%s\t\t\t\t\t\t%2.1f\n\n','Minimum heat flow (mW/m2):',Results.Minq);
-        fprintf(Id,'%s\t\t\t\t\t\t%2.1f\n\n','Maximum heat flow (mW/m2):',Results.Maxq);
-        fprintf(Id,'%s\t\t%2.1f\n\n','Final heat flow standard deviation (mW/m2):',Results.qstd);
-        fprintf(Id,'%s\t\t\t%2.4f\n\n','Avereage heat flow uncertainty (mW/m2):',Results.AveUnc);
+        fprintf(Id,'%s\t\t\t\t\t\t%2.0f\n\n','Initial heat flow (mW/m2):',Results.Initialq);
+        fprintf(Id,'%s\t\t\t\t\t\t%2.0f\n\n','Final heat flow (mW/m2):',Results.Finalq);
+        fprintf(Id,'%s\t\t\t\t\t\t\t%2.0f\n\n','Mean heat flow (mW/m2):',Results.Meanq);
+        fprintf(Id,'%s\t\t\t\t\t\t%2.0f\n\n','Minimum heat flow (mW/m2):',Results.Minq);
+        fprintf(Id,'%s\t\t\t\t\t\t%2.0f\n\n','Maximum heat flow (mW/m2):',Results.Maxq);
+        fprintf(Id,'%s\t\t%2.0f\n\n','Final heat flow standard deviation (mW/m2):',Results.qstd);
+        fprintf(Id,'%s\t\t\t%2.3f\n\n','Avereage heat flow uncertainty (mW/m2):',Results.AveUnc);
 
     %% Print end of analysis
-    fprintf(Id, '\n%s\n', ['*********   ' datestr(datetime('now')) ...
+    fprintf(Id, '\n%s\n', ['*********   ' char(datetime('now')) ...
     ' - End sensitivity analysis #  ' int2str(NumSensAnalyses) ' !   *********']);
    
