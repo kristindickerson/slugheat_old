@@ -1,10 +1,10 @@
 ----------------------------------------------
 ----------------------------------------------
-SlugHeat22 start time: 08-Aug-2023 14:13:31
+SlugHeat22 start time: 08-Aug-2023 15:17:40
 ----------------------------------------------
 ----------------------------------------------
 
-08-Aug-2023 14:13:31 Processing set up and data preparation
+08-Aug-2023 15:17:40 Processing set up and data preparation
 ==================================================================================================
 
  -- Finding parameter file...
@@ -35,4 +35,14 @@ MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-co
 -- Plotting unprocessed penetration data on "Penetration Data" tab
 
 -- Reading in TAP file
+
+-- Removing bad data from sensors to be ignored in processing
+
+==================================================================================================
+
+08-Aug-2023 15:19:17
+ - Begin SlugHeat22 PROCESSING
+==================================================================================================
+
+-- Splitting penetration and heat pulse data
 
