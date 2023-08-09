@@ -27,6 +27,7 @@ function [ ...
             kSlope,  ...
             DataLimits ...
                 ] = HeatPulseDecay( ...
+                figure_Main,...
                 SensorsToUse, ...
                 PulseTime, ...
                 PulseDelays, ...
@@ -61,9 +62,35 @@ function [ ...
     Kappa = repmat(1e-6*Currentk(SensorsToUse)./(HC(1) ...
         - HC(2)*Currentk(SensorsToUse) ...
         + HC(3)*Currentk(SensorsToUse).^2),LIT,1);
-    Tau00Index = 1:Tau00Data(3)/Tau00Data(2);
     ResidualTime = repmat(PulseTime,[1 NumberOfSensorsUsed]);
-    HeatPulseTime = repmat(PulseTime-PulseTime(1),[1 NumberOfSensorsUsed])-HeatPulseLength/2;
+    try
+        HeatPulseTime = repmat(PulseTime-PulseTime(1),[1 NumberOfSensorsUsed])-HeatPulseLength/2;
+    catch
+        uiconfirm(figure_Main, ['Heat pulse time is outside penetration time. ' ...
+            'Must adjust timing of heat pulse or ignore heat pulse reduction.'], ...
+            'Heat pulse outside time range', 'Icon','warning','Options','Okay')
+        MeankPointAtMinkDiff = [];
+        kSlopeAtMinkDiff = [];
+        MeankPointAtZeroInfTemp = [];
+        MeankPointAtMinRMS = [];
+        kSlopeAtZeroInfTemp = [];
+        kSlopeAtMinRMS = [];
+        TempAtInf = [];
+        NumberOfUsedPoints = [];
+        MinimumPulseDelays = [];
+        kError = [];
+        HeatPulseTime = [];
+        MinkDiffIndex = [];
+        ShiftedTime = [];
+        DataTemp = [];
+        TimeShifts = [];
+        kSlopeRMS = [];
+        TempAtInfinity = [];
+        OneOverTime = [];
+        kSlope = [];
+        DataLimits = [];
+        return
+    end
     
     % Obtain Tau and  F(α,τ) values corresponding to Time
     % --------------------------------------------------------
@@ -130,8 +157,8 @@ function [ ...
     % Get rid of NaNs in OneOverTime and DataTemp and make 2-D arrays
     % ---------------------------------------------------------------
     
-    [ix,jx] = find(~isnan(OneOverTime));
-    [iy,jy] = find(~isnan(DataTemp));
+    [ix,~] = find(~isnan(OneOverTime));
+    [iy,~] = find(~isnan(DataTemp));
     
     DataLimits = [max([min(ix) min(iy)]) min([max(ix) max(iy)])];
     NumberOfUsedPoints = 1+diff(DataLimits);
@@ -143,7 +170,7 @@ function [ ...
         [NumberOfUsedPoints NumberOfSensorsUsed*PulseMaxStep]);
 
     
-    [a,b,Sigmaa,Sigmab,Chi2] = ChiSquaredFit(X,Y);
+    [a,b,~,~,Chi2] = ChiSquaredFit(X,Y);
     
     kSlope = (PulsePower/4/pi)./reshape(b,[NumberOfSensorsUsed PulseMaxStep]);
     TempAtInfinity = reshape(a,[NumberOfSensorsUsed PulseMaxStep]);
@@ -172,9 +199,9 @@ function [ ...
     kDiff = abs(kSlope-repmat(Currentk(SensorsToUse)',[1 PulseMaxStep]));
     kTypeDiff = abs(kSlope-kPointMean);
     
-    [MinkDiff,MinkDiffIndex] = min(kDiff,[],2);
-    [MinkTypeDiff,MinkTypeDiffIndex] = min(kTypeDiff,[],2);
-    [dummy,MinkSlopeRMSIndex] = min(2*kSlopeRMS,[],2);
+    [~,MinkDiffIndex] = min(kDiff,[],2);
+    [~,~] = min(kTypeDiff,[],2);
+    [~,MinkSlopeRMSIndex] = min(2*kSlopeRMS,[],2);
     [dummy,ZeroInfTempIndex] = min(abs(TempAtInfinity),[],2);
     
     kError(SensorsToUse) = dummy;
@@ -186,210 +213,6 @@ function [ ...
     kSlopeAtMinRMS(SensorsToUse) = diag(kSlope(:,MinkSlopeRMSIndex));
     MinimumPulseDelays(SensorsToUse) = diag(TimeShifts(MinkDiffIndex,:));
     TempAtInf(SensorsToUse) = diag(TempAtInfinity(:,MinkDiffIndex));
-    
-
-    %if Iteration == ChosenIteration || (Iteration ~= ChosenIteration && Pause == 1)
-    %% ====================================== %
-    %%                 PLOT                   %
-    %% ====================================== %
-    %
-    %% Plot Temperature vs. Time with optimally shifted 
-    %% heat pulse decay data
-    %% ---------------------------------------------
-    %    
-    %    n=1;
-    %
-    %    for i = SensorsToUse
-    %     h_axHPTempvTime(i) = plot(axes_CTempvCtime, ShiftedTime(:,n,MinkDiffIndex(n)),...
-    %         DataTemp(:,n,MinkDiffIndex(n)),'-o','markersize',2, 'marker','v',...
-    %        'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, 'tag', ['sensTemp_' num2str(i)]);
-    %     hold(axes_CTempvCtime, 'on');
-    %     ymax(i) = max(DataTemp(:,n,MinkDiffIndex(n)));
-    %     n=n+1;
-    %    end
-%
-    %    ymaxAll = max(ymax);
-    %
-    %        % Set labels and axes limits
-    %        % ---------------------------
-    %        xlabel(axes_CTempvCtime, '\bfCorrected Time (s)', 'verticalalignment','top', ...
-    %        'fontsize',16)
-    %        ylabel(axes_CTempvCtime, '\bfCorrected Temperature ( ^oC)', 'verticalalignment',...
-    %            'bottom', 'fontsize',16)
-    %        set(axes_CTempvCtime,'xlim',[HeatPulseTime(1) HeatPulseTime(end)])
-    %        set(axes_CTempvCtime, 'ylim', [0 ymaxAll+0.1])
-    %
-    %% Plot Residual Misfit from best fit line (RMS) with Time shift
-    %% -------------------------------------------------------------
-    %
-    %    n=1;
-    %
-    %    for i = SensorsToUse
-    %     h_axHPRMS(i) = plot(axes_MisfitvTimeShift, TimeShifts(:,n),...
-    %         kSlopeRMS(n,:),'-o','markersize',4, 'Color',h_axTempAboveBWT(i).Color,...
-    %         'markerfacecolor',h_axTempAboveBWT(i).Color, 'tag', ['sens_' num2str(i)]);
-    %     hold(axes_MisfitvTimeShift, 'on');
-    %     n=n+1;
-    %    end
-    %
-    %    % Set labels and axes limits 
-    %    % --------------------------
-    %        xlabel(axes_MisfitvTimeShift, '\bfTime Shifts (s)', ...
-    %            'verticalalignment','top', ...
-    %            'fontsize',16)
-    %        ylabel(axes_MisfitvTimeShift, '\bfResidual Misfit for k_{slope} (W m^{-1} ^oC^{-1})', ...
-    %            'verticalalignment','top', ...
-    %            'fontsize',16)
-    %        set(axes_MisfitvTimeShift,'yaxislocation','right', ...
-    %            'yscale','log')
-    %
-    %    % Plot lines for minimum misfit from linear best fit line
-    %    % -------------------------------------------------------
-    %    for i = SensorsToUse
-    %        h_axHPRMSLine(i) = xline(axes_MisfitvTimeShift, ...
-    %            MinimumPulseDelays(i), 'color',h_axTempAboveBWT(i).Color,...
-    %            'linestyle','--');
-    %        hold(axes_MisfitvTimeShift, 'on');
-    %    end
-    %
-    %% Plot Temperature vs. 1/Time with best fit line
-    %% ------------------------------------------------
-    %    n=1;
-    %
-    %    for i = SensorsToUse
-    %     h_axHPTempvInvTime(i) = plot(axes_CTempv1_CTime, OneOverTime(:,n,MinkDiffIndex(n)), ...
-    %         DataTemp(:,n,MinkDiffIndex(n)),'v','markersize',4, 'Color', ...
-    %         h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, ...
-    %         'tag', ['sens_' num2str(i)]);
-    %     hold(axes_CTempv1_CTime, 'on');
-    %     
-    %     idx = find(~isnan(OneOverTime(:,n,MinkDiffIndex(n))));
-    %
-    %     h_axHPTempvInvTimeBestFit(i) = plot(axes_CTempv1_CTime, ...
-    %         [0 OneOverTime(idx(1),n,MinkDiffIndex(n))], ...
-    %         TempAtInfinity(n,MinkDiffIndex(n)) + ...
-    %         ((PulsePower/4/pi)./kSlope(n,MinkDiffIndex(n))) ...
-    %         * [0 OneOverTime(idx(1),n,MinkDiffIndex(n))],'Color', ...
-    %         h_axTempAboveBWT(i).Color,'tag', ['sensBestFit_' num2str(i)]);
-    %
-    %     n=n+1;
-    %    end
-    %
-    %    % Set labels and axes limits 
-    %    % --------------------------
-    %      xlabel(axes_CTempv1_CTime, '\bf1/Time (s^{-1})', ...
-    %        'verticalalignment','top', ...
-    %        'fontsize',16)
-    %      ylabel(axes_CTempv1_CTime, '\bfCorrected Temperature ( ^oC)', ...
-    %        'verticalalignment','bottom', ...
-    %        'fontsize',16)
-    %      lims = get(axes_CTempvCtime,'ylim');
-    %      set(axes_CTempv1_CTime,'xlim',[0 1./HeatPulseTime(DataLimits(1))], ...
-    %          'ylim',[0 lims(2)])
-    %
-    %       % Link Temp vs. Time and Temp vs. 1/Time axes by temp axis
-    %       % --------------------------------------------------------
-    %        ax=[axes_CTempv1_CTime axes_CTempvCtime];
-    %            linkaxes(ax,'y');
-    %   
-    % 
-    %% Plot Asymptotic Temperature vs. Time Shift
-    %% --------------------------------------------
-    %
-    %    n=1;
-    %
-    %    for i = SensorsToUse
-    %     h_axHPTempvTimeShift(i) = plot(axes_TempvTimeShift, TimeShifts(:,n), ...
-    %         TempAtInfinity(n,:),'-x','markersize',4, 'Color', ...
-    %         h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, ...
-    %         'tag', ['sens_' num2str(i)]);
-    %     hold(axes_TempvTimeShift, 'on');
-    %
-    %     n=n+1;
-    %    end
-    %
-    %
-    %    % Set labels and axes limits 
-    %    % --------------------------
-    %    xlabel(axes_TempvTimeShift, '\bf Time Shifts (s)', ...
-    %        'verticalalignment','top', ...
-    %        'fontsize',16)
-    %    ylabel(axes_TempvTimeShift, '\bfTemperature at Infinity ( ^oC)', ...
-    %        'verticalalignment','top', ...
-    %        'fontsize',16)
-    %
-    %    set(axes_TempvTimeShift,'yaxislocation','right')
-    %
-    %     % Link Residual Misfit for k vs. Time Shift and Temp vs. Time shift 
-    %     % --------------------------------------------------------
-    %        ax=[axes_TempvTimeShift axes_MisfitvTimeShift];
-    %            linkaxes(ax,'x');
-    %
-    %     % Plot lines  
-    %     % ------------
-    %     yline(axes_TempvTimeShift, 0, 'k--') % Horizontal line at 0°C
-    %     
-    %     for i = SensorsToUse
-    %         h_axHPTempvTimeShiftBestFit(i) = xline(axes_TempvTimeShift, ...
-    %             MinimumPulseDelays(i), 'color',h_axTempAboveBWT(i).Color,...
-    %             'linestyle','--');
-    %         hold(axes_TempvTimeShift, 'on');
-    %     end
-    %
-    %     drawnow;
-    %     pause(1)
-%
-    %else
-    %    h_axHPTempvTime = zeros(1, NumberOfSensors);
-    %    h_axHPRMS = zeros(1, NumberOfSensors);
-    %    h_axHPRMSLine = zeros(1, NumberOfSensors);
-    %    h_axHPTempvInvTime = zeros(1, NumberOfSensors);
-    %    h_axHPTempvInvTimeBestFit = zeros(1, NumberOfSensors);
-    %    h_axHPTempvTimeShift = zeros(1, NumberOfSensors);
-    %    h_axHPTempvTimeShiftBestFit = zeros(1, NumberOfSensors);
-%
-    %end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% ADDED BY KD FOR TESTING EFFECT OF LOW HEAT PULSE POWER
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%% Plot Temp vs. Tau during heat pulse
-%% --------------------------------------------------------------
-%% Plot Temperature vs. Dimensionless Time (Tau)
-% % ---------------------------------------------
-%    
-% n=1;
-%
-%  for i = SensorsToUse
-%     h_axHPTempvTau(i) = plot(axes_HeatPulseTesting, ShiftedTau(:,n,IndexOfMinimums(n)),...
-%         DataTemp(:,n,MinkDiffIndex(n)),'-o','markersize',2, ...
-%        'Color',h_axTempAboveBWT(i).Color,'markerfacecolor',h_axTempAboveBWT(i).Color, 'tag', ['sensTemp_' num2str(i)]);
-%     hold(axes_HeatPulseTesting, 'on');
-%     n=n+1;
-% end
-%
-%      % Set labels and axes limits
-%      % --------------------------------------------------
-%        xlabel(axes_HeatPulseTesting, '\tau','fontsize',18,'verticalalignment','top')
-%        ylabel(axes_HeatPulseTesting, '\bfTemperature ( ^oC)','fontsize',16,'verticalalignment','top')
-%        set(axes_HeatPulseTesting,'yaxislocation','right', 'XLim', [0 PulseTauMax+1])
-% 
-%      % Lines indicating min and max of Tau (set by PAR file)
-%      % -----------------------------------------------------
-%        xline(axes_HeatPulseTesting, PulseTauMin, '--k', 'Label', 'Minimum Tau', ...
-%            'FontSize',16, 'FontWeight', 'bold')
-%        xline(axes_TempvTau, PulseTauMax, '--k', 'Label', 'Maximum Tau', ...
-%            'FontSize',16, 'FontWeight', 'bold')
-%
-%
-%
-%
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% ADDED BY KD FOR TESTING EFFECT OF LOW HEAT PULSE POWER
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 

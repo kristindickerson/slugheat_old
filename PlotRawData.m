@@ -1,9 +1,11 @@
 %%% ==============================================================================
-%   Purpose: 
-%     This function plots the inital raw data from the penetration and tap file
-%     before any other processing has been done, except correcting temperature
-%     of each thermistor with reference to bottom water. These plots are found under 
-%     the Penetration Data tab on SlugHeat GUI.
+%%   Purpose: 
+%       This function plots the inital raw data from the penetration and tap file
+%       before any other processing has been done, except correcting temperature
+%       of each thermistor with reference to bottom water. These plots are found under 
+%       the Penetration Data tab on SlugHeat GUI.
+%%   Last edit:
+%       08/09/2023 by Kristin Dickerson, UCSC
 %%% ==============================================================================
 
 function    [BadT, Badk, S_Lines, AllSensors, ...
@@ -24,14 +26,12 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
             AllRecords, PenetrationRecord, HeatPulseRecord, EndRecord, ... 
             PulseData, ProgramLogId, grid_PenetrationInfo)
 
-% Error trap if there is no bottom water thermistor
-% --------------------------------------------------
-%[~, NC] = size(AllSensorsTemp);
-%if NC ~= NumberOfSensors
-%    uialert(figure_Main, 'There is no bottom water sensor found. Update parameters before continuing', ...
-%        'Error','Icon', 'error')
-%    return
-%end
+% Delete current children of plots
+% --------------------------------
+delete(axes_TempAboveBWT.Children)
+delete(axes_BottomWaterTemp.Children)
+delete(axes_Depth.Children)
+delete(axes_Tilt.Children)
 
 % Define variables to be used in this function
 % ---------------------------------------------
@@ -69,7 +69,7 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
 % Plot temperatures of bottom water sensor
 % --------------------------------------------
     if WaterThermistor == 1
-       h_axBWT = plot(axes_BottomWaterTemp, AllRecords,WaterSensorTemp,'k-','markersize',3);
+       plot(axes_BottomWaterTemp, AllRecords,WaterSensorTemp,'k-','markersize',3);
        axes_BottomWaterTemp.Color = [0.94,0.94,0.94];
     else
         checkbox_BottomWaterPlot.Value = 0;
@@ -106,6 +106,7 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
     
 % Plot lines for start and end of penetration and heat pulse
 % -----------------------------------------------------------
+   
     PenLine = xline(axes_TempAboveBWT, PenetrationRecord, '--k', ...
         'FontWeight', 'bold', 'FontSize', 16);
     PenLine.Label = 'Start of Penetration';
@@ -121,6 +122,11 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
         HPBWTLine = xline(axes_BottomWaterTemp, HeatPulseRecord, '--k');
         HPDepthLine = xline(axes_Depth, HeatPulseRecord, '--k');
         HPTiltLine = xline(axes_Tilt, HeatPulseRecord, '--k');
+
+        S_HPLines = struct('HPLine', HPLine, 'HPBWTLine', ...
+        HPBWTLine, 'HPDepthLine', HPDepthLine, 'HPTiltLine', HPTiltLine);
+    else
+        S_HPLines = struct();
     end
 
     EndLine = xline(axes_TempAboveBWT, EndRecord, '--k', ...
@@ -134,8 +140,6 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
 
     S_PenLines = struct('PenLine', PenLine, 'PenBWTLine', PenBWTLine, 'PenDepthLine', ...
         PenDepthLine, 'PenTiltLine', PenTiltLine);
-    S_HPLines = struct('HPLine', HPLine, 'HPBWTLine', ...
-        HPBWTLine, 'HPDepthLine', HPDepthLine, 'HPTiltLine', HPTiltLine);
     S_EndPenLines = struct('EndLine', EndLine, 'EndBWTLine', EndBWTLine, 'EndDepthLine', EndDepthLine, ...
         'EndTiltLine', EndTiltLine);
 
@@ -146,18 +150,27 @@ function    [BadT, Badk, S_Lines, AllSensors, ...
 % rest
 % -------------------------------------------------------------------------
     
+    % link
     ax=[axes_TempAboveBWT axes_BottomWaterTemp axes_Depth axes_Tilt];
     linkaxes(ax,'x');
-    TempPreHP = AllSensorsTemp(AllRecords<HeatPulseRecord, :);
+    
+    % set x axis limits
     xlim(axes_TempAboveBWT, [(PenetrationRecord-5), (EndRecord+1)])
-    ylim(axes_TempAboveBWT, [min(min(AllSensorsTemp)), max(max(TempPreHP))+0.75])
+    
+    % set y axis limits
+    if HeatPulseRecord~=-999
+        TempPreHP = AllSensorsTemp(AllRecords<HeatPulseRecord, :);
+        ylim(axes_TempAboveBWT, [min(min(AllSensorsTemp)), max(max(TempPreHP))+0.75])
+    else
+        ylim(axes_TempAboveBWT, [min(min(AllSensorsTemp)), max(max(AllSensorsTemp))+0.75])
+    end
     
 
 % Save all variables created so far in a MAT file and update LOG file
 % ------------------------------------------------------------------------
     %save(['SlugHeat22_' PenFileName])
     
-    PrintStatus(LogFileId,[datestr(datetime('now')) ' - End of raw data reading and preparation !'],1);
+    PrintStatus(LogFileId,[char(datetime('now')) ' - End of raw data reading and preparation !'],1);
     PrintStatus(LogFileId,'==========================================================================',3);
 
     PrintStatus(ProgramLogId, '-- Plotting unprocessed penetration data on "Penetration Data" tab',2)
