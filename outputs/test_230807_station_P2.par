@@ -33,7 +33,6 @@ Params|Description
 0.6| min k cutoff for sensitivity analysis
 1.5| max k cutoff for sensitivity analysis
 0.05| mininum layer thickness for sensitivity analysis
-0| recalcualte equilibrium temps during sensitivity analysis (Y:1)
 1| k bias in the horizontal direction
 0.25| depth of first thermistor below weight stand
 3.5| probe length (m)

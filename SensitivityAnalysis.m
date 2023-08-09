@@ -311,11 +311,11 @@ elseif kDistribution == 3
             % Update labels that describe sensitivity analysis parameters
             % ---- need to make these labels
             % -----------------------------------------------------------
-           label_meandev.Interpreter = 'latex';
-           label_minthickness.Interpreter = 'latex';
-           label_thermconbounds.Interpreter = 'latex';        
+           label_meandev.Interpreter = 'tex';
+           label_minthickness.Interpreter = 'tex';
+           label_thermconbounds.Interpreter = 'tex';        
            label_minthickness.Text = [num2str(MinThickness) ' m'];    
-           label_thermconbounds.Text = [num2str(abs(1-kAnisotropy)*100,0) ' %'];
+           label_thermconbounds.Text = [num2str(abs(1-kAnisotropy)*100,0) '%'];
            label_ThermConBoundsTitle.Text = 'k anisotropy:';
            label_meandev.Text = 'N/A';
         

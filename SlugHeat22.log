@@ -1,10 +1,10 @@
 ----------------------------------------------
 ----------------------------------------------
-SlugHeat22 start time: 08-Aug-2023 15:17:40
+SlugHeat22 start time: 08-Aug-2023 17:42:19
 ----------------------------------------------
 ----------------------------------------------
 
-08-Aug-2023 15:17:40 Processing set up and data preparation
+08-Aug-2023 17:42:19 Processing set up and data preparation
 ==================================================================================================
 
  -- Finding parameter file...
@@ -36,11 +36,61 @@ MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-co
 
 -- Reading in TAP file
 
+==================================================================================================
+
+08-Aug-2023 17:43:09
+ - Begin SlugHeat22 PROCESSING
+==================================================================================================
+
+-- Splitting penetration and heat pulse data
+
 -- Removing bad data from sensors to be ignored in processing
 
 ==================================================================================================
 
-08-Aug-2023 15:19:17
+08-Aug-2023 17:43:17
+ - Begin SlugHeat22 PROCESSING
+==================================================================================================
+
+-- Splitting penetration and heat pulse data
+
+==================================================================================================
+
+08-Aug-2023 17:45:00
+ - Begin SlugHeat22 PROCESSING
+==================================================================================================
+
+-- Splitting penetration and heat pulse data
+
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_station_P2.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_station_P2.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_station_P2.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in penetatration file
+
+-- Splitting penetration and heat pulse data
+
+-- Plotting unprocessed penetration data on "Penetration Data" tab
+
+-- Reading in TAP file
+
+-- Removing bad data from sensors to be ignored in processing
+
+==================================================================================================
+
+08-Aug-2023 18:02:17
  - Begin SlugHeat22 PROCESSING
 ==================================================================================================
 
