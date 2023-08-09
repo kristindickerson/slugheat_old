@@ -71,6 +71,7 @@ function    [StationName, ...
         NumberOfSensors+1)';
 
 %% CALIBRATION TEMP DATA (if all calibration temps are recorded, not just the mean)
+dbstop
     Format = repmat('%f ',1,NumberOfSensors);
     line = fgetl(fid);
     line = fgetl(fid);
