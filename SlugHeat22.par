@@ -21,14 +21,13 @@
      50 0.002                                                   heat pulse max step.   k-tolerance
      1.6  10.                                                   min. and max. tau-values (pulse decay)
      0.00001                                                    Minimum change of Sigma(k) %% Added by KD %%%%%%%%%%%%%%%%%%%%%%
-     10                                                         Max # of iterations for k computations
-     100                                                        Number of Iterations for Sensitivity analysis
-     0.1                                                        Standard deviation in k for Sensitivity analysis
-     0.6                                                        Min k cutoff for Sensitivity analysis
-     1.5                                                        Max k cutoff for Sensitivity analysis
-     0.05                                                       Mininum layer thickness for Sensitivity analysis
-     0                                                          Use Frictional decay for No Heat pulse Sensitivity analysis ?
-     1.00                                                       Horizontal thermal conductivity Anisotropy
+     10                                                         Max # of realizations for k computations
+     100                                                        Number of realizations for sensitivity analysis
+     0.1                                                        Standard deviation in k for sensitivity analysis
+     0.6                                                        Min k cutoff for sensitivity analysis
+     1.5                                                        Max k cutoff for sensitivity analysis
+     0.05                                                       Mininum layer thickness for sensitivity analysis
+     1                                                          Horizontal thermal conductivity Anisotropy
      0.25                                                       Depth of first thermistor below weight stand ()
      3.5                                                        length of probe (m)
      0.15                                                       Manual offset: added to all final temperatures relative to bottom                                  

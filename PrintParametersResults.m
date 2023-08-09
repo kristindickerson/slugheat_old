@@ -35,7 +35,6 @@ function    PrintParametersResults(...
             kMin, ...
             kMax, ...
             MinThickness, ...
-            UseFrictional, ...
             kAnisotropy, ...
             TopSensorDepth, ...
             ResFileId)
@@ -72,7 +71,7 @@ function    PrintParametersResults(...
   fprintf(Id,'  b: %1.3f\n',HyndmanCoeffs(2));
   fprintf(Id,'  c: %1.3f\n',HyndmanCoeffs(3));
   fprintf(Id,'\n%s\n\n','Initial Frictional Delays (s):');
-  fprintf(Id,['  ' repmat('%1.1f  ',1,length(FrictionalDelays)) '\n'],FrictionalDelays);
+  fprintf(Id,['  ' repmat('%1.0f  ',1,length(FrictionalDelays)) '\n'],FrictionalDelays);
   fprintf(Id,'\n%s\t%d\n','Time Shift Increment (s):  ',TimeInc);
   fprintf(Id,'%s\t%d\n','Maximum Frictional Step:  ',FricMaxStep);
   fprintf(Id,'%s\t%1.1f\n','Minimum Frictional Tau:  ',FricTauMin);
@@ -90,25 +89,24 @@ function    PrintParametersResults(...
       fprintf(Id,['  ' repmat('%1.2f  ',1,length(kInit)) '\n'],kInit);
   end
   fprintf(Id,'\n%s\n\n','Initial Heat Pulse Delays (s):');
-  fprintf(Id,['  ' repmat('%1.1f  ',1,length(PulseDelays)) '\n'],PulseDelays);
+  fprintf(Id,['  ' repmat('%1.0f  ',1,length(PulseDelays)) '\n'],PulseDelays);
   fprintf(Id,'\n%s\t%1.1f\n','Time Shift Increment (s): ',TimeShiftInc);
   fprintf(Id,'%s\t%d\n','Maximum Heat Pulse Step:  ',PulseMaxStep);
   fprintf(Id,'%s\t%1.1f\n','Minimum Heat Pulse Tau:  ',PulseTauMin);
   fprintf(Id,'%s\t%1.1f\n','Maximum Heat Pulse Tau:  ',PulseTauMax);
   fprintf(Id,'%s\t%1.1f\n','Heat Pulse Power (J/m):  ',PulsePower);
-  fprintf(Id,'%s\t%1.1f\n','Heat Pulse Length (s):  ',HeatPulseLength);
+  fprintf(Id,'%s\t%1.0f\n','Heat Pulse Length (s):  ',HeatPulseLength);
   fprintf(Id,'%s\t%1.5f\n','Tolerance on k (degC):  ',kTolerance);
 
   %%% New parameters added by KD %%%
-  fprintf(Id,'%s\t%1.6f\n','Minimum change of Sigma(k):  ',MinTotalkChange);
-  fprintf(Id,'%s\t%1.1f\n','Maximum number of iterations for k computations:  ',MaxNumberOfIterations);
-  fprintf(Id,'%s\t%1.1f\n','Number of Iterations for Sensitivity analysis:  ',MaxSAIterations );
+  fprintf(Id,'%s\t%1.5f\n','Minimum change of Sigma(k):  ',MinTotalkChange);
+  fprintf(Id,'%s\t%1.0f\n','Maximum number of iterations for k computations:  ',MaxNumberOfIterations);
+  fprintf(Id,'%s\t%1.0f\n','Number of Iterations for Sensitivity analysis:  ',MaxSAIterations );
   fprintf(Id,'%s\t%1.1f\n','Standard deviation in thermal conductivity for Sensitivity analysis:  ',Sigmak0(1) );
   fprintf(Id,'%s\t%1.1f\n','Minimum thermal conductivity cutoff for Sensitivity analysis:  ',kMin(1));
   fprintf(Id,'%s\t%1.1f\n','Maximum thermal conductivity cutoff for Sensitivity analysis:  ',kMax(1));
-  fprintf(Id,'%s\t%1.1f\n','Mininum layer thickness for Sensitivity analysis:  ',MinThickness);
-  fprintf(Id,'%s\t%1.1f\n','Use Frictional decay for No Heat pulse Sensitivity analysis ?:  ',UseFrictional);
+  fprintf(Id,'%s\t%1.2f\n','Mininum layer thickness for Sensitivity analysis:  ',MinThickness);
   fprintf(Id,'%s\t%1.1f\n','Horizontal thermal conductivity Anisotropy:  ',kAnisotropy);
-  fprintf(Id,'%s\t%1.3f\n\n\n','Depth of first thermistor below weight stand:  ',TopSensorDepth); 
+  fprintf(Id,'%s\t%1.2f\n\n\n','Depth of first thermistor below weight stand:  ',TopSensorDepth); 
 
 

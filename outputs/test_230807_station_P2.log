@@ -6,7 +6,7 @@ Penetration Record: 7
 Heat Pulse Record:  28
 End of Data Record: 44
 
-08-Aug-2023 15:18:49 - End of raw data reading and preparation !
+08-Aug-2023 18:01:47 - End of raw data reading and preparation !
 ==========================================================================
 
 
@@ -15,7 +15,7 @@ TAP file test_230807_station_P2.tapread ...
 These sensors are IGNORED in processing: 10  11
 
 -------------------------------------------------------------------------------
-08-Aug-2023 15:19:17
+08-Aug-2023 18:02:17
  - Begin SlugHeat22 PROCESSING
 Split penetration and heat pulse data:
 There is a heat pulse record ...
