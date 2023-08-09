@@ -11,7 +11,7 @@
 --                                                                                              --
 --  RESULTS FILE: /Users/kristindickerson/01_repos/slugheat/outputs/test_230807_station_P2.res  --
 --                                                                                              --
---                               Processed: 08-Aug-2023 14:24:49                                --
+--                               Processed: 08-Aug-2023 15:17:40                                --
 --                                                                                              --
 --------------------------------------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ Inter-Sensor distance : 0.300 m
 
 =====================
 
-     TRIAL #2
+     TRIAL #1
 
 =====================
 
@@ -107,7 +107,7 @@ Depth of first thermistor below weight stand:  	0.250
 
 
             ------------------------------------------------------
-            FRICTIONAL AND HEAT PULSE DECAYS REDUCTION - TRIAL # 2
+            FRICTIONAL AND HEAT PULSE DECAYS REDUCTION - TRIAL # 1
             ------------------------------------------------------
 
 
@@ -126,9 +126,9 @@ Sensor  Data Points  Eq. temp.   Error   Gradient  Delay   Slope
    6      21 / 16      0.295    1.2e-03   148.893    -48   -0.002
    7      21 / 16      0.251    1.5e-03   155.976    -40   -0.016
    8      21 / 16      0.204    1.2e-03   164.480    -48   -0.002
-   9      21 / 16      0.154    9.6e-04     0.000    192   -0.135
+   9      21 / 16      0.155    9.6e-04     0.000    192   -0.135
 
-*********   08-Aug-2023 15:12:29 - End frictional decay reduction of Trial 2 !   *********
+*********   08-Aug-2023 15:19:39 - End frictional decay reduction of Trial 1 !   *********
  
 Heat Pulse Decay - Iteration 10
 ========================================================================
@@ -151,13 +151,13 @@ Sensor  Data Points Mean kPoint Error  Eq. Temp  Delay    kSlope     kPt@0Tinf  
 
 
 
-*********   08-Aug-2023 15:12:29 - End heat pulse decay reduction of Trial 2 !   *********
+*********   08-Aug-2023 15:19:39 - End heat pulse decay reduction of Trial 1 !   *********
 
 
 
 
                          ----------------------------
-                         BULLARD ANALYSIS - TRIAL # 2
+                         BULLARD ANALYSIS - TRIAL # 1
                          ----------------------------
 
 
@@ -182,8 +182,904 @@ Sensor  Depth     Equilibrium          Bottom Water    Equilibrium   Temp. Error
    6     1.969       0.295                  1.797             2.092          1.158e-03       0.876
    7     1.669       0.251                  1.797             2.048          1.458e-03       0.865
    8     1.369       0.204                  1.797             2.001          1.189e-03       1.069
-   9     1.069       0.154                  1.797             1.952          9.601e-04       1.869
+   9     1.069       0.155                  1.797             1.952          9.601e-04       1.869
 
-*********   08-Aug-2023 15:12:29 - End heat flow processing of Trial 2 !   *********
+*********   08-Aug-2023 15:19:39 - End heat flow processing of Trial 1 !   *********
 
 
+
+
+                           ------------------------
+                           SENSITIVITY ANALYSIS # 9
+                           ------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              0.750             Inf          25 
+   2           0.300              0.750             Inf          25 
+   3           0.300              0.750             Inf          25 
+   4           0.300              0.750             Inf          25 
+   5           0.300              0.750             Inf          25 
+   6           0.300              0.750             Inf          25 
+   7           0.300              0.750             Inf          25 
+   8           0.300              0.750             Inf          25 
+   9           0.300              0.750             Inf          25 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						164
+
+Mean heat flow (mW/m2):							155
+
+Minimum heat flow (mW/m2):						126
+
+Maximum heat flow (mW/m2):						196
+
+Final heat flow standard deviation (mW/m2):		12
+
+Avereage heat flow uncertainty (mW/m2):			0.004
+
+
+*********   08-Aug-2023 15:28:00 - End sensitivity analysis #  9 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 10
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              0.750             Inf          25 
+   2           0.300              0.750             Inf          25 
+   3           0.300              0.750             Inf          25 
+   4           0.300              0.750             Inf          25 
+   5           0.300              0.750             Inf          25 
+   6           0.300              0.750             Inf          25 
+   7           0.300              0.750             Inf          25 
+   8           0.300              0.750             Inf          25 
+   9           0.300              0.750             Inf          25 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						158
+
+Mean heat flow (mW/m2):							155
+
+Minimum heat flow (mW/m2):						123
+
+Maximum heat flow (mW/m2):						196
+
+Final heat flow standard deviation (mW/m2):		12
+
+Avereage heat flow uncertainty (mW/m2):			0.004
+
+
+*********   08-Aug-2023 15:32:13 - End sensitivity analysis #  10 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 11
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              0.750             Inf          25 
+   2           0.300              0.750             Inf          25 
+   3           0.300              0.750             Inf          25 
+   4           0.300              0.750             Inf          25 
+   5           0.300              0.750             Inf          25 
+   6           0.300              0.750             Inf          25 
+   7           0.300              0.750             Inf          25 
+   8           0.300              0.750             Inf          25 
+   9           0.300              0.750             Inf          25 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						166
+
+Mean heat flow (mW/m2):							155
+
+Minimum heat flow (mW/m2):						125
+
+Maximum heat flow (mW/m2):						200
+
+Final heat flow standard deviation (mW/m2):		12
+
+Avereage heat flow uncertainty (mW/m2):			0.004
+
+
+*********   08-Aug-2023 15:33:03 - End sensitivity analysis #  11 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 12
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              0.750             Inf          25 
+   2           0.300              0.750             Inf          25 
+   3           0.300              0.750             Inf          25 
+   4           0.300              0.750             Inf          25 
+   5           0.300              0.750             Inf          25 
+   6           0.300              0.750             Inf          25 
+   7           0.300              0.750             Inf          25 
+   8           0.300              0.750             Inf          25 
+   9           0.300              0.750             Inf          25 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						169
+
+Mean heat flow (mW/m2):							154
+
+Minimum heat flow (mW/m2):						123
+
+Maximum heat flow (mW/m2):						201
+
+Final heat flow standard deviation (mW/m2):		12
+
+Avereage heat flow uncertainty (mW/m2):			0.004
+
+
+*********   08-Aug-2023 15:33:41 - End sensitivity analysis #  12 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 17
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              0.750             Inf          25 
+   2           0.300              0.750             Inf          25 
+   3           0.300              0.750             Inf          25 
+   4           0.300              0.750             Inf          25 
+   5           0.300              0.750             Inf          25 
+   6           0.300              0.750             Inf          25 
+   7           0.300              0.750             Inf          25 
+   8           0.300              0.750             Inf          25 
+   9           0.300              0.750             Inf          25 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						157
+
+Mean heat flow (mW/m2):							156
+
+Minimum heat flow (mW/m2):						132
+
+Maximum heat flow (mW/m2):						198
+
+Final heat flow standard deviation (mW/m2):		11
+
+Avereage heat flow uncertainty (mW/m2):			0.004
+
+
+*********   08-Aug-2023 15:41:49 - End sensitivity analysis #  17 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 45
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              1.050           1.050           0 
+   3           0.300              0.968           0.968           0 
+   4           0.300              0.944           0.944           0 
+   5           0.300              0.947           0.947           0 
+   6           0.300              0.943           0.943           0 
+   7           0.300              0.876           0.876           0 
+   8           0.300              0.865           0.865           0 
+   9           0.300              1.069           1.069           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						141
+
+Mean heat flow (mW/m2):							140
+
+Minimum heat flow (mW/m2):						139
+
+Maximum heat flow (mW/m2):						142
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.001
+
+
+*********   08-Aug-2023 16:41:49 - End sensitivity analysis #  45 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 46
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              1.050           1.050           0 
+   3           0.300              0.968           0.968           0 
+   4           0.300              0.944           0.944           0 
+   5           0.300              0.947           0.947           0 
+   6           0.300              0.943           0.943           0 
+   7           0.300              0.876           0.876           0 
+   8           0.300              0.865           0.865           0 
+   9           0.300              1.069           1.069           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						140
+
+Mean heat flow (mW/m2):							140
+
+Minimum heat flow (mW/m2):						139
+
+Maximum heat flow (mW/m2):						142
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.001
+
+
+*********   08-Aug-2023 16:52:20 - End sensitivity analysis #  46 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 47
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              1.050           1.050           0 
+   3           0.300              0.968           0.968           0 
+   4           0.300              0.944           0.944           0 
+   5           0.300              0.947           0.947           0 
+   6           0.300              0.943           0.943           0 
+   7           0.300              0.876           0.876           0 
+   8           0.300              0.865           0.865           0 
+   9           0.300              1.069           1.069           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						139
+
+Mean heat flow (mW/m2):							140
+
+Minimum heat flow (mW/m2):						139
+
+Maximum heat flow (mW/m2):						142
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.001
+
+
+*********   08-Aug-2023 16:54:32 - End sensitivity analysis #  47 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 60
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              0.968           0.968           0 
+   3           0.300              0.944           0.944           0 
+   4           0.300              0.947           0.947           0 
+   5           0.300              0.943           0.943           0 
+   6           0.300              0.876           0.876           0 
+   7           0.300              0.865           0.865           0 
+   8           0.300              1.069           1.069           0 
+   9           0.300              1.869           1.869           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						141
+
+Mean heat flow (mW/m2):							141
+
+Minimum heat flow (mW/m2):						139
+
+Maximum heat flow (mW/m2):						145
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.003
+
+
+*********   08-Aug-2023 17:09:49 - End sensitivity analysis #  60 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 61
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              0.968           0.968           0 
+   3           0.300              0.944           0.944           0 
+   4           0.300              0.947           0.947           0 
+   5           0.300              0.943           0.943           0 
+   6           0.300              0.876           0.876           0 
+   7           0.300              0.865           0.865           0 
+   8           0.300              1.069           1.069           0 
+   9           0.300              1.869           1.869           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						142
+
+Mean heat flow (mW/m2):							141
+
+Minimum heat flow (mW/m2):						139
+
+Maximum heat flow (mW/m2):						145
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.003
+
+
+*********   08-Aug-2023 17:10:37 - End sensitivity analysis #  61 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 68
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              0.968           0.968           0 
+   3           0.300              0.944           0.944           0 
+   4           0.300              0.947           0.947           0 
+   5           0.300              0.943           0.943           0 
+   6           0.300              0.876           0.876           0 
+   7           0.300              0.865           0.865           0 
+   8           0.300              1.069           1.069           0 
+   9           0.300              1.869           1.869           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						143
+
+Mean heat flow (mW/m2):							141
+
+Minimum heat flow (mW/m2):						139
+
+Maximum heat flow (mW/m2):						145
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.003
+
+
+*********   08-Aug-2023 17:18:12 - End sensitivity analysis #  68 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 70
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              0.968           0.968           0 
+   3           0.300              0.944           0.944           0 
+   4           0.300              0.947           0.947           0 
+   5           0.300              0.943           0.943           0 
+   6           0.300              0.876           0.876           0 
+   7           0.300              0.865           0.865           0 
+   8           0.300              1.069           1.069           0 
+   9           0.300              1.869           1.869           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						143
+
+Mean heat flow (mW/m2):							141
+
+Minimum heat flow (mW/m2):						138
+
+Maximum heat flow (mW/m2):						144
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.003
+
+
+*********   08-Aug-2023 17:23:05 - End sensitivity analysis #  70 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 71
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              0.968           0.968           0 
+   3           0.300              0.944           0.944           0 
+   4           0.300              0.947           0.947           0 
+   5           0.300              0.943           0.943           0 
+   6           0.300              0.876           0.876           0 
+   7           0.300              0.865           0.865           0 
+   8           0.300              1.069           1.069           0 
+   9           0.300              1.869           1.869           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						141
+
+Mean heat flow (mW/m2):							141
+
+Minimum heat flow (mW/m2):						138
+
+Maximum heat flow (mW/m2):						144
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.003
+
+
+*********   08-Aug-2023 17:24:29 - End sensitivity analysis #  71 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 72
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.300              1.050           1.050           0 
+   2           0.300              0.968           0.968           0 
+   3           0.300              0.944           0.944           0 
+   4           0.300              0.947           0.947           0 
+   5           0.300              0.943           0.943           0 
+   6           0.300              0.876           0.876           0 
+   7           0.300              0.865           0.865           0 
+   8           0.300              1.069           1.069           0 
+   9           0.300              1.869           1.869           0 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						143
+
+Mean heat flow (mW/m2):							141
+
+Minimum heat flow (mW/m2):						138
+
+Maximum heat flow (mW/m2):						144
+
+Final heat flow standard deviation (mW/m2):		 1
+
+Avereage heat flow uncertainty (mW/m2):			0.003
+
+
+*********   08-Aug-2023 17:25:04 - End sensitivity analysis #  72 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 73
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.150              0.750           2.000          25 
+   2           0.150              0.750           2.000          25 
+   3           0.150              0.750           2.000          25 
+   4           0.150              0.750           2.000          25 
+   5           0.150              0.750           2.000          25 
+   6           0.150              0.750           2.000          25 
+   7           0.150              0.750           2.000          25 
+   8           0.150              0.750           2.000          25 
+   9           0.150              0.750           2.000          25 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						140
+
+Mean heat flow (mW/m2):							144
+
+Minimum heat flow (mW/m2):						127
+
+Maximum heat flow (mW/m2):						161
+
+Final heat flow standard deviation (mW/m2):		 7
+
+Avereage heat flow uncertainty (mW/m2):			0.003
+
+
+*********   08-Aug-2023 17:27:36 - End sensitivity analysis #  73 !   *********
+
+
+                           -------------------------
+                           SENSITIVITY ANALYSIS # 74
+                           -------------------------
+
+==========================================
+Input parameters for sensitivity analysis:
+==========================================
+
+Number Of Realizations:								100
+
+Minimum Layer Thickness (m):						0.05
+
+Horizontal Thermal Conductivity Anisotropy (%):		0
+
+Thermal Conductivity Distribution Type:				Uniform
+
+
+
+
+Thermal conductivity distribution parameters for each sensor:
+
+Sensor   Stan Dev in k (W/m°C)   Min k (W/m°C)   Max k (W/m°C)   # of Bins
+------   ---------------------   -------------   -------------   ---------
+
+   1           0.150              0.750           2.000          25 
+   2           0.150              0.750           2.000          25 
+   3           0.150              0.750           2.000          25 
+   4           0.150              0.750           2.000          25 
+   5           0.150              0.750           2.000          25 
+   6           0.150              0.750           2.000          25 
+   7           0.150              0.750           2.000          25 
+   8           0.150              0.750           2.000          25 
+   9           0.150              0.750           2.000          25 
+
+=================================
+Results for sensitivity analysis:
+=================================
+
+Initial heat flow (mW/m2):						141
+
+Final heat flow (mW/m2):						150
+
+Mean heat flow (mW/m2):							145
+
+Minimum heat flow (mW/m2):						130
+
+Maximum heat flow (mW/m2):						164
+
+Final heat flow standard deviation (mW/m2):		 6
+
+Avereage heat flow uncertainty (mW/m2):			0.003
+
+
+*********   08-Aug-2023 17:28:23 - End sensitivity analysis #  74 !   *********
