@@ -1,33 +1,16 @@
-Penetration file /Users/kristindickerson/repos/slugheat/inputs/test_230809_noCAL_noHP_P1.pen read ...
+TAP file not found ...
+TAP data read in PEN file: Tilt = 3.5 deg - Depth = -999.0 m ...
+
 Split penetration and heat pulse data:
 There is NO heat pulse record ...
 
 Penetration Record: 6
 Heat Pulse Record:  -999
-End of Data Record: 52
+End of Data Record: 57
 
-09-Aug-2023 13:01:44 - End of raw data reading and preparation !
+09-Aug-2023 15:20:52 - End of raw data reading and preparation !
 ==========================================================================
 
 
 TAP file test_230809_noCAL_noHP_P1.tapread ...
 
-Split penetration and heat pulse data:
-There is NO heat pulse record ...
-
-Penetration Record: 6
-Heat Pulse Record:  -999
-End of Data Record: 52
-
-09-Aug-2023 13:02:06 - End of raw data reading and preparation !
-==========================================================================
-
-
--------------------------------------------------------------------------------
-09-Aug-2023 13:02:12
- - Begin SlugHeat22 PROCESSING
-Split penetration and heat pulse data:
-There is NO heat pulse record ...
-
--------------------------------------------------------------------------------
-Penetration End record number has been manually changed by user. New penetration end: 
