@@ -1,45 +1,30 @@
-Penetration file /Users/kristindickerson/01_repos/slugheat/inputs/test_230809_noCAL_noHP_P1.pen read ...
+Penetration file /Users/kristindickerson/repos/slugheat/inputs/test_230809_noCAL_noHP_P1.pen read ...
 Split penetration and heat pulse data:
 There is NO heat pulse record ...
 
--------------------------------------------------------------------------------
-Penetration End record number has been manually changed by user. New penetration end: 409-Aug-2023 09:26:34 - End of raw data reading and preparation !
+Penetration Record: 6
+Heat Pulse Record:  -999
+End of Data Record: 52
+
+09-Aug-2023 13:01:44 - End of raw data reading and preparation !
 ==========================================================================
 
 
 TAP file test_230809_noCAL_noHP_P1.tapread ...
 
--------------------------------------------------------------------------------
-09-Aug-2023 09:28:18
- - Begin SlugHeat22 PROCESSING
 Split penetration and heat pulse data:
 There is NO heat pulse record ...
 
--------------------------------------------------------------------------------
-Penetration End record number has been manually changed by user. New penetration end: 4-------------------------------------------------------------------------------
-09-Aug-2023 09:29:18
- - Begin SlugHeat22 PROCESSING
-Split penetration and heat pulse data:
-There is NO heat pulse record ...
+Penetration Record: 6
+Heat Pulse Record:  -999
+End of Data Record: 52
 
--------------------------------------------------------------------------------
-Penetration End record number has been manually changed by user. New penetration end: 4Split penetration and heat pulse data:
-There is NO heat pulse record ...
-
--------------------------------------------------------------------------------
-Penetration End record number has been manually changed by user. New penetration end: 409-Aug-2023 09:29:37 - End of raw data reading and preparation !
+09-Aug-2023 13:02:06 - End of raw data reading and preparation !
 ==========================================================================
 
 
 -------------------------------------------------------------------------------
-09-Aug-2023 09:29:40
- - Begin SlugHeat22 PROCESSING
-Split penetration and heat pulse data:
-There is NO heat pulse record ...
-
--------------------------------------------------------------------------------
-Penetration End record number has been manually changed by user. New penetration end: 4-------------------------------------------------------------------------------
-09-Aug-2023 09:30:13
+09-Aug-2023 13:02:12
  - Begin SlugHeat22 PROCESSING
 Split penetration and heat pulse data:
 There is NO heat pulse record ...
