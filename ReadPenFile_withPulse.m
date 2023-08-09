@@ -85,10 +85,17 @@ PrintStatus(ProgramLogId, '-- Reading in penetatration file',2)
         MeanCalibTemps        = MeanCalibTemps(:, MeanCalibTemps~=-999);
     end
     
+
     % Remove these sensors from number of sensors
     [~,NumSensTot]   = size(AllSensorsRawData);
-    [~,NumWaterSens] = size(WaterSensorRawData);
     
+    if ~all(WaterSensorRawData==-999)
+        [~,NumWaterSens] = size(WaterSensorRawData);
+    else
+        NumWaterSens=0;
+    end
+    
+    % Set number of sensors
     NumberOfSensors = NumSensTot-NumWaterSens;
 
 %% Tell user if no calibration period was selected
