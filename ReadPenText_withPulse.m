@@ -59,20 +59,16 @@ function    [StationName, ...
     PulsePower = round(PulsePower);
     PenetrationRecord = fscanf(fid,'%d',1);
     HeatPulseRecord = fscanf(fid,'%d',1);
-    
-    % ADDED EQM START AND END RECORDS
-   % EqmStartRecord  = fscanf(fid,'%d',1);
-   % EqmEndRecord    = fscanf(fid,'%d',1);
    
 %% MEAN CALIBRATION TEMP DATA 
     Format = repmat('%f ',1,NumberOfSensors);
     MeanCalibTemps = fscanf(fid,Format, ...
-        NumberOfSensors)';
+        NumberOfSensors+1)';
 
 %% CALIBRATION TEMP DATA (if all calibration temps are recorded, not just the mean)
     Format = repmat('%f ',1,NumberOfSensors);
     line = fgetl(fid);
-    line = fgetl(fid);
+    %line = fgetl(fid);
     %linescan = textscan(line, ['%*s %f' Format]);
     i=1;
     CalibTemps=cell(500,NumberOfSensors);
@@ -125,13 +121,19 @@ function    [StationName, ...
 
     % Remove these sensors from number of sensors
     [~,NumSensTot]   = size(AllSensorsRawData);
-    [~,NumWaterSens] = size(WaterSensorRawData);
     
+    if ~all(WaterSensorRawData==-999)
+        [~,NumWaterSens] = size(WaterSensorRawData);
+    else
+        NumWaterSens=0;
+    end
+    
+    % Set number of sensors
     NumberOfSensors = NumSensTot-NumWaterSens;
 
 %% Tell user if no calibration period was selected
     if all(MeanCalibTemps==-999)
-        uialert(figure_Main, ['\bf No calibration period was selected ' newline newline ...
+        uialert(figure_Main, ['\bf No calibration period' newline newline ...
        'Temperature sensors will not be calibrated unless a ' ...
        'calibration period is chosen in SlugPen or mean calibration ' ...
        'temperatures for each sensor are manually input in ' ...
