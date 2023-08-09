@@ -1,14 +1,14 @@
 ----------------------------------------------
 ----------------------------------------------
-SlugHeat22 start time: 09-Aug-2023 13:35:11
+SlugHeat22 start time: 09-Aug-2023 13:54:17
 ----------------------------------------------
 ----------------------------------------------
 
-09-Aug-2023 13:35:11 Processing set up and data preparation
+09-Aug-2023 13:54:17 Processing set up and data preparation
 ==================================================================================================
 
  -- Finding parameter file...
-Parameter file: /Users/kristindickerson/repos/slugheat/SlugHeat22.par
+Parameter file: /Users/kristindickerson/01_repos/slugheat/SlugHeat22.par
 
 -- Reading in parameters from parameters file
 
@@ -19,13 +19,13 @@ Parameter file: /Users/kristindickerson/repos/slugheat/SlugHeat22.par
 -- Resetting penetration information
 
  -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
 
  -- Finding tap file from SlugPen...
-TAP file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
 
  -- Finding mat file from SlugPen...
-MAT file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
 
  -- Reading in parameters from parameter file...
 -- Reading in parameters from parameters file
@@ -35,13 +35,13 @@ MAT file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/
 -- Resetting penetration information
 
  -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
 
  -- Finding tap file from SlugPen...
-TAP file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
 
  -- Finding mat file from SlugPen...
-MAT file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
 
  -- Reading in parameters from parameter file...
 -- Reading in parameters from parameters file
@@ -51,12 +51,156 @@ MAT file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/
 -- Resetting penetration information
 
  -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
 
  -- Finding tap file from SlugPen...
-TAP file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
 
  -- Finding mat file from SlugPen...
-MAT file: /Users/kristindickerson/repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
 
  -- Reading in parameters from parameter file...
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in TAP file
+
+-- Splitting penetration and heat pulse data
+
+-- Plotting unprocessed penetration data on "Penetration Data" tab
+
+-- Reading in TAP file
+
+-- Reading in parameters from parameters file
+
+-- Resetting SlugHeat: clearing all...
+
+-- Resetting penetration information
+
+ -- Finding penetration file from SlugPen...
+Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.pen
+
+ -- Finding tap file from SlugPen...
+TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.tap
+
+ -- Finding mat file from SlugPen...
+MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/test_230807_noCAL_P1.mat
+
+ -- Reading in parameters from parameter file...
+-- Reading in TAP file
+
+-- Splitting penetration and heat pulse data
+
+-- Plotting unprocessed penetration data on "Penetration Data" tab
+
+-- Reading in TAP file
+

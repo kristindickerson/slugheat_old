@@ -66,16 +66,14 @@ function    [StationName, ...
    
 %% MEAN CALIBRATION TEMP DATA 
     Format = repmat('%f ',1,NumberOfSensors);
-    Format = [Format '%f'];
     MeanCalibTemps = fscanf(fid,Format, ...
-        NumberOfSensors+1)';
+        NumberOfSensors)';
 
 %% CALIBRATION TEMP DATA (if all calibration temps are recorded, not just the mean)
-dbstop
     Format = repmat('%f ',1,NumberOfSensors);
     line = fgetl(fid);
     line = fgetl(fid);
-    linescan = textscan(line, ['%*s %f' Format]);
+    %linescan = textscan(line, ['%*s %f' Format]);
     i=1;
     CalibTemps=cell(500,NumberOfSensors);
     CalibTemps(cellfun(@isempty,CalibTemps)) = {NaN};

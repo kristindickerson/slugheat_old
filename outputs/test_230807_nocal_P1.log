@@ -1,0 +1,21 @@
+TAP file test_230807_noCAL_P1.tap read ...
+
+Applying tilt correction ...
+Mean tilt is now :      3.6 degrees.
+Inter-Sensor distance : 0.299 m.
+
+TAP file test_230807_noCAL_P1.tapread ...
+
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  33
+End of Data Record: 65
+
+09-Aug-2023 14:15:17 - End of raw data reading and preparation !
+==========================================================================
+
+
+TAP file test_230807_noCAL_P1.tapread ...
+
