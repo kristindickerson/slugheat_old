@@ -1,7 +1,8 @@
 %%% ======================================================================
-%   Purpose: 
-%   This function PRINTS header of RES file. LOG file to be added later by
-%   KD if desired
+%%   Purpose: 
+%       This function PRINTS header of RES file
+%%   Last edit:
+%       08/08/2023 by Kristin Dickerson, UCSC
 %%% ======================================================================
 
 function    PrintHeaderResults(Version, Update, ...
@@ -42,14 +43,14 @@ function    PrintHeaderResults(Version, Update, ...
 	tl2 = fix((l-l2-4)/2);
 	tr2 = l-tl2-l2-4;
 	
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) repmat('=',1,NC-3)]);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) repmat('=',1,NC-3)]);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) '===' repmat(' ',1,NC-10) '===']);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) '===           SlugHeat  -  Version: ' Version ...
-	        '  -  Update: ' Update '                 ===']);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) '===' repmat(' ',1,NC-10) '===']);
-	fprintf(Id,'%s\n',[repmat(' ',1,tl2/2) repmat('=',1,NC-3)]);
-	fprintf(Id,'%s\n\n\n',[repmat(' ',1,tl2/2) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,11) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,11) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n',[repmat(' ',1,11) '===' repmat(' ',1,NC-9) '===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,11) '===           SlugHeat  -  Version: ' Version ...
+	        '  -  Update: ' Update '                  ===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,11) '===' repmat(' ',1,NC-9) '===']);
+	fprintf(Id,'%s\n',[repmat(' ',1,11) repmat('=',1,NC-3)]);
+	fprintf(Id,'%s\n\n\n',[repmat(' ',1,11) repmat('=',1,NC-3)]);
 	
 	
 	fprintf(Id,'%s\n',[repmat(' ',1,x0) repmat('-',1,l)]);
@@ -84,14 +85,9 @@ function    PrintHeaderResults(Version, Update, ...
         PrintStatus(LogFileId,'Mean Tilt too high: No Tilt correction applied !',2);
         PrintStatus(ResFileId,'Mean Tilt too high: No Tilt correction applied !',2);
     else
-        SensorDistance = SensorDistance * cos(mean(Tilt,'omitnan')*pi/180);
-        PrintStatus(LogFileId,'Applying tilt correction ...',1);
-        PrintStatus(LogFileId,['Mean tilt is now :      ' num2str(mean(Tilt),'%1.1f') ' degrees.'],1); 
-        PrintStatus(LogFileId,['Inter-Sensor distance : ' num2str(SensorDistance,'%1.3f') ' m.'],2);
-
         PrintStatus(ResFileId,'Applying tilt correction ...',1);
-        PrintStatus(ResFileId,['Mean tilt is now :      ' num2str(mean(Tilt),'%1.1f') ' degrees.'],1); 
-        PrintStatus(ResFileId,['Inter-Sensor distance : ' num2str(SensorDistance,'%1.3f') ' m.'],2);
+        PrintStatus(ResFileId,['Mean tilt is now :      ' num2str(mean(Tilt),'%1.1f') ' °'],1); 
+        PrintStatus(ResFileId,['Inter-Sensor distance : ' num2str(SensorDistance,'%1.3f') ' m'],2);
     end   
 
     if exist([TAPName '.tap'],'file')
@@ -100,8 +96,8 @@ function    PrintHeaderResults(Version, Update, ...
             PrintStatus(ResFileId,'Mean Tilt too high: No Tilt correction applied !',2);
         else
             PrintStatus(ResFileId,'Applying tilt correction ...',1);
-            PrintStatus(ResFileId,['Mean tilt is now :      ' num2str(mean(Tilt),'%1.1f') ' degrees.'],1); 
-            PrintStatus(ResFileId,['Inter-Sensor distance : ' num2str(SensorDistance,'%1.3f') ' m.'],2);
+            PrintStatus(ResFileId,['Mean tilt is now :      ' num2str(mean(Tilt),'%1.1f') ' °'],1); 
+            PrintStatus(ResFileId,['Inter-Sensor distance : ' num2str(SensorDistance,'%1.3f') ' m'],2);
         end
    end
 	

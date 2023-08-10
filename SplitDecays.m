@@ -27,7 +27,7 @@ function [FricTime, ...
 <<<<<<< Updated upstream
 % Define if there a heat pulse during this penetration
 % ------------------------------------------------------
-if ~HeatPulseRecord 
+if HeatPulseRecord==-999 
     PulseData = 0;
     EndFricRecord = EndRecord;
 else

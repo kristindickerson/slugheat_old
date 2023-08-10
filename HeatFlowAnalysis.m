@@ -1,6 +1,8 @@
 %%% ======================================================================
-%   Purpose: 
+%%   Purpose: 
 %       This function computes heat flow using the Bullard method
+%%   Last edit:
+%       08/09/2023 by Kristin Dickerson, UCSC
 %%% ======================================================================
 
 function   [ ...
@@ -53,13 +55,18 @@ function   [ ...
     % =========================
     % ORIGINAL ERROR ASSESSMENT
 
-        [pz, Sz] = polyfit(MinimumFricEqTemp(TToUse),RelativeDepths(TToUse),1);
-        % pz returns a vector of coefficients for a polynomial with 1 degree 
-        % y = mx + b
-            % y = relative depths
-            % x = equilibrium temperatures
-            % m = pz(1) = slope of linear best fit line
-            % b = pz(2) = y intercept of the linear best fit line
+        [pz, ~] = polyfit(MinimumFricEqTemp(TToUse),RelativeDepths(TToUse),1);
+        
+        %% NOTE:
+        %% ================================================================
+            % pz returns a vector of coefficients for a polynomial with 
+            % 1 degree 
+            % y = mx + b
+                % y = relative depths
+                % x = equilibrium temperatures
+                % m = pz(1) = slope of linear best fit line
+                % b = pz(2) = y intercept of the linear best fit line
+         %% ===============================================================
     
         Shift(1) = -pz(2);
         Slope(1) = pz(1);
@@ -109,7 +116,7 @@ function   [ ...
     % originally ignored because their conductivities were ignored in the
     % Cumulative Thermal Resistance calculation.)
     
-    [CTRToUse, GoodTIndex, GoodkIndex] = intersect(TToUse,kToUse);
+    [CTRToUse, ~, GoodkIndex] = intersect(TToUse,kToUse);
     SensorsUsedForBullardFit = CTRToUse;
 
 
@@ -137,7 +144,7 @@ function   [ ...
     % =========================
     % BP 2017 ERROR ASSESSMENT
         
-        [ShiftCTR,SlopeCTR,ShiftCTRErr,SlopeCTRErr,SigmaR_BP]=ChiSquaredFit(MinimumFricEqTemp(CTRToUse)',CTR(CTRToUse)); % BP
+        [ShiftCTR,SlopeCTR,ShiftCTRErr,SlopeCTRErr,~]=ChiSquaredFit(MinimumFricEqTemp(CTRToUse)',CTR(CTRToUse)); % BP
         ShiftCTR=-ShiftCTR; % BP
 
     % BP 2017 ERROR ASSESSMENT
@@ -172,3 +179,6 @@ function   [ ...
     HFShift = ShiftCTR;
     HFShiftErr=mean([abs((ShiftCTR)-((ShiftCTR+ShiftCTRErr))),...
             abs((ShiftCTR)-((ShiftCTR-ShiftCTRErr)))]); % BP
+
+
+    
