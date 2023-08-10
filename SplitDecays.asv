@@ -24,53 +24,11 @@ function [FricTime, ...
             HeatPulseChanged, PenEndChanged, ProgramLogId, ...
             NumberOfColumns)
 
-<<<<<<< Updated upstream
-% Define if there a heat pulse during this penetration
-% ------------------------------------------------------
-if HeatPulseRecord==-999 
-    PulseData = 0;
-    EndFricRecord = EndRecord;
-else
-    PulseData = 1;
-    EndFricRecord = HeatPulseRecord-1;
-end
-
-% Define frictional decay record numbers, time, and temperatures
-% ----------------------------------------------------------------
-ind1 = find(AllRecords==PenetrationRecord);
-ind2 = find(AllRecords==EndFricRecord);
-Fric0 = AllRecords(ind1:ind2);
-FricTime = TimeScalingFactor*(Fric0-Fric0(1));
-FricTemp = AllSensorsTemp(ind1:ind2,:);
-
-% If there is a heat pulse, define heat pulse decay record numbers, 
-% time, and temperatures
-% ----------------------------------------------------------------
-if PulseData
-    ind1 = find(AllRecords==HeatPulseRecord);
-    ind2 = find(AllRecords==EndRecord);
-    PulseTime = AllRecords(ind1:ind2);
-    PulseTime = TimeScalingFactor*(PulseTime-Fric0(1));
-    PulseTemp = AllSensorsTemp(ind1:ind2,:);
-else
-    PulseTime = [];
-    PulseTemp = [];
-end
-
-
-% Update LOG files
-% ----------------------------------------------------------------
-PrintStatus(LogFileId,'Split penetration and heat pulse data:',1);
-    
-    if PulseData
-        PrintStatus(LogFileId,'There is a heat pulse record ...',2);
-=======
     % Define if there a heat pulse during this penetration
     % ------------------------------------------------------
     if HeatPulseRecord==-999 
         PulseData = 0;
         EndFricRecord = EndRecord;
->>>>>>> Stashed changes
     else
         PulseData = 1;
         EndFricRecord = HeatPulseRecord-1;
