@@ -1,8 +1,10 @@
 %%% ======================================================================
-%   Purpose: 
+%%  Purpose: 
 %       This function computes thermal conductivities for each sensor
 %       iteratively from the thermal response following the calibrated heat
 %       pulse 
+%%  Last edit:
+%       08/11/2023 by Kristin Dickerson, UCSC
 %%% ======================================================================
 
 function [ ...
@@ -42,7 +44,8 @@ function [ ...
                 PulseTauMin, ...
                 PulseTauMax, ...
                 PulsePower, ...
-                HeatPulseLength)  
+                HeatPulseLength, ...
+                NumberOfSensors)  
 
     % ====================================== %
     %               COMPUTE                  %
@@ -186,15 +189,15 @@ function [ ...
     % Find the k's corresponding to the minimum RMS or to Zero asymptotic temperature
     % -------------------------------------------------------------------------------
     
-    kError = NaN*zeros(NumberOfSensorsUsed,1);
-    kSlopeAtMinkDiff = NaN*zeros(NumberOfSensorsUsed,1);
-    MeankPointAtMinkDiff = NaN*zeros(NumberOfSensorsUsed,1);
-    MeankPointAtZeroInfTemp = NaN*zeros(NumberOfSensorsUsed,1);
-    kSlopeAtZeroInfTemp = NaN*zeros(NumberOfSensorsUsed,1);
-    kSlopeAtMinRMS = NaN*zeros(NumberOfSensorsUsed,1);
-    MeankPointAtMinRMS = NaN*zeros(NumberOfSensorsUsed,1);
-    MinimumPulseDelays = NaN*zeros(NumberOfSensorsUsed,1);
-    TempAtInf = NaN*zeros(NumberOfSensorsUsed,1);
+    kError = NaN*zeros(NumberOfSensors,1);
+    kSlopeAtMinkDiff = NaN*zeros(NumberOfSensors,1);
+    MeankPointAtMinkDiff = NaN*zeros(NumberOfSensors,1);
+    MeankPointAtZeroInfTemp = NaN*zeros(NumberOfSensors,1);
+    kSlopeAtZeroInfTemp = NaN*zeros(NumberOfSensors,1);
+    kSlopeAtMinRMS = NaN*zeros(NumberOfSensors,1);
+    MeankPointAtMinRMS = NaN*zeros(NumberOfSensors,1);
+    MinimumPulseDelays = NaN*zeros(NumberOfSensors,1);
+    TempAtInf = NaN*zeros(NumberOfSensors,1);
     
     kDiff = abs(kSlope-repmat(Currentk(SensorsToUse)',[1 PulseMaxStep]));
     kTypeDiff = abs(kSlope-kPointMean);

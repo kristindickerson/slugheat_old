@@ -1,0 +1,90 @@
+Penetration file /Users/kristindickerson/USE_THESE/slugheat/inputs/test_230811_nocal_P1.pen read ...
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  29
+End of Data Record: 53
+
+11-Aug-2023 11:30:07 - End of raw data reading and preparation !
+==========================================================================
+
+
+TAP file test_230811_nocal_P1.tapread ...
+
+These sensors are IGNORED in processing: 6   7   8   9  10
+
+-------------------------------------------------------------------------------
+11-Aug-2023 11:31:22
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  29
+End of Data Record: 53
+
+These sensors are IGNORED in processing: 5   6   7   8   9  10
+
+-------------------------------------------------------------------------------
+11-Aug-2023 11:31:51
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  29
+End of Data Record: 53
+
+-------------------------------------------------------------------------------
+11-Aug-2023 11:32:23
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  29
+End of Data Record: 53
+
+-------------------------------------------------------------------------------
+11-Aug-2023 11:33:44
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  29
+End of Data Record: 53
+
+-------------------------------------------------------------------------------
+11-Aug-2023 11:34:00
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  29
+End of Data Record: 53
+
+-------------------------------------------------------------------------------
+11-Aug-2023 11:35:17
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  29
+End of Data Record: 53
+
+These sensors are IGNORED in processing: 4   5   6   7   8   9  10
+
+-------------------------------------------------------------------------------
+11-Aug-2023 11:40:20
+ - Begin SlugHeat22 PROCESSING
+Split penetration and heat pulse data:
+There is a heat pulse record ...
+
+Penetration Record: 7
+Heat Pulse Record:  29
+End of Data Record: 53
+

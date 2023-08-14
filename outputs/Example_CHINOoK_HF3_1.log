@@ -1,4 +1,4 @@
-Penetration file /Users/kristindickerson/repos/slugheat/inputs/Example_CHINOoK_HF3_1.pen read ...
+Penetration file /Users/kristindickerson/USE_THESE/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.pen read ...
 Split penetration and heat pulse data:
 There is a heat pulse record ...
 
@@ -6,14 +6,14 @@ Penetration Record: 7
 Heat Pulse Record:  29
 End of Data Record: 58
 
-09-Aug-2023 16:03:05 - End of raw data reading and preparation !
+11-Aug-2023 14:33:54 - End of raw data reading and preparation !
 ==========================================================================
 
 
 TAP file Example_CHINOoK_HF3_1.tapread ...
 
 -------------------------------------------------------------------------------
-09-Aug-2023 16:03:35
+11-Aug-2023 14:34:30
  - Begin SlugHeat22 PROCESSING
 Split penetration and heat pulse data:
 There is a heat pulse record ...
@@ -23,7 +23,7 @@ Heat Pulse Record:  29
 End of Data Record: 58
 
 -------------------------------------------------------------------------------
-09-Aug-2023 16:08:17
+11-Aug-2023 16:07:44
  - Begin SlugHeat22 PROCESSING
 Split penetration and heat pulse data:
 There is a heat pulse record ...
