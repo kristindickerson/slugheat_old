@@ -1,8 +1,10 @@
 
 %%% ======================================================================
-%   Purpose: 
-%   This function PLOTS results of the heat pulse decay reduction used to
-%   calculate in situ thermal conductivity values.
+%%  Purpose: 
+%       This function PLOTS results of the heat pulse decay reduction used to
+%       calculate in situ thermal conductivity values.
+%%  Last edit:
+%       08/11/2023 by Kristin Dickerson, UCSC
 %%% ======================================================================
 
 function [h_axHPTempvTime, ...

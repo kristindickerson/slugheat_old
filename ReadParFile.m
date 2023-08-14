@@ -4,7 +4,6 @@
 %       -- Parameter (.par) file defines the default parameters to run the 
 %          program. User can edit the text file or manually change
 %          parameters in SlugHeat GUI.
-%
 %%   Last edit:
 %       08/08/2023 by Kristin Dickerson, UCSC
 %%% ====================================================================================

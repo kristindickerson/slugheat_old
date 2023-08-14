@@ -26,8 +26,8 @@ Params|Description
 0.002| k tolerance
 1.6| pulse min tau value
 10| pulse max tau value
-1e-05| convergence criteria - minimum change of Sigma(k)
-10| max # of iterations for k
+0.0001| convergence criteria - minimum change of Sigma(k)
+30| max # of iterations for k
 100| number of iterations for sensitivity analysis
 0.1| standard deviation in k for sensitivity analysis
 0.6| min k cutoff for sensitivity analysis
