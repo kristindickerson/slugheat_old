@@ -1,6 +1,6 @@
      11                                                         no of sensors (excluding water T)
      1                                                          water temperature thermistor? 1:Y 0:N
-     10.                                                        time scaling factor (sec/unit)
+     20.                                                        time scaling factor (sec/unit)
      0.0                                                        time between thermistor readings (s)
      0.00476                                                    radius of the sensor (m)
      0.3000                                                     distance between sensors (m)
@@ -20,7 +20,7 @@
      10. 1.                                                     initial time shift & increment
      50 0.002                                                   heat pulse max step.   k-tolerance
      1.6  10.                                                   min. and max. tau-values (pulse decay)
-     0.00001                                                    Minimum change of Sigma(k) %% Added by KD %%%%%%%%%%%%%%%%%%%%%%
+     0.0001                                                     Minimum change of Sigma(k) %% Added by KD %%%%%%%%%%%%%%%%%%%%%%
      10                                                         Max # of realizations for k computations
      100                                                        Number of realizations for sensitivity analysis
      0.1                                                        Standard deviation in k for sensitivity analysis

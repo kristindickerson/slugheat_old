@@ -1,8 +1,10 @@
 %%% ======================================================================
-%   Purpose: 
+%%  Purpose: 
 %       This function computes thermal conductivities for each sensor
 %       iteratively from the thermal response following the calibrated heat
 %       pulse 
+%%  Last edit:
+%       08/11/2023 by Kristin Dickerson, UCSC
 %%% ======================================================================
 
 function [ ...
