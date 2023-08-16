@@ -75,7 +75,6 @@ if LowestK < 0
         'pulse) may be incorrect. If so, must adjust the timing of these ' ...
         'events in the command window and reprocess.' newline newline],'ERROR!', 'Icon', ...
         'warning', 'Interpreter','tex')
-    pause;
     clc;
     clf reset;
     close all hidden;
@@ -128,7 +127,6 @@ catch
         'pulse) may be incorrect. If so, must adjust the timing of these ' ...
         'events in the command window and reprocess.' newline newline],'ERROR!', 'Icon', ...
         'warning', 'Interpreter','tex')
-    pause;
     clc;
     clf reset;
     close all hidden;

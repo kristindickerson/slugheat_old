@@ -20,14 +20,14 @@
      10. 1.                                                     initial time shift & increment
      50 0.002                                                   heat pulse max step.   k-tolerance
      1.6  10.                                                   min. and max. tau-values (pulse decay)
-     0.0001                                                     Minimum change of Sigma(k) %% Added by KD %%%%%%%%%%%%%%%%%%%%%%
-     10                                                         Max # of realizations for k computations
-     100                                                        Number of realizations for sensitivity analysis
-     0.1                                                        Standard deviation in k for sensitivity analysis
-     0.6                                                        Min k cutoff for sensitivity analysis
-     1.5                                                        Max k cutoff for sensitivity analysis
-     0.05                                                       Mininum layer thickness for sensitivity analysis
-     1                                                          Horizontal thermal conductivity Anisotropy
-     0.25                                                       Depth of first thermistor below weight stand ()
-     3.5                                                        length of probe (m)
-     0.15                                                       Manual offset: added to all final temperatures relative to bottom                                  
+     0.0001                                                     Minimum change of Sigma(k) %% Added by KD 
+     10                                                         Max # of realizations for k computations %%
+     100                                                        Number of realizations for sensitivity analysis %%
+     0.1                                                        Standard deviation in k for sensitivity analysis %%
+     0.6                                                        Min k cutoff for sensitivity analysis %%
+     1.5                                                        Max k cutoff for sensitivity analysis %%
+     0.05                                                       Mininum layer thickness for sensitivity analysis %%
+     1                                                          Horizontal thermal conductivity Anisotropy %%
+     0.25                                                       Depth of first thermistor below weight stand () %%
+     3.5                                                        length of probe (m) %%
+     0.15                                                       Manual offset: added to all final temperatures relative to bottom %%

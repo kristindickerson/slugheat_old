@@ -6,31 +6,9 @@ Penetration Record: 6
 Heat Pulse Record:  -999
 End of Data Record: 52
 
-11-Aug-2023 08:40:23 - End of raw data reading and preparation !
+14-Aug-2023 16:41:50 - End of raw data reading and preparation !
 ==========================================================================
 
 
 TAP file test_230809_noCAL_noHP_P1.tapread ...
 
--------------------------------------------------------------------------------
-11-Aug-2023 08:40:36
- - Begin SlugHeat22 PROCESSING
-Split penetration and heat pulse data:
-There is NO heat pulse record ...
-
-Penetration Record: 6
-Heat Pulse Record:  -999
-End of Data Record: 52
-
-11-Aug-2023 08:42:06 - End of raw data reading and preparation !
-==========================================================================
-
-
--------------------------------------------------------------------------------
-11-Aug-2023 08:42:21
- - Begin SlugHeat22 PROCESSING
-Split penetration and heat pulse data:
-There is NO heat pulse record ...
-
--------------------------------------------------------------------------------
-Penetration End record number has been manually changed by user. New penetration end: 

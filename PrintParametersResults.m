@@ -2,7 +2,7 @@
 %%   Purpose: 
 %       This function PRINTS parameters of RES file
 %%   Last edit:
-%       08/08/2023 by Kristin Dickerson, UCSC
+%       08/15/2023 by Kristin Dickerson, UCSC
 %%% ======================================================================
 
 function    PrintParametersResults(...
@@ -58,9 +58,10 @@ function    PrintParametersResults(...
            repmat('-',1,length(String))]);
 
   fprintf(Id,'%s\t\t%02d\n','Number Of Sensors:',NumberOfSensors);
-  fprintf(Id,'%s\t%1.1f\n','Time Scaling Factor (s):',TimeScalingFactor);
   fprintf(Id,'%s\t\t%1.2e\n','Sensor Radius (m):',SensorRadius);
   fprintf(Id,'%s\t%1.2f\n','Inter-sensor spacing (m):',SensorDistance);
+    fprintf(Id,'%s\t%1.2f\n\n','Depth of first thermistor below weight stand:  ',TopSensorDepth);
+  fprintf(Id,'%s\t%1.1f\n','Time Scaling Factor (sec/record number):',TimeScalingFactor);
   fprintf(Id,'\n%s\n\n','Calibration Coefficients ( T = 1000*[a.x^2 + b.x + c] degC ):');
   Dim = size(CalibrationCoeffs);
   fprintf(Id,['  a: ' repmat('%1.1f  ',1,Dim(2)) '\n'],CalibrationCoeffs(1,:));
@@ -98,15 +99,24 @@ function    PrintParametersResults(...
   fprintf(Id,'%s\t%1.0f\n','Heat Pulse Length (s):  ',HeatPulseLength);
   fprintf(Id,'%s\t%1.5f\n','Tolerance on k (degC):  ',kTolerance);
 
-  %%% New parameters added by KD %%%
-  fprintf(Id,'%s\t%1.5f\n','Minimum change of Sigma(k):  ',MinTotalkChange);
+%% New parameters added by KD %%%
+  fprintf(Id,'%s\t%1.5f\n','Convergence criteria: minimum change in k between iterations for all sensors (W/m°C):  ',MinTotalkChange);
   fprintf(Id,'%s\t%1.0f\n','Maximum number of iterations for k computations:  ',MaxNumberOfIterations);
-  fprintf(Id,'%s\t%1.0f\n','Number of Iterations for Sensitivity analysis:  ',MaxSAIterations );
-  fprintf(Id,'%s\t%1.1f\n','Standard deviation in thermal conductivity for Sensitivity analysis:  ',Sigmak0(1) );
-  fprintf(Id,'%s\t%1.1f\n','Minimum thermal conductivity cutoff for Sensitivity analysis:  ',kMin(1));
-  fprintf(Id,'%s\t%1.1f\n','Maximum thermal conductivity cutoff for Sensitivity analysis:  ',kMax(1));
-  fprintf(Id,'%s\t%1.2f\n','Mininum layer thickness for Sensitivity analysis:  ',MinThickness);
-  fprintf(Id,'%s\t%1.1f\n','Horizontal thermal conductivity Anisotropy:  ',kAnisotropy);
-  fprintf(Id,'%s\t%1.2f\n\n\n','Depth of first thermistor below weight stand:  ',TopSensorDepth); 
+
+  % Sensitivity analysis parameters
+
+    String = 'INITIAL DEFAULT SENSITIVITY ANALYSIS INPUT PARAMETERS:';
+  fprintf(Id,'\n%s\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+           repmat('-',1,length(String))]);
+  fprintf(Id,'%s\n',[repmat(' ',1,fix((NC-length(String))/2)) String]);
+  fprintf(Id,'%s\n\n\n',[repmat(' ',1,fix((NC-length(String))/2)) ...
+           repmat('-',1,length(String))]);
+
+  fprintf(Id,'%s\t%1.0f\n','Number of Realizations:  ',MaxSAIterations );
+  fprintf(Id,'%s\t%1.1f\n','Standard Deviation in Thermal Conductivity:  ',Sigmak0(1) );
+  fprintf(Id,'%s\t%1.1f\n','Minimum Thermal Conductivity:  ',kMin(1));
+  fprintf(Id,'%s\t%1.1f\n','Maximum Thermal Conductivity:  ',kMax(1));
+  fprintf(Id,'%s\t%1.2f\n','Mininum Layer Thickness:  ',MinThickness);
+  fprintf(Id,'%s\t%1.1f\n','Horizontal Thermal Conductivity Anisotropy:  ',kAnisotropy);
 
 

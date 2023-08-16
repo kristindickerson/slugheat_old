@@ -25,7 +25,10 @@ function PrintBullardResults(ResFileId, ...
     Gradient, ...
     GradErr, ...
     Converged, ...
-    TotkChange)
+    TotkChange, ...
+    kChange)
+
+% Initialize
 
 Id = ResFileId;
 
@@ -36,6 +39,11 @@ if Converged==0
     Converge = 'No';
 elseif Converged==1
     Converge = 'Yes';
+end
+
+kChange_s = ' ';
+for i=SensorsToUse
+    kChange_s = [kChange_s ' | ' num2str(kChange(i),3)];
 end
 
 % Organize Bullard Analysis results
@@ -72,6 +80,7 @@ BullardResults = [SensorsUsed Depths EqTempsRelBW BottomWaterTemp ...
 fprintf(Id,'\n%s',['Iterations: ' num2str(Iteration,'%02d')]);
 fprintf(Id, '\n%s', ['Convergence reached? ' Converge]);
 fprintf(Id, '\n%s', ['Sum of difference in k for all sensors (W/m°C): ' num2str(TotkChange)]);
+fprintf(Id, '\n%s', ['Difference in k for each sensor (W/m°C): ' kChange_s]);
 fprintf(Id,'\n%s',['Thermal Gradient (°C/m): ' num2str(Gradient, '%8.3f'), ' +/- ' num2str(GradErr, '%8.3f')]);    
 fprintf(Id,'\n%s',['Heat Flow (mW/m2): ' num2str(HeatFlow, '%8.0f'), ' +/- ' num2str(HFErr, '%8.3f')]);
 fprintf(Id,'\n%s',['Heat Flow Shift (m): ' num2str(HFShift, '%8.0f'), ' +/- ' num2str(HFShiftErr, '%8.3f')]);

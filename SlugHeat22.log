@@ -1,26 +1,14 @@
 ----------------------------------------------
 ----------------------------------------------
-<<<<<<< Updated upstream
-SlugHeat22 start time: 10-Aug-2023 16:23:28
+SlugHeat22 start time: 15-Aug-2023 17:03:32
 ----------------------------------------------
 ----------------------------------------------
 
-10-Aug-2023 16:23:28 Processing set up and data preparation
-==================================================================================================
-
- -- Finding parameter file...
-Parameter file: /Users/kristindickerson/01_repos/slugheat/SlugHeat22.par
-=======
-SlugHeat22 start time: 11-Aug-2023 14:28:34
-----------------------------------------------
-----------------------------------------------
-
-11-Aug-2023 14:28:34 Processing set up and data preparation
+15-Aug-2023 17:03:32 Processing set up and data preparation
 ==================================================================================================
 
  -- Finding parameter file...
 Parameter file: /Users/kristindickerson/USE_THESE/slugheat/SlugHeat22.par
->>>>>>> Stashed changes
 
 -- Reading in parameters from parameters file
 
@@ -31,29 +19,17 @@ Parameter file: /Users/kristindickerson/USE_THESE/slugheat/SlugHeat22.par
 -- Resetting penetration information
 
  -- Finding penetration file from SlugPen...
-<<<<<<< Updated upstream
-Penetration file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.pen
+Penetration file: /Users/kristindickerson/USE_THESE/slugheat/inputs/test_chin_8_nocal_3.pen
 
  -- Finding tap file from SlugPen...
-TAP file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.tap
+TAP file: /Users/kristindickerson/USE_THESE/slugheat/inputs/test_chin_8_nocal_3.tap
 
  -- Finding mat file from SlugPen...
-MAT file: /Users/kristindickerson/01_repos/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.mat
-=======
-Penetration file: /Users/kristindickerson/USE_THESE/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.pen
-
- -- Finding tap file from SlugPen...
-TAP file: /Users/kristindickerson/USE_THESE/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.tap
-
- -- Finding mat file from SlugPen...
-MAT file: /Users/kristindickerson/USE_THESE/slugheat/inputs/Works-with-updated-code/Example_CHINOoK_HF3_1.mat
->>>>>>> Stashed changes
+MAT file: /Users/kristindickerson/USE_THESE/slugheat/inputs/test_chin_8_nocal_3.mat
 
  -- Reading in parameters from parameter file...
 -- Reading in penetatration file
 
-<<<<<<< Updated upstream
-=======
 -- Splitting penetration and heat pulse data
 
 -- Plotting unprocessed penetration data on "Penetration Data" tab
@@ -62,18 +38,9 @@ MAT file: /Users/kristindickerson/USE_THESE/slugheat/inputs/Works-with-updated-c
 
 ==================================================================================================
 
-11-Aug-2023 14:34:30
+15-Aug-2023 17:06:18
  - Begin SlugHeat22 PROCESSING
 ==================================================================================================
 
 -- Splitting penetration and heat pulse data
 
-==================================================================================================
-
-11-Aug-2023 16:07:44
- - Begin SlugHeat22 PROCESSING
-==================================================================================================
-
--- Splitting penetration and heat pulse data
-
->>>>>>> Stashed changes
