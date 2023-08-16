@@ -20,7 +20,7 @@ function 	[PenFileName, PenFilePath, PenFile, ...
 			ResFileName, ResFile, ...
             LogFileId, ResFileId...
             ] = GetFiles(...
-			CurrentPath, ProgramLogId)
+			CurrentPath, ProgramLogId, figure_Main)
 	
  	
 % ====================================================================
@@ -38,6 +38,8 @@ function 	[PenFileName, PenFilePath, PenFile, ...
 	[PenFileName, PenFilePath] = uigetfile( ...
 		[PenFilePath '*.pen'], ...
 		'Select penetration file');
+
+    figure(figure_Main);
 
 	PenFile = [PenFilePath PenFileName];
 
@@ -58,10 +60,36 @@ function 	[PenFileName, PenFilePath, PenFile, ...
 	
     TAPFile = [PenFilePath TAPFileName];
     MATFile = [PenFilePath MATFileName];
-    ResFile = [CurrentPath 'outputs/' ResFileName];
-	LogFile = [CurrentPath 'outputs/' LogFileName];
+
+    LogFile = [CurrentPath 'outputs/' LogFileName];
     LogFileId = fopen(LogFile,'w');
-	ResFileId = fopen(ResFile,'w');
+   
+    % Ensure there is not an existing .res file in this directory that will
+    % be overwritten. If there is an existing .res file with same name, ask
+    % user whether to continue and overwrite or cancel and allow user to
+    % move or rename the exitign .res file.
+    ResFile = [CurrentPath 'outputs/' ResFileName];
+    if exist(ResFile, 'file')
+        overwriteRes = uiconfirm(figure_Main, ['Results (.res) file for this penetration' ...
+            ' already exists in this directory.' newline newline ...
+            'Continuing will overwrite all results recorded on this file. ' ...
+            'To avoid losing previously recorded results and create a new ' ...
+            'results file for this penetration, cancel and rename or move existing .res ' ...
+            'file to another directory.'], 'Results File Will Be Overwritten', ...
+            'Icon','warning','Options',{'Overwrite existing .res file', 'Cancel'});
+        switch overwriteRes
+            case 'Overwrite existing .res file'
+	            ResFileId = fopen(ResFile,'w');
+            case 'Cancel'
+                ResFileId=[];
+        end
+    else
+        ResFileId = fopen(ResFile,'w');
+    end
+
+    if isempty(ResFileId)
+        return
+    end
 
     % Temperature and pressure (TAP) file name and path
     % ---------------------------------------------
