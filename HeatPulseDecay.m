@@ -19,7 +19,7 @@ function [ ...
             MinimumPulseDelays, ...
             kError, ...
             HeatPulseTime, ...
-            MinkDiffIndex, ...
+            MinkDiffShift, ...
             ShiftedTime, ...
             DataTemp, ...
             TimeShifts, ...
@@ -83,7 +83,7 @@ function [ ...
         MinimumPulseDelays = [];
         kError = [];
         HeatPulseTime = [];
-        MinkDiffIndex = [];
+        MinkDiffShift = [];
         ShiftedTime = [];
         DataTemp = [];
         TimeShifts = [];
@@ -141,83 +141,170 @@ function [ ...
     DataTemp(i,j) = CorrectedTemp(i,j);
     DataTemp = repmat(DataTemp,[1 1 PulseMaxStep]);
     
-    % Compute time shifts
-    % -------------------
-    
-    TimeShifts = repmat(PulseDelays(SensorsToUse),[PulseMaxStep 1]) ...
-        + repmat(-TimeShiftInc*(0:PulseMaxStep-1)',[1 NumberOfSensorsUsed]);
-    
-    ShiftedTime = repmat(PulseDelays(SensorsToUse),[LIT 1 PulseMaxStep]) ...
-        + repmat(HeatPulseTime,[1 1 PulseMaxStep]) ...
-        + repmat(permute(-TimeShiftInc*(0:PulseMaxStep-1),[3 1 2]),[LIT NumberOfSensorsUsed 1]);
+   % Compute time shifts
+   % -------------------
+   
+   TimeShifts = repmat(PulseDelays(SensorsToUse),[PulseMaxStep 1]) ...
+       + repmat(-TimeShiftInc*(0:PulseMaxStep-1)',[1 NumberOfSensorsUsed]);
+   
+   ShiftedTime = repmat(PulseDelays(SensorsToUse),[LIT 1 PulseMaxStep]) ...
+       + repmat(HeatPulseTime,[1 1 PulseMaxStep]) ...
+       + repmat(permute(-TimeShiftInc*(0:PulseMaxStep-1),[3 1 2]),[LIT NumberOfSensorsUsed 1]);
+
+   % Compute 1/time and remove infinite and negative 1/time
+   % ------------------------------------------------------
+   
+   ShiftedTime(ShiftedTime<=0) = NaN;
+   OneOverTime = 1./ShiftedTime;
+   
+   % Get rid of NaNs in OneOverTime and DataTemp and make 2-D arrays
+   % ---------------------------------------------------------------
+   
+   [ix,~] = find(~isnan(OneOverTime));
+   [iy,~] = find(~isnan(DataTemp));
+   
+   DataLimits = [max([min(ix) min(iy)]) min([max(ix) max(iy)])];
+   NumberOfUsedPoints = 1+diff(DataLimits);
+   clear ix iy jx jy
+   
+   X = reshape(OneOverTime(DataLimits(1):DataLimits(2),:,:), ...
+       [NumberOfUsedPoints NumberOfSensorsUsed*PulseMaxStep]);
+   Y = reshape(DataTemp(DataLimits(1):DataLimits(2),:,:), ...
+       [NumberOfUsedPoints NumberOfSensorsUsed*PulseMaxStep]);
+
+   
+   [a,b,~,~,Chi2] = ChiSquaredFit(X,Y);
+   
+   kSlope = (PulsePower/4/pi)./reshape(b,[NumberOfSensorsUsed PulseMaxStep]);
+   TempAtInfinity = reshape(a,[NumberOfSensorsUsed PulseMaxStep]);
+   kSlopeRMS = sqrt(reshape(Chi2,[NumberOfSensorsUsed PulseMaxStep])/(NumberOfUsedPoints-2));
+   
+   % Calculate kPoint for all delays and average and variance of kPoint
+   % -----------------------------------
+   
+   kPoint = reshape(PulsePower.*X./(4*pi.*Y),[NumberOfUsedPoints NumberOfSensorsUsed PulseMaxStep]);
+   
+   kPointMean = squeeze(mean(kPoint));
+   
+   % Find the k's corresponding to the minimum RMS or to Zero asymptotic temperature
+   % -------------------------------------------------------------------------------
+   
+   kError = NaN*zeros(NumberOfSensors,1);
+   kSlopeAtMinkDiff = NaN*zeros(NumberOfSensors,1);
+   MeankPointAtMinkDiff = NaN*zeros(NumberOfSensors,1);
+   MeankPointAtZeroInfTemp = NaN*zeros(NumberOfSensors,1);
+   kSlopeAtZeroInfTemp = NaN*zeros(NumberOfSensors,1);
+   kSlopeAtMinRMS = NaN*zeros(NumberOfSensors,1);
+   MeankPointAtMinRMS = NaN*zeros(NumberOfSensors,1);
+   MinimumPulseDelays = NaN*zeros(NumberOfSensors,1);
+   TempAtInf = NaN*zeros(NumberOfSensors,1);
+   
+   kDiff = abs(kSlope-repmat(Currentk(SensorsToUse)',[1 PulseMaxStep]));
+   kTypeDiff = abs(kSlope-kPointMean);
+
+   [~,MinkDiffShift] = min(kDiff,[],2);
+   [~,~] = min(kTypeDiff,[],2);
+   [~,MinkSlopeRMSIndex] = min(2*kSlopeRMS,[],2);
+   [dummy,ZeroInfTempIndex] = min(abs(TempAtInfinity),[],2);
+   
+   kError(SensorsToUse) = dummy;
+   kSlopeAtMinkDiff(SensorsToUse) = diag(kSlope(:,MinkDiffShift));
+   MeankPointAtMinkDiff(SensorsToUse) = diag(kPointMean(:,MinkDiffShift));
+   MeankPointAtZeroInfTemp(SensorsToUse) = diag(kPointMean(:,ZeroInfTempIndex));
+   kSlopeAtZeroInfTemp(SensorsToUse) = diag(kSlope(:,ZeroInfTempIndex));
+   MeankPointAtMinRMS(SensorsToUse) = diag(kPointMean(:,MinkSlopeRMSIndex));
+   kSlopeAtMinRMS(SensorsToUse) = diag(kSlope(:,MinkSlopeRMSIndex));
+   MinimumPulseDelays(SensorsToUse) = diag(TimeShifts(MinkDiffShift,:));
+   TempAtInf(SensorsToUse) = diag(TempAtInfinity(:,MinkDiffShift));
+
+
+
+%% ==================================================================================================   
+%%  KD TESTING FOR DIFFERENT CONVERGENCE CRITERIA (the one described in Villinger and Davis, 1987)
+%% ==================================================================================================
+%kDiff = 1; % intiailize kDiff to be large
+%inc=1; % initialize increment
+%n=1; 
+%
+%while all(kDiff > .0001) % hardcoding in a tolerance for now
+%Test_ShiftedTime = HeatPulseTime-TimeShiftInc*inc;
+%    % Compute 1/time and remove infinite and negative 1/time
+%    % ------------------------------------------------------
 %    
-    % Compute 1/time and remove infinite and negative 1/time
-    % ------------------------------------------------------
-    
-    ShiftedTime(ShiftedTime<=0) = NaN;
-    OneOverTime = 1./ShiftedTime;
-    
-    % Get rid of NaNs in OneOverTime and DataTemp and make 2-D arrays
-    % ---------------------------------------------------------------
-    
-    [ix,~] = find(~isnan(OneOverTime));
-    [iy,~] = find(~isnan(DataTemp));
-    
-    DataLimits = [max([min(ix) min(iy)]) min([max(ix) max(iy)])];
-    NumberOfUsedPoints = 1+diff(DataLimits);
-    clear ix iy jx jy
-    
-    X = reshape(OneOverTime(DataLimits(1):DataLimits(2),:,:), ...
-        [NumberOfUsedPoints NumberOfSensorsUsed*PulseMaxStep]);
-    Y = reshape(DataTemp(DataLimits(1):DataLimits(2),:,:), ...
-        [NumberOfUsedPoints NumberOfSensorsUsed*PulseMaxStep]);
-
-    
-    [a,b,~,~,Chi2] = ChiSquaredFit(X,Y);
-    
-    kSlope = (PulsePower/4/pi)./reshape(b,[NumberOfSensorsUsed PulseMaxStep]);
-    TempAtInfinity = reshape(a,[NumberOfSensorsUsed PulseMaxStep]);
-    kSlopeRMS = sqrt(reshape(Chi2,[NumberOfSensorsUsed PulseMaxStep])/(NumberOfUsedPoints-2));
-    
-    % Calculate kPoint for all delays and average and variance of kPoint
-    % -----------------------------------
-    
-    kPoint = reshape(PulsePower.*X./(4*pi.*Y),[NumberOfUsedPoints NumberOfSensorsUsed PulseMaxStep]);
-    
-    kPointMean = squeeze(mean(kPoint));
-    
-    % Find the k's corresponding to the minimum RMS or to Zero asymptotic temperature
-    % -------------------------------------------------------------------------------
-    
-    kError = NaN*zeros(NumberOfSensors,1);
-    kSlopeAtMinkDiff = NaN*zeros(NumberOfSensors,1);
-    MeankPointAtMinkDiff = NaN*zeros(NumberOfSensors,1);
-    MeankPointAtZeroInfTemp = NaN*zeros(NumberOfSensors,1);
-    kSlopeAtZeroInfTemp = NaN*zeros(NumberOfSensors,1);
-    kSlopeAtMinRMS = NaN*zeros(NumberOfSensors,1);
-    MeankPointAtMinRMS = NaN*zeros(NumberOfSensors,1);
-    MinimumPulseDelays = NaN*zeros(NumberOfSensors,1);
-    TempAtInf = NaN*zeros(NumberOfSensors,1);
-    
-    kDiff = abs(kSlope-repmat(Currentk(SensorsToUse)',[1 PulseMaxStep]));
-    kTypeDiff = abs(kSlope-kPointMean);
-    
-    [~,MinkDiffIndex] = min(kDiff,[],2);
-    [~,~] = min(kTypeDiff,[],2);
-    [~,MinkSlopeRMSIndex] = min(2*kSlopeRMS,[],2);
-    [dummy,ZeroInfTempIndex] = min(abs(TempAtInfinity),[],2);
-    
-    kError(SensorsToUse) = dummy;
-    kSlopeAtMinkDiff(SensorsToUse) = diag(kSlope(:,MinkDiffIndex));
-    MeankPointAtMinkDiff(SensorsToUse) = diag(kPointMean(:,MinkDiffIndex));
-    MeankPointAtZeroInfTemp(SensorsToUse) = diag(kPointMean(:,ZeroInfTempIndex));
-    kSlopeAtZeroInfTemp(SensorsToUse) = diag(kSlope(:,ZeroInfTempIndex));
-    MeankPointAtMinRMS(SensorsToUse) = diag(kPointMean(:,MinkSlopeRMSIndex));
-    kSlopeAtMinRMS(SensorsToUse) = diag(kSlope(:,MinkSlopeRMSIndex));
-    MinimumPulseDelays(SensorsToUse) = diag(TimeShifts(MinkDiffIndex,:));
-    TempAtInf(SensorsToUse) = diag(TempAtInfinity(:,MinkDiffIndex));
-
-
+%    Test_ShiftedTime(Test_ShiftedTime<=0) = NaN;
+%    OneOverTime = 1./Test_ShiftedTime;
+%    
+%    % Get rid of NaNs in OneOverTime and DataTemp and make 2-D arrays
+%    % ---------------------------------------------------------------
+%    
+%    [ix,~] = find(~isnan(OneOverTime));
+%    [iy,~] = find(~isnan(DataTemp));
+%    
+%    DataLimits = [max([min(ix) min(iy)]) min([max(ix) max(iy)])];
+%    NumberOfUsedPoints = 1+diff(DataLimits);
+%    clear ix iy jx jy
+%
+%
+%    X = OneOverTime(DataLimits(1):DataLimits(2),:,:);
+%    Y = DataTemp(DataLimits(1):DataLimits(2),:,1);
+%    
+%    [a,b,~,~,Chi2] = ChiSquaredFit(X,Y);
+%    
+%    kSlope = (PulsePower/4/pi)./b;
+%    TempAtInfinity = a;
+%    kSlopeRMS = sqrt(Chi2/(NumberOfUsedPoints-2));
+%
+%    % Calculate kPoint for all delays and average and variance of kPoint
+%    % -----------------------------------
+%    
+%    kPoint = PulsePower.*X./(4*pi.*Y);
+%    
+%    kPointMean = squeeze(mean(kPoint));
+%    
+%    % Find the k's corresponding to the minimum RMS or to Zero asymptotic temperature
+%    % -------------------------------------------------------------------------------
+%    
+%    kError = NaN*zeros(NumberOfSensors,1);
+%    kSlopeAtMinkDiff = NaN*zeros(NumberOfSensors,1);
+%    MeankPointAtMinkDiff = NaN*zeros(NumberOfSensors,1);
+%    MeankPointAtZeroInfTemp = NaN*zeros(NumberOfSensors,1);
+%    kSlopeAtZeroInfTemp = NaN*zeros(NumberOfSensors,1);
+%    kSlopeAtMinRMS = NaN*zeros(NumberOfSensors,1);
+%    MeankPointAtMinRMS = NaN*zeros(NumberOfSensors,1);
+%    MinimumPulseDelays = NaN*zeros(NumberOfSensors,1);
+%    TempAtInf = NaN*zeros(NumberOfSensors,1);
+%    
+%    kDiff = abs(kSlope-Currentk(SensorsToUse));
+%    kTypeDiff = abs(kSlope-kPointMean);
+%
+%    IS_EVEN = ~mod(n,2);
+%
+%    if IS_EVEN
+%        inc=inc+1;
+%    else
+%        inc=inc*-1;
+%    end
+%
+%    n=n+1;
+%
+%end
+%
+%    [~,MinkDiffShift] = min(kDiff,[],2);
+%    [~,~] = min(kTypeDiff,[],2);
+%    [~,MinkSlopeRMSIndex] = min(2*kSlopeRMS,[],2);
+%    [dummy,ZeroInfTempIndex] = min(abs(TempAtInfinity),[],2);
+%    
+%    kError(SensorsToUse) = dummy;
+%    kSlopeAtMinkDiff(SensorsToUse) = diag(kSlope(:,MinkDiffShift));
+%    MeankPointAtMinkDiff(SensorsToUse) = diag(kPointMean(:,MinkDiffShift));
+%    MeankPointAtZeroInfTemp(SensorsToUse) = diag(kPointMean(:,ZeroInfTempIndex));
+%    kSlopeAtZeroInfTemp(SensorsToUse) = diag(kSlope(:,ZeroInfTempIndex));
+%    MeankPointAtMinRMS(SensorsToUse) = diag(kPointMean(:,MinkSlopeRMSIndex));
+%    kSlopeAtMinRMS(SensorsToUse) = diag(kSlope(:,MinkSlopeRMSIndex));
+%    MinimumPulseDelays(SensorsToUse) = diag(TimeShifts(MinkDiffShift,:));
+%    TempAtInf(SensorsToUse) = diag(TempAtInfinity(:,MinkDiffShift));
+%
+%
 
 
 

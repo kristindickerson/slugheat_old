@@ -57,18 +57,25 @@ function 	[PenFileName, PenFilePath, PenFile, ...
     MATFileName = [FileName '.mat'];
 	ResFileName = [FileName '.res'];
 	LogFileName = [FileName '.log'];
+
+    %% Make a directory for the results files for this penetration
+    PenPath = [CurrentPath 'outputs/' FileName '-out'];
+    if ~exist(PenPath, 'dir')
+        mkdir([CurrentPath 'outputs/'],[FileName '-out'])
+    end
 	
     TAPFile = [PenFilePath TAPFileName];
     MATFile = [PenFilePath MATFileName];
 
-    LogFile = [CurrentPath 'outputs/' LogFileName];
+    LogFile = [PenPath '/' LogFileName];
     LogFileId = fopen(LogFile,'w');
+    
    
     % Ensure there is not an existing .res file in this directory that will
     % be overwritten. If there is an existing .res file with same name, ask
     % user whether to continue and overwrite or cancel and allow user to
     % move or rename the exitign .res file.
-    ResFile = [CurrentPath 'outputs/' ResFileName];
+    ResFile = [PenPath '/' ResFileName];
     if exist(ResFile, 'file')
         overwriteRes = uiconfirm(figure_Main, ['Results (.res) file for this penetration' ...
             ' already exists in this directory.' newline newline ...

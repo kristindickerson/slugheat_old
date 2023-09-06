@@ -53,7 +53,9 @@ function [Params,...
             HyndmanCoeffs, ...
             SensorRadius, ...
             FricTauMin, ...
-            FricTauMax)
+            FricTauMax, ...
+            app, ...
+            NumSensAnalyses)
 
 
 %% ========================================================================
@@ -73,6 +75,7 @@ function [Params,...
      % I am making variable 'kToUse' equal to 'SensorsToUse' to just
      % include all sensors. In the future, should just remove all 'kToUse'
      % indexing completely from this function.
+     %    - KD 2023
 %% ========================================================================
 %%                            NOTE FROM KD
 %% ========================================================================
@@ -102,6 +105,7 @@ function [Params,...
      AllHeatFlowsErr = NaN*zeros(MaxSAIterations,1);
      Q = NaN*zeros(MaxSAIterations,1);
      QErr = NaN*zeros(MaxSAIterations,1);
+     ScatterSens = NaN*zeros(MaxSAIterations,1);
 
      % Define colors for plots
      % -----------------------
@@ -533,7 +537,7 @@ CurrentCTR(SensorsToUse) = CTR;
 % ==================================================================
 % from BP 2017 -- using chi squared fit requires data to be normally
 % distributed (I think)
-[Shift,Slope,ShiftErr,SlopeErr] = ChiSquaredFit(T0(SensorsUsedForBullardFit),CurrentCTR(SensorsUsedForBullardFit)); % BP
+[Shift,Slope,ShiftErr,SlopeErr, Chi2,Scatter,Covab,rab,Q] = ChiSquaredFit(T0(SensorsUsedForBullardFit),CurrentCTR(SensorsUsedForBullardFit)); % BP
 Shift=-Shift; % BP
 Err=mean([abs(1/Slope - 1/(Slope+SlopeErr)),abs(1/Slope - 1/(Slope-SlopeErr))]); % BP
 % =================================================================
@@ -543,6 +547,9 @@ SlopeCurrentCTR = p(1);
 
 ShiftedCurrentCTR = CurrentCTR + ShiftCurrentCTR;
 
+%% =======
+%%  PLOT
+%% =======
 % Plot final iteration INSIDE LOOP
 % ===================================
     % Remove colors of ignored sensors so that you can plot 
@@ -574,9 +581,9 @@ ShiftedCurrentCTR = CurrentCTR + ShiftCurrentCTR;
         axes_SA_SDvIter.XLim = [0 max(SigmaHF)+0.1];
     end
 
-
-% Here is the sensitivity analysis !
-% ------------------------------------
+%% =======================
+%%  Sensitivity analysis !
+%% =======================
     
     AllT(:,n) = T0(SensorsUsedForBullardFit);
     AllBullardDepths(:,n) = ShiftedCurrentCTR(SensorsUsedForBullardFit)';
@@ -590,6 +597,7 @@ ShiftedCurrentCTR = CurrentCTR + ShiftCurrentCTR;
     QErr(n) = mean(AllHeatFlowsErr, 'omitnan'); % BP
     SigmaTI = Q(n)*SigmaR;
     SigmaT = sqrt(SigmaTI.^2 + SigmaTD.^2);
+    ScatterSens(n) = Scatter;
     
     if any(SigmaT == 0)
         SigmaHF(n) = NaN;
@@ -606,6 +614,7 @@ ShiftedCurrentCTR = CurrentCTR + ShiftCurrentCTR;
         qMin = AllHeatFlows(n);
     end 
     
+
 %% Update labels that describe sensitivity analysis parameters
 % -----------------------------------------------------------
 
@@ -637,20 +646,20 @@ end
 ylabel(axes_SA_SDvIter, '\bfRealizations', ...
         'verticalalignment','bottom', 'FontSize',18, 'Color',[0.00,0.45,0.74])
 
-% Update legends
+%% Update legends
  legend(line_initialheatflow, {'Initial Bullard Best Fit Line'});
  if kDistribution~=3
     legend([h_axTCvDepthStairs kMinLine kMaxLine], {'Initial k Values', 'Min k', 'Max k'});
  end
 
-% Format and fill results data table
-% -----------------------------------
+%% Format and fill results data table
+%% -----------------------------------
 close(loading)
 if kDistribution == 3
 
     %% When no k distributions, set bins to zero and k min and k max to the 
     %% set k values for each sensor
-    Bins = 0;
+    Bins = 25;
     kMin = k_Anisotropy(1,:);
     kMax = k_Anisotropy(1,:);
 
@@ -728,8 +737,10 @@ save('ErrResultsSummaryTable', "ErrResultsSummary");
 
 drawnow;
 
-% Report all results and inputs to RES and LOG files
-% ==================================================
+
+
+%% Report all results and inputs to RES and LOG files
+%% ==================================================
 
 % Parameters structure for output
 
@@ -748,9 +759,36 @@ Results = struct('Initialq', HeatFlow, ...
                    'Minq', qMin, ...
                    'Maxq', qMax, ...
                    'qstd', SigmaHF(n), ...
-                   'AveUnc', QErr(end));
+                   'AveUnc', QErr(end), ...
+                   'Scatter',ScatterSens);
 
 
+%% KD TESTING
+%% Plot scatter
+plot(app.axes_sensscatter,SigmaHF,Iterations,'-o', ...
+        'markersize',8, 'Tag',['Trial ',num2str(NumSensAnalyses)]);
+hold(app.axes_sensscatter, 'on')
+app.axes_sensscatter.YDir='reverse';
+
+n=length(app.axes_sensscatter.Children);
+trials=cell(n,1);
+for i=1:n
+    trials{i} = app.axes_sensscatter.Children(i).Tag;
+end
+trials=flip(trials);
+
+% legend
+legend(app.axes_sensscatter,trials)
+
+%% Plot histogram
+histogram(app.axes_senshist, AllHeatFlows, 'BinWidth', 0.5,'Tag', ...
+    ['Trial ',num2str(NumSensAnalyses)], 'NumBins',Bins); 
+hold(app.axes_senshist, 'on')
+
+% legend
+legend(app.axes_senshist,trials)
+
+%%
 
 
 

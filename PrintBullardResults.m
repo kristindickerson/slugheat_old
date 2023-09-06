@@ -85,7 +85,7 @@ fprintf(Id,'\n%s',['Thermal Gradient (°C/m): ' num2str(Gradient, '%8.3f'), ' +/
 fprintf(Id,'\n%s',['Heat Flow (mW/m2): ' num2str(HeatFlow, '%8.0f'), ' +/- ' num2str(HFErr, '%8.3f')]);
 fprintf(Id,'\n%s',['Heat Flow Shift (m): ' num2str(HFShift, '%8.0f'), ' +/- ' num2str(HFShiftErr, '%8.3f')]);
 if Iteration > 2
-    fprintf(Id,'%s',['Total change in Temperature (°C): ' num2str(TChange,'%+4.3e')]);
+    fprintf(Id,'\n%s',['Total change in Temperature (°C): ' num2str(TChange,'%+4.3e')]);
     fprintf(Id,'\n%s\n\n', ...
         '=======================================================================');
 else
@@ -96,7 +96,7 @@ end
 fprintf(Id,'%s\n', ...
     'Sensor  Depth     Equilibrium          Bottom Water    Equilibrium   Temp. Error   Therm. Con.');
 fprintf(Id,'%s\n', ...
-    '                  Temp. Relative to    Temp. (°C)      Temp.(°C)     (95%)         (W/m°C)');
+    '         (m)      Temp. Relative to    Temp. (°C)      Temp.(°C)     (95%)         (W/m°C)');
 fprintf(Id,'%s\n', ...
     '                  Bottom Water (°C)                       ');
 fprintf(Id,'%s\n\n', ...

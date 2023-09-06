@@ -1,14 +1,14 @@
 ----------------------------------------------
 ----------------------------------------------
-SlugHeat22 start time: 16-Aug-2023 09:09:33
+SlugHeat22 start time: 05-Sep-2023 13:40:07
 ----------------------------------------------
 ----------------------------------------------
 
-16-Aug-2023 09:09:33 Processing set up and data preparation
+05-Sep-2023 13:40:07 Processing set up and data preparation
 ==================================================================================================
 
  -- Finding parameter file...
-Parameter file: /Users/kristindickerson/repos/slugheat/SlugHeat22.par
+Parameter file: /Users/kristindickerson/03_local-repos/slugheat/SlugHeat22.par
 
 -- Reading in parameters from parameters file
 
@@ -19,7 +19,7 @@ Parameter file: /Users/kristindickerson/repos/slugheat/SlugHeat22.par
 -- Resetting penetration information
 
  -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_nocal_3.pen
+Penetration file: /Users/kristindickerson/03_local-repos/slugheat/inputs/Old_HFData/ReformattedPens/TicoFluxII_rf/hf02_rf/t2h02p01_rf.pen
 
 -- Reading in parameters from parameters file
 
@@ -28,40 +28,13 @@ Penetration file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_noca
 -- Resetting penetration information
 
  -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_nocal_3.pen
-
--- Reading in parameters from parameters file
-
--- Resetting SlugHeat: clearing all...
-
--- Resetting penetration information
-
- -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_nocal_3.pen
-
--- Reading in parameters from parameters file
-
--- Resetting SlugHeat: clearing all...
-
--- Resetting penetration information
-
- -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_nocal_3.pen
-
--- Reading in parameters from parameters file
-
--- Resetting SlugHeat: clearing all...
-
--- Resetting penetration information
-
- -- Finding penetration file from SlugPen...
-Penetration file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_nocal_3.pen
+Penetration file: /Users/kristindickerson/03_local-repos/slugheat/inputs/Old_HFData/ReformattedPens/TicoFluxII_rf/hf02_rf/t2h02p03_rf.pen
 
  -- Finding tap file from SlugPen...
-TAP file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_nocal_3.tap
+TAP file: /Users/kristindickerson/03_local-repos/slugheat/inputs/Old_HFData/ReformattedPens/TicoFluxII_rf/hf02_rf/t2h02p03_rf.tap
 
  -- Finding mat file from SlugPen...
-MAT file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_nocal_3.mat
+MAT file: /Users/kristindickerson/03_local-repos/slugheat/inputs/Old_HFData/ReformattedPens/TicoFluxII_rf/hf02_rf/t2h02p03_rf.mat
 
  -- Reading in parameters from parameter file...
 -- Reading in penetatration file
@@ -71,4 +44,18 @@ MAT file: /Users/kristindickerson/repos/slugheat/inputs/test_chin_8_nocal_3.mat
 -- Plotting unprocessed penetration data on "Penetration Data" tab
 
 -- Reading in TAP file
+
+-- Reading in parameters from parameters file
+
+-- Splitting penetration and heat pulse data
+
+-- Plotting unprocessed penetration data on "Penetration Data" tab
+
+==================================================================================================
+
+05-Sep-2023 13:49:33
+ - Begin SlugHeat22 PROCESSING
+==================================================================================================
+
+-- Splitting penetration and heat pulse data
 

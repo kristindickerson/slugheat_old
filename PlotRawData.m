@@ -77,6 +77,8 @@ delete(axes_Tilt.Children)
     end
     drawnow;
 
+ TAPRecord = 1:1:length(TAPRecord);   
+
 % Plot depth sensor data 
 % ------------------------
     if isempty(TAPRecord) || length(Tilt) == 1

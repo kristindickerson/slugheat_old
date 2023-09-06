@@ -1,9 +1,11 @@
 %%% ==============================================================================
-%   Purpose: 
-%     This function plots each step of the frictional decay reduction.
+%%  Purpose: 
+%     This function plots each step only results of the frictional decay reduction.
 %     Plots include Temperature vs. Time (s), Temperature vs. Dimensionless Time
 %     (Tau), Temperature vs. Bullard Decay Function (F(alpha,tau)), and 
 %     Residual Misfit (°C) vs. Time Shifts (s)
+%%  Last edit:
+%       08/23/2023 by Kristin Dickerson, UCSC
 %%% ==============================================================================
 
 function [h_axFricTempvTime, ...
@@ -57,8 +59,8 @@ function [h_axFricTempvTime, ...
 
       % Set labels and axes limits
       % --------------------------------------------------
-        xlabel(axes_TempvTime, '\bfTime (s)','fontsize',16,'verticalalignment','top')
-        ylabel(axes_TempvTime, '\bfTemperature ( ^oC)','fontsize',16,'verticalalignment','bottom')
+        xlabel(axes_TempvTime, 'Time (s)','fontsize',16,'verticalalignment','top')
+        ylabel(axes_TempvTime, 'Temperature relative to bottom water ( ^oC)','fontsize',16,'verticalalignment','bottom')
         set(axes_TempvTime,'xlim',[FricTime(1)+min(min(TimeShifts)) ...
             FricTime(end)+max(max(TimeShifts))])
 
@@ -84,8 +86,8 @@ function [h_axFricTempvTime, ...
 
       % Set labels and axes limits
       % --------------------------------------------------
-        xlabel(axes_TempvTau, '\bf\tau','fontsize',18,'verticalalignment','top')
-        ylabel(axes_TempvTau, '\bfTemperature ( ^oC)','fontsize',16,'verticalalignment','top')
+        xlabel(axes_TempvTau, '\tau','fontsize',18,'verticalalignment','top')
+        ylabel(axes_TempvTau, 'Temperature relative to bottom water ( ^oC)','fontsize',16,'verticalalignment','top')
         set(axes_TempvTau,'yaxislocation','right', 'XLim', [0 FricTauMax+1])
  
       % Lines indicating min and max of Tau (set by PAR file)
@@ -116,8 +118,8 @@ function [h_axFricTempvTime, ...
 
       % Set labels
       % --------------------------------------------------
-        xlabel(axes_TempvBullFunc, '\bfF(2,\rm\fontsize{16}\tau\fontsize{12})\bf\fontsize{16}','fontsize',18,'verticalalignment','top')
-        ylabel(axes_TempvBullFunc, '\bfTemperature ( ^oC)','fontsize',16,'verticalalignment','bottom')
+        xlabel(axes_TempvBullFunc, 'F(2,\rm\fontsize{16}\tau\fontsize{12})\fontsize{16}','fontsize',18,'verticalalignment','top')
+        ylabel(axes_TempvBullFunc, 'Temperature relative to bottom water ( ^oC)','fontsize',16,'verticalalignment','bottom')
 
       % Set plot limits -- not sure if this is necessary. does not do
       % anything to the penetration that I am testing with. maybe fixes
@@ -153,14 +155,14 @@ function [h_axFricTempvTime, ...
 
           % Set labels and axes limits
           % ----------------------------
-            xlabel(axes_TimeShift, '\bfTime Shifts (s)','fontsize',16,'verticalalignment','top')
-            ylabel(axes_TimeShift, '\bfMisfit ( ^oC)', ...
+            xlabel(axes_TimeShift, 'Time Shifts (s)','fontsize',16,'verticalalignment','top')
+            ylabel(axes_TimeShift, 'Relative deviation with each time shift ( ^oC)', ...
             'fontsize',16,'verticalalignment','top')
             set(axes_TimeShift,'yaxislocation','right','yscale','log')
 
        % Label for lines showing minimum misfit during time shifts 
         % (point used for subsequent analyses)
         % --------------------------------------------------------
-        legend(axes_TimeShift,'Misfit with each time shift','Time shift with minimum misfit',"location","northeast");
+        legend(axes_TimeShift,'Deviation with each time shift','Time shift with minimum deviation',"location","northeast");
 
 

@@ -19,5 +19,5 @@ S_ParFile.Params(21) = num2str(PulsePower);
 % ---------------------------------------------
 T_ParFile = struct2table(S_ParFile);
 
-writetable(T_ParFile, [CurrentPath 'outputs/' [PenFileName(1:end-4) '.par']], 'FileType','text', 'Delimiter', '|');
+writetable(T_ParFile, [CurrentPath 'outputs/' PenFileName(1:end-4) '-out/' [PenFileName(1:end-4) '.par']], 'FileType','text', 'Delimiter', '|');
 
